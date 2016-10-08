@@ -2,7 +2,8 @@
 **Xamarin Forms** bindable tab badges for iOS and Android. The plugin creates a custom renderer (iOS & Android) and a custom attached property for adding tab bar badges which can be bound in XF shared code.
 
 ## Sample
-<img src="Screencasts/xamarin.forms.android.gif" height="854"/>
+<img src="Screencasts/xamarin.forms.android.gif" height="600"/>
+<img src="Screencasts/xamarin.forms.ios.png" height="600"/>
 
 ## Support & Limitations
 
