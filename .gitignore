@@ -41,3 +41,4 @@ Thumbs.db
 /.build/.fake
 /.build/FAKE.4.10.5
 /.build/out/lib
+/.build/out/nuget

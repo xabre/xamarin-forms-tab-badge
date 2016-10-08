@@ -13,7 +13,7 @@
       Read the full documentation on the project page.
     </description>
     <tags>xamarin monodroid Xamarin.iOS xamarin.forms badge tab</tags>
-    <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
       [1.0.0-beta1]
       - bindable badges for xamarin forms tab page.
