@@ -20,10 +20,13 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework="MonoAndroid">
+        <dependency id="Xamarin.Forms" version="2.3.0.107" />
       </group>
       <group targetFramework="Xamarin.iOS">
+        <dependency id="Xamarin.Forms" version="2.3.0.107" />
       </group>
       <group targetFramework="portable-net45+win8+wpa81+wp8">
+        <dependency id="Xamarin.Forms" version="2.3.0.107" />
       </group>
     </dependencies>
   </metadata>
