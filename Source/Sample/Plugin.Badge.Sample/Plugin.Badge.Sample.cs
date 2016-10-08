@@ -57,12 +57,12 @@ namespace Plugin.Badge.Sample
                 }
             };
 
-            TabBadge.SetBadgeText(tab2, "+");
+            TabBadge.SetBadgeText(tab2, "1+");
 
             var tab3 = new ContentPage
             {
                 Title = "Tab3",
-                Icon = "icon.png",
+                Icon = "tabicon.png",
                 Content = new StackLayout
                 {
 
