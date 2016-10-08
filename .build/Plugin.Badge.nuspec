@@ -1,0 +1,38 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Plugin.Badge</id>
+    <version>1.0.0-beta1</version>
+    <title>Tab Badge for Xamarin.Forms</title>
+    <authors>Adrian Seceleanu</authors>
+    <owners>Adrian Seceleanu</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/xabre/xamarin-forms-tab-badge</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Xamarin.Forms plugin to add bindable tab (tabbar) badge functionality.
+      Read the full documentation on the project page.
+    </description>
+    <tags>xamarin monodroid Xamarin.iOS xamarin.forms badge tab</tags>
+    <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
+    <releaseNotes>
+      [1.0.0-beta1]
+      - bindable badges for xamarin forms tab page.
+    </releaseNotes>
+    <dependencies>
+      <group targetFramework="MonoAndroid">
+      </group>
+      <group targetFramework="Xamarin.iOS">
+      </group>
+      <group targetFramework="portable-net45+win8+wpa81+wp8">
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- PCL -->
+    <file src="pcl\Plugin.Badge.*" target="lib\portable-net45+win8+wpa81+wp8" />
+    <!-- droid -->
+    <file src="android\Plugin.Badge.*" target="lib\MonoAndroid" />
+    <!-- iOS -->
+    <file src="ios\Plugin.Badge.*" target="lib\Xamarin.iOS10" />
+  </files>
+</package>

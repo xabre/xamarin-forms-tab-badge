@@ -16,6 +16,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Sample.Droid",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Sample.iOS", "Sample\Plugin.Badge.Sample.iOS\Plugin.Badge.Sample.iOS.csproj", "{E6894584-C17F-4057-B4D0-5DFBBE098A94}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{0E58E3C4-DC5E-4946-BC8F-ABE840DA800E}"
+	ProjectSection(SolutionItems) = preProject
+		..\.build\build.bat = ..\.build\build.bat
+		..\.build\build.fsx = ..\.build\build.fsx
+		..\.build\build.sh = ..\.build\build.sh
+		..\.build\Plugin.Badge.nuspec = ..\.build\Plugin.Badge.nuspec
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
