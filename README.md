@@ -3,7 +3,7 @@
 
 ## Sample
 <img src="Screencasts/xamarin.forms.android.gif" height="600"/>
-<img src="Screencasts/xamarin.forms.ios.png" height="600"/>
+<img src="Screencasts/xamarin.forms.ios.gif" height="600"/>
 
 ## Support & Limitations
 
@@ -69,7 +69,6 @@ Example tabbed page with badged children:
 </TabbedPage>
 ```
 
-
 ### CSharp codebehind
 
 ```
@@ -81,3 +80,11 @@ var tab1 = new ContentPage //assume this is a child page of your Tab
 
 tab1.SetBinding(TabBadge.BadgeTextProperty, new Binding("Count"));
 ```
+
+### Showning / Hiding the badge
+If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
+
+
+### Licence
+
+[Apache 2.0]
