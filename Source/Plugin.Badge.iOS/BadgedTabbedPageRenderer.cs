@@ -10,6 +10,10 @@ namespace Plugin.Badge.iOS
     [Preserve]
     public class BadgedTabbedPageRenderer : TabbedRenderer
     {
+        public static void Init()
+        {
+            var r = new BadgedTabbedPageRenderer();
+        }
 
         public override void ViewWillAppear(bool animated)
         {
