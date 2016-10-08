@@ -1,10 +1,9 @@
 ﻿using System;
 using Xamarin.Forms;
-namespace Plugin.Badge.Sample
+namespace Plugin.Badge.Abstractions
 {
     public class BadgedTabbedPage : TabbedPage
     {
-
         public static BindableProperty BadgeTextProperty = BindableProperty.CreateAttached("BadgeText", typeof(string), typeof(BadgedTabbedPage), default(string), BindingMode.OneWay);
 
         public static string GetBadgeText(BindableObject view)
@@ -15,11 +14,6 @@ namespace Plugin.Badge.Sample
         public static void SetBadgeText(BindableObject view, string value)
         {
             view.SetValue(BadgeTextProperty, value);
-        }
-
-        public BadgedTabbedPage()
-        {
-            
         }
     }
 }

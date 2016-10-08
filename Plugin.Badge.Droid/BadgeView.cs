@@ -9,7 +9,7 @@ using Android.Widget;
 using Android.Content.Res;
 using Android.Graphics.Drawables.Shapes;
 
-namespace Plugin.Badge.Sample.Droid
+namespace Plugin.Badge.Droid
 {
     /**
  * A simple text label view that can be applied as a "badge" to any given {@link android.view.View}. 

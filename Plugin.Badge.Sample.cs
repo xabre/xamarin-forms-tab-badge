@@ -2,6 +2,7 @@
 
 using Xamarin.Forms;
 using Plugin.Badge.Sample.ViewModels;
+using Plugin.Badge.Abstractions;
 
 namespace Plugin.Badge.Sample
 {

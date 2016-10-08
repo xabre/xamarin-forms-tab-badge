@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Plugin.Badge.iOS;
 using UIKit;
+using Xamarin.Forms.Platform.iOS;
 
 namespace Plugin.Badge.Sample.iOS
 {
@@ -13,7 +15,7 @@ namespace Plugin.Badge.Sample.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-
+            var c = new BadgedTabbedPageRenderer();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -1,15 +1,16 @@
 ﻿using System;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms;
-using Plugin.Badge.Sample.Droid;
+using Plugin.Badge.Droid;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Java.Lang;
 using System.Collections.Generic;
 using Android.Widget;
+using Plugin.Badge.Abstractions;
 
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
-namespace Plugin.Badge.Sample.Droid
+namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
     {

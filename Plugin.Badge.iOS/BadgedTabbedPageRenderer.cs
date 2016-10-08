@@ -1,23 +1,15 @@
-﻿using System;
-using Plugin.Badge.Sample.iOS;
+﻿using Plugin.Badge.Abstractions;
+using Plugin.Badge.iOS;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using Xamarin.Forms.Internals;
 
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
-namespace Plugin.Badge.Sample.iOS
+namespace Plugin.Badge.iOS
 {
+    [Preserve]
     public class BadgedTabbedPageRenderer : TabbedRenderer
     {
-        public BadgedTabbedPageRenderer()
-        {
-        }
-
-        protected override void OnElementChanged(VisualElementChangedEventArgs e)
-        {
-            base.OnElementChanged(e);
-
-
-        }
 
         public override void ViewWillAppear(bool animated)
         {
@@ -34,8 +26,6 @@ namespace Plugin.Badge.Sample.iOS
             }
         }
 
-
-
         void TabbedPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == BadgedTabbedPage.BadgeTextProperty.PropertyName)
@@ -47,9 +37,12 @@ namespace Plugin.Badge.Sample.iOS
 
         protected override void Dispose(bool disposing)
         {
-            foreach (var tab in Tabbed.Children)
+            if (Tabbed != null)
             {
-                tab.PropertyChanged -= TabbedPage_PropertyChanged;
+                foreach (var tab in Tabbed.Children)
+                {
+                    tab.PropertyChanged -= TabbedPage_PropertyChanged;
+            }
             }
             base.Dispose(disposing);
         }
