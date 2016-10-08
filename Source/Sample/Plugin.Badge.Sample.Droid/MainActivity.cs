@@ -7,6 +7,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Plugin.Badge.Droid;
+using Xamarin.Forms.Platform.Android;
 
 namespace Plugin.Badge.Sample.Droid
 {
@@ -21,7 +23,7 @@ namespace Plugin.Badge.Sample.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-
+            
             LoadApplication(new App());
         }
     }
