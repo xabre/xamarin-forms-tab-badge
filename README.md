@@ -22,21 +22,21 @@ Install-Package Plugin.Badge
 // or pre-release
 Install-Package Plugin.Badge -Pre
 ```
-[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.BLE)
+[![NuGet](https://img.shields.io/nuget/v/Plugin.Badge.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.Badge) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.Badge.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.Badge)
 
 
-### iOS
+#### iOS
 
 In your AppDelegate before calling LoadApplication(..) initialize the renderer (this will stop the linker from forgeting it):
 ```
     BadgedTabbedPageRenderer.Init();
 ```
 
-### Android
+#### Android
 
 No linker problems here so you are all set.
 
-### Caution - Custom TabbedPage
+#### Caution - Custom TabbedPage
 
 For now the custom rendererers override the standard Xamarin Forms renderers for `TabbedPageRenderer` (Android) and `TabbedRenderer(iOS)`. If you are using a custom renderer for TabbedPage please change it to inherit from `BadgedTabbedPageRenderer` and you are all set.
 
@@ -45,7 +45,7 @@ For now the custom rendererers override the standard Xamarin Forms renderers for
 For each **child page** of the TabbedPage just bind the custom attached property 
 [`TabBadge.BadgeText` (XAML) or `TabBadge .BadgeTextPropery` (CSharp)]
 
-### XAML
+#### XAML
 
 The important line here is binding the attached property:
 ```
@@ -69,7 +69,7 @@ Example tabbed page with badged children:
 </TabbedPage>
 ```
 
-### CSharp codebehind
+#### CSharp codebehind
 
 ```
 var tab1 = new ContentPage //assume this is a child page of your Tab
@@ -81,10 +81,10 @@ var tab1 = new ContentPage //assume this is a child page of your Tab
 tab1.SetBinding(TabBadge.BadgeTextProperty, new Binding("Count"));
 ```
 
-### Showning / Hiding the badge
+## Showning / Hiding the badge
 If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
 
 
-### Licence
+# Licence
 
 [Apache 2.0]
