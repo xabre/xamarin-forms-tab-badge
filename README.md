@@ -87,4 +87,4 @@ If the value of the `BadgeText` is set to null or empty string the badge is hidd
 
 # Licence
 
-[Apache 2.0]
+[Apache 2.0](https://github.com/xabre/xamarin-forms-tab-badge/blob/master/LICENSE)
