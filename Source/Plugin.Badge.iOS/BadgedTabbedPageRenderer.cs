@@ -28,7 +28,7 @@ namespace Plugin.Badge.iOS
                 TabBar.Items[i].BadgeValue = TabBadge.GetBadgeText(tabbedPage.Children[i]);
 
                 var tabColor = TabBadge.GetBadgeColor(tabbedPage.Children[i]);
-                if(tabColor != default(Color))
+                if(tabColor != Color.Default)
                     TabBar.Items[i].BadgeColor = tabColor.ToUIColor();
 
             }

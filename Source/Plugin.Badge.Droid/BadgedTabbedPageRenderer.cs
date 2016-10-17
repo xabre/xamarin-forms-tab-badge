@@ -30,22 +30,21 @@ namespace Plugin.Badge.Droid
                 var view = tab.CustomView ?? tabStrip?.GetChildAt(i);
                 var imageView = FindChildOfType<ImageView>(view as ViewGroup);
 
-                var badgeTarget = imageView.Drawable != null ? (Android.Views.View)imageView : FindChildOfType<TextView>(view as ViewGroup);
+                var badgeTarget = imageView?.Drawable != null ? (Android.Views.View)imageView : FindChildOfType<TextView>(view as ViewGroup);
+
+                //create bage for tab
+                BadgeViews[i] = new BadgeView(Context, badgeTarget);
 
                 //get text
                 var badgeText = TabBadge.GetBadgeText(Element.Children[i]);
-
-                //create bage for tab
-                BadgeViews[i] = new BadgeView(Context, badgeTarget) { Text = badgeText };
+                BadgeViews[i].Text = badgeText;
 
                 // set color if not default
                 var tabColor = TabBadge.GetBadgeColor(Element.Children[i]);
-                if (tabColor != default(Color))
+                if (tabColor != Color.Default)
                     BadgeViews[i].BadgeColor = tabColor.ToAndroid();
-
-
+                
                 Element.Children[i].PropertyChanged += OnTabPagePropertyChanged;
-
             }
         }
 

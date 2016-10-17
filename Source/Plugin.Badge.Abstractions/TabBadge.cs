@@ -17,7 +17,7 @@ namespace Plugin.Badge.Abstractions
         }
 
          
-        public static BindableProperty BadgeColorProperty = BindableProperty.CreateAttached("BadgeColor", typeof(Color), typeof(TabBadge), default(Color), BindingMode.OneWay);
+        public static BindableProperty BadgeColorProperty = BindableProperty.CreateAttached("BadgeColor", typeof(Color), typeof(TabBadge), Color.Default, BindingMode.OneWay);
 
         public static Color GetBadgeColor(BindableObject view)
         {

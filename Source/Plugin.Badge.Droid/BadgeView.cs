@@ -26,25 +26,37 @@ namespace Plugin.Badge.Droid
         private const int DefaultVmarginDip = -5;
         private const int DefaultLrPaddingDip = 4;
         private const int DefaultCornerRadiusDip = 7;
-        private const BadgePosition DefaultPosition = BadgePosition.PositionTopRight;
-        private static readonly Color DefaultTextColor = Color.White;
 
+        private static Animation _fadeInAnimation;
+        private static Animation _fadeOutAnimation;
 
-        private static Animation _fadeIn;
-        private static Animation _fadeOut;
-
+        private Context _context;
+        private readonly Color _defaultBadgeColor = Color.ParseColor("#CCFF0000");
+        private ShapeDrawable _backgroundShape;
 
         public View Target { get; private set; }
-        private Context _context;
-
-
-        public BadgePosition Postion { get; set; } = DefaultPosition;
+        public BadgePosition Postion { get; set; } = BadgePosition.PositionTopRight;
         public int BadgeMarginH { get; set; }
         public int BadgeMarginV { get; set; }
 
         public static int TextSizeDip { get; set; } = 11;
 
-        public Color BadgeColor { get; set; } = Color.ParseColor("#CCFF0000");
+        public Color BadgeColor
+        {
+            get { return _backgroundShape.Paint.Color; }
+            set
+            {
+                _backgroundShape.Paint.Color = value;
+                
+                Background.InvalidateSelf();
+            }
+        }
+
+        public Color TextColor
+        {
+            get { return new Color(CurrentTextColor); }
+            set { SetTextColor(value); }
+        }
 
         public BadgeView(Context context, View target) : this(context, null, Android.Resource.Attribute.TextViewStyle, target)
         {
@@ -61,29 +73,30 @@ namespace Plugin.Badge.Droid
             Target = target;
 
             // apply defaults
-            Postion = DefaultPosition;
             BadgeMarginH = DipToPixels(DefaultHmarginDip);
             BadgeMarginV = DipToPixels(DefaultVmarginDip);
 
             Typeface = Typeface.DefaultBold;
             var paddingPixels = DipToPixels(DefaultLrPaddingDip);
             SetPadding(paddingPixels, 0, paddingPixels, 0);
-            SetTextColor(DefaultTextColor);
+            SetTextColor(Color.White);
             SetTextSize(ComplexUnitType.Dip, TextSizeDip);
 
-
-            _fadeIn = new AlphaAnimation(0, 1)
+            _fadeInAnimation = new AlphaAnimation(0, 1)
             {
                 Interpolator = new DecelerateInterpolator(),
                 Duration = 200
             };
 
-            _fadeOut = new AlphaAnimation(1, 0)
+            _fadeOutAnimation = new AlphaAnimation(1, 0)
             {
                 Interpolator = new AccelerateInterpolator(),
                 Duration = 200
             };
 
+            _backgroundShape = CreateBackgroundShape();
+            Background = _backgroundShape;
+            BadgeColor = _defaultBadgeColor;
 
             if (Target != null)
             {
@@ -93,6 +106,14 @@ namespace Plugin.Badge.Droid
             {
                 Show();
             }
+        }
+
+        private ShapeDrawable CreateBackgroundShape()
+        {
+            var radius = DipToPixels(DefaultCornerRadiusDip);
+            var outerR = new float[] { radius, radius, radius, radius, radius, radius, radius, radius };
+
+            return new ShapeDrawable(new RoundRectShape(outerR, null, null));
         }
 
         private void ApplyTo(View target)
@@ -113,7 +134,7 @@ namespace Plugin.Badge.Droid
 
             var container = new FrameLayout(_context);
             var index = group.IndexOfChild(target);
-            
+
             group.RemoveView(target);
             group.AddView(container, index, lp);
 
@@ -132,9 +153,8 @@ namespace Plugin.Badge.Droid
 
         public void Show(bool animate)
         {
-            Show(animate, _fadeIn);
+            Show(animate, _fadeInAnimation);
         }
-
 
 
         public void Show(Animation anim)
@@ -147,17 +167,11 @@ namespace Plugin.Badge.Droid
             Hide(false, null);
         }
 
-        /**
-         * Make the badge non-visible in the UI.
-         *
-         * @param animate flag to apply the default fade-out animation.
-         */
-
         public void Hide(bool animate)
         {
-            Hide(animate, _fadeOut);
+            Hide(animate, _fadeOutAnimation);
         }
-    
+
         public void Hide(Animation anim)
         {
             Hide(true, anim);
@@ -165,7 +179,7 @@ namespace Plugin.Badge.Droid
 
         public void Toggle(bool animate = true)
         {
-            Toggle(animate, animate ? _fadeIn : null, animate ? _fadeOut : null);
+            Toggle(animate, animate ? _fadeInAnimation : null, animate ? _fadeOutAnimation : null);
         }
 
         public void Toggle(Animation animIn, Animation animOut)
@@ -175,9 +189,6 @@ namespace Plugin.Badge.Droid
 
         private void Show(bool animate, Animation anim)
         {
-
-            Background = Background ?? DefaultBackground;
-
             ApplyLayoutParams();
 
             if (animate)
@@ -188,7 +199,6 @@ namespace Plugin.Badge.Droid
             Visibility = ViewStates.Visible;
 
         }
-
 
         private void Hide(bool animate, Animation anim)
         {
@@ -212,18 +222,7 @@ namespace Plugin.Badge.Droid
             }
         }
 
-        private ShapeDrawable DefaultBackground
-        {
-            get
-            {
-                var radius = DipToPixels(DefaultCornerRadiusDip);
-                var outerR = new float[] { radius, radius, radius, radius, radius, radius, radius, radius };
 
-                var drawable = new ShapeDrawable(new RoundRectShape(outerR, null, null));
-                drawable.Paint.Color = BadgeColor;
-                return drawable;
-            }
-        }
 
         private void ApplyLayoutParams()
         {

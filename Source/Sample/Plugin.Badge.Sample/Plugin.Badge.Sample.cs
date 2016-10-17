@@ -30,6 +30,10 @@ namespace Plugin.Badge.Sample
             buttonDecrement.SetBinding(Button.CommandProperty, "DecrementCommand");
             tab1Layout.Children.Add(buttonDecrement);
 
+            var buttonChangeColor = new Button() { Text = "Change Color" };
+            buttonChangeColor.SetBinding(Button.CommandProperty, "ChangeColorCommand");
+            tab1Layout.Children.Add(buttonChangeColor);
+
             var tab1 = new ContentPage
             {
                 Title = "Tab1",
@@ -37,6 +41,7 @@ namespace Plugin.Badge.Sample
             };
 
             tab1.SetBinding(TabBadge.BadgeTextProperty, new Binding("Count"));
+            tab1.SetBinding(TabBadge.BadgeColorProperty, new Binding("BadgeColor"));
 
             tab1.BindingContext = new Tab1ViewModel();
 
@@ -58,7 +63,7 @@ namespace Plugin.Badge.Sample
             };
 
             TabBadge.SetBadgeText(tab2, "1+");
-            TabBadge.SetBadgeColor(tab2, Color.FromRgba(0.0, 0.5, 1.0, 0.5));
+            TabBadge.SetBadgeColor(tab2, Color.FromHex("#A0FFA500"));
 
             var tab3 = new ContentPage
             {
