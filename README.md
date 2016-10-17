@@ -86,6 +86,7 @@ tab1.SetBinding(TabBadge.BadgeTextProperty, new Binding("Count"));
 
 Very similar to `BadgeText` just use [`TabBadge.BadgeColor` (XAML) or `TabBadge.BadgeColorPropery` (CSharp)].
 
+<img src="Screencasts/xamarin.forms.tabbadge.colors.png" height="100"/>
 
 ## Showning / Hiding the badge
 If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
