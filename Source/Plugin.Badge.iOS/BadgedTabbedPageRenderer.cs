@@ -24,9 +24,13 @@ namespace Plugin.Badge.iOS
             for (int i = 0; i < TabBar.Items.Length; i++)
             {
                 tabbedPage.Children[i].PropertyChanged += TabbedPage_PropertyChanged;
-                var badgeText = TabBadge.GetBadgeText(tabbedPage.Children[i]);
+              
+                TabBar.Items[i].BadgeValue = TabBadge.GetBadgeText(tabbedPage.Children[i]);
 
-                TabBar.Items[i].BadgeValue = badgeText;
+                var tabColor = TabBadge.GetBadgeColor(tabbedPage.Children[i]);
+                if(tabColor != default(Color))
+                    TabBar.Items[i].BadgeColor = tabColor.ToUIColor();
+
             }
         }
 
@@ -36,6 +40,14 @@ namespace Plugin.Badge.iOS
             {
                 var tabIndex = Tabbed.Children.IndexOf(sender as Page);
                 TabBar.Items[tabIndex].BadgeValue = TabBadge.GetBadgeText(sender as Page);
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
+            {
+                var tabIndex = Tabbed.Children.IndexOf(sender as Page);
+                TabBar.Items[tabIndex].BadgeColor = TabBadge.GetBadgeColor(sender as Page).ToUIColor();
+                return;
             }
         }
 
@@ -46,7 +58,7 @@ namespace Plugin.Badge.iOS
                 foreach (var tab in Tabbed.Children)
                 {
                     tab.PropertyChanged -= TabbedPage_PropertyChanged;
-            }
+                }
             }
             base.Dispose(disposing);
         }

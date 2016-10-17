@@ -7,6 +7,11 @@ namespace Plugin.Badge.Sample.ViewModels
 {
     public class Tab1ViewModel : INotifyPropertyChanged
     {
+        public Color BadgeColor { get; private set;} 
+        public ICommand ChangeColorCommand => new Command((obj) =>
+        {
+        });
+        
         public ICommand IncrementCommand => new Command((obj) =>
         {
             _count++;

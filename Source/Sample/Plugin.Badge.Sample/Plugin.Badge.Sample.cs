@@ -58,6 +58,7 @@ namespace Plugin.Badge.Sample
             };
 
             TabBadge.SetBadgeText(tab2, "1+");
+            TabBadge.SetBadgeColor(tab2, Color.FromRgba(0.0, 0.5, 1.0, 0.5));
 
             var tab3 = new ContentPage
             {

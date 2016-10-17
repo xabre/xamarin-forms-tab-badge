@@ -15,5 +15,18 @@ namespace Plugin.Badge.Abstractions
         {
             view.SetValue(BadgeTextProperty, value);
         }
+
+         
+        public static BindableProperty BadgeColorProperty = BindableProperty.CreateAttached("BadgeColor", typeof(Color), typeof(TabBadge), default(Color), BindingMode.OneWay);
+
+        public static Color GetBadgeColor(BindableObject view)
+        {
+            return (Color)view.GetValue(BadgeColorProperty);
+        }
+
+        public static void SetBadgeColor(BindableObject view, Color value)
+        {
+            view.SetValue(BadgeColorProperty, value);
+        }
     }
 }

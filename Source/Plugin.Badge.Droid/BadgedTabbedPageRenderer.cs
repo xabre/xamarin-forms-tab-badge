@@ -5,6 +5,7 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using Plugin.Badge.Abstractions;
+using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
 namespace Plugin.Badge.Droid
@@ -37,6 +38,12 @@ namespace Plugin.Badge.Droid
                 //create bage for tab
                 BadgeViews[i] = new BadgeView(Context, badgeTarget) { Text = badgeText };
 
+                // set color if not default
+                var tabColor = TabBadge.GetBadgeColor(Element.Children[i]);
+                if (tabColor != default(Color))
+                    BadgeViews[i].BadgeColor = tabColor.ToAndroid();
+
+
                 Element.Children[i].PropertyChanged += OnTabPagePropertyChanged;
 
             }
@@ -45,10 +52,21 @@ namespace Plugin.Badge.Droid
         protected virtual void OnTabPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var page = sender as Page;
-            if (page != null && e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
+            if (page == null)
+                return;
+
+            if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
                 var tabIndex = Element.Children.IndexOf(page);
                 BadgeViews[tabIndex].Text = TabBadge.GetBadgeText(page);
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
+            {
+                var tabIndex = Element.Children.IndexOf(page);
+                BadgeViews[tabIndex].BadgeColor = TabBadge.GetBadgeColor(page).ToAndroid();
+                return;
             }
         }
 
