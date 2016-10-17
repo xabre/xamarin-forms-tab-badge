@@ -1,11 +1,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>1.0.0-beta1</version>
+    <version>1.0.0-beta2</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
-    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <!--<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>-->
     <projectUrl>https://github.com/xabre/xamarin-forms-tab-badge</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
@@ -15,6 +15,8 @@
     <tags>xamarin monodroid Xamarin.iOS xamarin.forms badge tab</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.0.0-beta2]
+      - bindable badge color
       [1.0.0-beta1]
       - bindable badges for xamarin forms tab page.
     </releaseNotes>

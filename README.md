@@ -42,8 +42,10 @@ For now the custom rendererers override the standard Xamarin Forms renderers for
 
 ## Usage
 
+### Badge Text
+
 For each **child page** of the TabbedPage just bind the custom attached property 
-[`TabBadge.BadgeText` (XAML) or `TabBadge .BadgeTextPropery` (CSharp)]
+[`TabBadge.BadgeText` (XAML) or `TabBadge.BadgeTextPropery` (CSharp)]
 
 #### XAML
 
@@ -68,7 +70,6 @@ Example tabbed page with badged children:
   </TabbedPage.Children>
 </TabbedPage>
 ```
-
 #### CSharp codebehind
 
 ```
@@ -80,6 +81,11 @@ var tab1 = new ContentPage //assume this is a child page of your Tab
 
 tab1.SetBinding(TabBadge.BadgeTextProperty, new Binding("Count"));
 ```
+
+### Badge Color
+
+Very similar to `BadgeText` just use [`TabBadge.BadgeColor` (XAML) or `TabBadge.BadgeColorPropery` (CSharp)].
+
 
 ## Showning / Hiding the badge
 If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
