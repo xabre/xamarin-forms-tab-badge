@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Platform.Android.AppCompat;
+﻿using System;
+using System.Collections.Generic;
+using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms;
 using Plugin.Badge.Droid;
 using Android.Support.Design.Widget;
@@ -12,40 +14,58 @@ namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
     {
-        protected BadgeView[] BadgeViews;
+        protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
+        private TabLayout _tabLayout;
+        private TabLayout.SlidingTabStrip _tabStrip;
 
-        protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<TabbedPage> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
         {
             base.OnElementChanged(e);
 
-            var tabLayout = FindChildOfType<TabLayout>(ViewGroup);
-            if (tabLayout == null)
-                return;
-
-            var tabStrip = FindChildOfType<TabLayout.SlidingTabStrip>(tabLayout);
-            BadgeViews = new BadgeView[tabLayout.TabCount];
-            for (var i = 0; i < tabLayout.TabCount; i++)
+            _tabLayout = ViewGroup.FindChildOfType<TabLayout>();
+            if (_tabLayout == null)
             {
-                var tab = tabLayout.GetTabAt(i);
-                var view = tab.CustomView ?? tabStrip?.GetChildAt(i);
-                var imageView = FindChildOfType<ImageView>(view as ViewGroup);
-
-                var badgeTarget = imageView?.Drawable != null ? (Android.Views.View)imageView : FindChildOfType<TextView>(view as ViewGroup);
-
-                //create bage for tab
-                BadgeViews[i] = new BadgeView(Context, badgeTarget);
-
-                //get text
-                var badgeText = TabBadge.GetBadgeText(Element.Children[i]);
-                BadgeViews[i].Text = badgeText;
-
-                // set color if not default
-                var tabColor = TabBadge.GetBadgeColor(Element.Children[i]);
-                if (tabColor != Color.Default)
-                    BadgeViews[i].BadgeColor = tabColor.ToAndroid();
-                
-                Element.Children[i].PropertyChanged += OnTabPagePropertyChanged;
+                Console.WriteLine("Plugin.Badge: No TabLayout found. Bedge not added.");
+                return;
             }
+
+            _tabStrip = _tabLayout.FindChildOfType<TabLayout.SlidingTabStrip>();
+
+            for (var i = 0; i < _tabLayout.TabCount; i++)
+            {
+                AddTabBadge(i);
+            }
+
+            Element.ChildAdded += OnTabAdded;
+            Element.ChildRemoved += OnTabRemoved;
+        }
+
+        private void AddTabBadge(int tabIndex)
+        {
+            var element = Element.Children[tabIndex];
+            var view = _tabLayout?.GetTabAt(tabIndex).CustomView ?? _tabStrip?.GetChildAt(tabIndex);
+            var imageView = (view as ViewGroup)?.FindChildOfType<ImageView>();
+
+            var badgeTarget = imageView?.Drawable != null
+                ? (Android.Views.View)imageView
+                : (view as ViewGroup)?.FindChildOfType<TextView>();
+
+            //create badge for tab
+            var badgeView = new BadgeView(Context, badgeTarget);
+            BadgeViews[Element] = badgeView;
+
+            //get text
+            var badgeText = TabBadge.GetBadgeText(element);
+            badgeView.Text = badgeText;
+
+            // set color if not default
+            var tabColor = TabBadge.GetBadgeColor(element);
+            if (tabColor != Color.Default)
+            {
+                badgeView.BadgeColor = tabColor.ToAndroid();
+            }
+
+            element.PropertyChanged += OnTabPagePropertyChanged;
         }
 
         protected virtual void OnTabPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -54,19 +74,47 @@ namespace Plugin.Badge.Droid
             if (page == null)
                 return;
 
+            BadgeView badgeView;
+            if (!BadgeViews.TryGetValue(page, out badgeView))
+            {
+                return;
+            }
+
             if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
-                var tabIndex = Element.Children.IndexOf(page);
-                BadgeViews[tabIndex].Text = TabBadge.GetBadgeText(page);
+                badgeView.Text = TabBadge.GetBadgeText(page);
                 return;
             }
 
             if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
             {
-                var tabIndex = Element.Children.IndexOf(page);
-                BadgeViews[tabIndex].BadgeColor = TabBadge.GetBadgeColor(page).ToAndroid();
-                return;
+                badgeView.BadgeColor = TabBadge.GetBadgeColor(page).ToAndroid();
             }
+        }
+
+        private void OnTabRemoved(object sender, ElementEventArgs e)
+        {
+            var page = sender as Element;
+            if (page == null)
+                return;
+
+            RemoveTabBadge(page);
+        }
+
+        private void RemoveTabBadge(Element page)
+        {
+            page.PropertyChanged -= OnTabPagePropertyChanged;
+            BadgeViews.Remove(page);
+        }
+
+        private void OnTabAdded(object sender, ElementEventArgs e)
+        {
+            var page = sender as Page;
+            if (page == null)
+                return;
+
+            var tabIndex = Element.Children.IndexOf(page);
+            AddTabBadge(tabIndex);
         }
 
         protected override void Dispose(bool disposing)
@@ -78,41 +126,13 @@ namespace Plugin.Badge.Droid
                     tab.PropertyChanged -= OnTabPagePropertyChanged;
                 }
 
-                BadgeViews = null;
+                Element.ChildRemoved -= OnTabRemoved;
+                Element.ChildAdded -= OnTabAdded;
+
+                BadgeViews.Clear();
             }
 
             base.Dispose(disposing);
-        }
-
-        private static T FindChildOfType<T>(ViewGroup parent) where T : Android.Views.View
-        {
-            if (parent == null)
-                return null;
-
-            if (parent.ChildCount == 0)
-                return null;
-
-            for (var i = 0; i < parent.ChildCount; i++)
-            {
-                var child = parent.GetChildAt(i);
-
-
-                var typedChild = child as T;
-                if (typedChild != null)
-                {
-                    return typedChild;
-                }
-
-                if (!(child is ViewGroup))
-                    continue;
-
-
-                var result = FindChildOfType<T>(child as ViewGroup);
-                if (result != null)
-                    return result;
-            }
-
-            return null;
         }
     }
 }

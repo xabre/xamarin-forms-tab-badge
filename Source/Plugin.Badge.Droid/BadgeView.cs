@@ -20,8 +20,7 @@ namespace Plugin.Badge.Droid
             PositionBottomRight = 4,
             PositionCenter = 5
         }
-
-
+        
         private const int DefaultHmarginDip = -10;
         private const int DefaultVmarginDip = -5;
         private const int DefaultLrPaddingDip = 4;
@@ -155,38 +154,13 @@ namespace Plugin.Badge.Droid
         {
             Show(animate, _fadeInAnimation);
         }
-
-
-        public void Show(Animation anim)
-        {
-            Show(true, anim);
-        }
-
-        public void Hide()
-        {
-            Hide(false, null);
-        }
+        
 
         public void Hide(bool animate)
         {
             Hide(animate, _fadeOutAnimation);
         }
-
-        public void Hide(Animation anim)
-        {
-            Hide(true, anim);
-        }
-
-        public void Toggle(bool animate = true)
-        {
-            Toggle(animate, animate ? _fadeInAnimation : null, animate ? _fadeOutAnimation : null);
-        }
-
-        public void Toggle(Animation animIn, Animation animOut)
-        {
-            Toggle(true, animIn, animOut);
-        }
-
+        
         private void Show(bool animate, Animation anim)
         {
             ApplyLayoutParams();
@@ -208,22 +182,7 @@ namespace Plugin.Badge.Droid
                 StartAnimation(anim);
             }
         }
-
-
-        private void Toggle(bool animate, Animation animIn, Animation animOut)
-        {
-            if (Visibility == ViewStates.Visible)
-            {
-                Hide(animate && (animOut != null), animOut);
-            }
-            else
-            {
-                Show(animate && (animIn != null), animIn);
-            }
-        }
-
-
-
+        
         private void ApplyLayoutParams()
         {
             var layoutParameters = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
