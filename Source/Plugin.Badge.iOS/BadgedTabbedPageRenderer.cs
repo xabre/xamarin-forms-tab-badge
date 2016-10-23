@@ -16,8 +16,7 @@ namespace Plugin.Badge.iOS
             {
                 AddTabBadge(i);
             }
-
-
+            
             Element.ChildAdded += OnTabAdded;
             Element.ChildRemoved += OnTabRemoved;
         }
@@ -59,7 +58,7 @@ namespace Plugin.Badge.iOS
 
         private void OnTabAdded(object sender, ElementEventArgs e)
         {
-            var page = sender as Page;
+            var page = e.Element as Page;
             if (page == null)
                 return;
 
@@ -69,11 +68,7 @@ namespace Plugin.Badge.iOS
 
         private void OnTabRemoved(object sender, ElementEventArgs e)
         {
-            var page = sender as Page;
-            if (page == null)
-                return;
-
-            page.PropertyChanged -= OnTabbedPagePropertyChanged;
+            e.Element.PropertyChanged -= OnTabbedPagePropertyChanged;
         }
 
         protected override void Dispose(bool disposing)

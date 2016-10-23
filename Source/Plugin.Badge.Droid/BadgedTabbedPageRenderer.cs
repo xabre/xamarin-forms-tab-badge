@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Threading.Tasks;
+using Android.Database;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms;
 using Plugin.Badge.Droid;
 using Android.Support.Design.Widget;
+using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
 using Plugin.Badge.Abstractions;
@@ -13,6 +17,7 @@ namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
     {
+        private const int DeleayBeforeTabAdded = 10;
         protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
         private TabLayout _tabLayout;
         private TabLayout.SlidingTabStrip _tabStrip;
@@ -20,6 +25,8 @@ namespace Plugin.Badge.Droid
         protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
         {
             base.OnElementChanged(e);
+
+
 
             _tabLayout = ViewGroup.FindChildOfType<TabLayout>();
             if (_tabLayout == null)
@@ -39,19 +46,27 @@ namespace Plugin.Badge.Droid
             Element.ChildRemoved += OnTabRemoved;
         }
 
+
         private void AddTabBadge(int tabIndex)
         {
             var element = Element.Children[tabIndex];
             var view = _tabLayout?.GetTabAt(tabIndex).CustomView ?? _tabStrip?.GetChildAt(tabIndex);
-            var imageView = (view as ViewGroup)?.FindChildOfType<ImageView>();
 
-            var badgeTarget = imageView?.Drawable != null
-                ? (Android.Views.View)imageView
-                : (view as ViewGroup)?.FindChildOfType<TextView>();
+            var badgeView = (view as ViewGroup)?.FindChildOfType<BadgeView>();
 
-            //create badge for tab
-            var badgeView = new BadgeView(Context, badgeTarget);
-            BadgeViews[Element] = badgeView;
+            if (badgeView == null)
+            {
+                var imageView = (view as ViewGroup)?.FindChildOfType<ImageView>();
+
+                var badgeTarget = imageView?.Drawable != null
+                    ? (Android.Views.View) imageView
+                    : (view as ViewGroup)?.FindChildOfType<TextView>();
+
+                //create badge for tab
+                badgeView = new BadgeView(Context, badgeTarget);
+            }
+
+            BadgeViews[element] = badgeView;
 
             //get text
             var badgeText = TabBadge.GetBadgeText(element);
@@ -93,22 +108,15 @@ namespace Plugin.Badge.Droid
 
         private void OnTabRemoved(object sender, ElementEventArgs e)
         {
-            var page = sender as Element;
-            if (page == null)
-                return;
-
-            RemoveTabBadge(page);
+            e.Element.PropertyChanged -= OnTabbedPagePropertyChanged;
+            BadgeViews.Remove(e.Element);
         }
 
-        private void RemoveTabBadge(Element page)
+        private async void OnTabAdded(object sender, ElementEventArgs e)
         {
-            page.PropertyChanged -= OnTabbedPagePropertyChanged;
-            BadgeViews.Remove(page);
-        }
+            await Task.Delay(DeleayBeforeTabAdded);
 
-        private void OnTabAdded(object sender, ElementEventArgs e)
-        {
-            var page = sender as Page;
+            var page = e.Element as Page;
             if (page == null)
                 return;
 
@@ -133,5 +141,7 @@ namespace Plugin.Badge.Droid
 
             base.Dispose(disposing);
         }
+
+      
     }
 }

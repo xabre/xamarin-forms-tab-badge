@@ -15,9 +15,7 @@ namespace Plugin.Badge.Sample.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-
-            BadgedTabbedPageRenderer.Init();
-
+            
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
