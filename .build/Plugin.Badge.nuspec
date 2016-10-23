@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>1.0.0-beta2</version>
+    <version>1.0.0-beta3</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
@@ -15,6 +15,9 @@
     <tags>xamarin monodroid Xamarin.iOS xamarin.forms badge tab</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.0.0-beta3]
+      - react to dynamic tab changes add/remove
+      - improved registration without implicitly replacing standard renderer
       [1.0.0-beta2]
       - bindable badge color
       [1.0.0-beta1]
