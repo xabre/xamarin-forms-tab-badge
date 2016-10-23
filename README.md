@@ -25,20 +25,25 @@ Install-Package Plugin.Badge -Pre
 [![NuGet](https://img.shields.io/nuget/v/Plugin.Badge.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.Badge) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.Badge.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.Badge)
 
 
-#### iOS
+### iOS
 
-In your AppDelegate before calling LoadApplication(..) initialize the renderer (this will stop the linker from forgeting it):
+You have to register the custom renderer. I usually put this in the AssemblyInfo.cs file of my iOS csproj.
+
 ```
-    BadgedTabbedPageRenderer.Init();
+[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
 ```
 
-#### Android
+### Android
 
-No linker problems here so you are all set.
+You have to register the custom renderer. I usually put this in the AssemblyInfo.cs file of my Android csproj.
 
-#### Caution - Custom TabbedPage
+```
+[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
+```
 
-For now the custom rendererers override the standard Xamarin Forms renderers for `TabbedPageRenderer` (Android) and `TabbedRenderer(iOS)`. If you are using a custom renderer for TabbedPage please change it to inherit from `BadgedTabbedPageRenderer` and you are all set.
+### Caution - Custom TabbedPage / Custom Renderers
+
+If you are using a custom renderer for TabbedPage please change it to inherit from `BadgedTabbedPageRenderer` and you are all set. Of course dont forget to register your own renderer.
 
 ## Usage
 
