@@ -9,7 +9,6 @@ using Android.Widget;
 using Plugin.Badge.Abstractions;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
 namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
@@ -65,30 +64,30 @@ namespace Plugin.Badge.Droid
                 badgeView.BadgeColor = tabColor.ToAndroid();
             }
 
-            element.PropertyChanged += OnTabPagePropertyChanged;
+            element.PropertyChanged += OnTabbedPagePropertyChanged;
         }
 
-        protected virtual void OnTabPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected virtual void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var page = sender as Page;
-            if (page == null)
+            var element = sender as Element;
+            if (element == null)
                 return;
 
             BadgeView badgeView;
-            if (!BadgeViews.TryGetValue(page, out badgeView))
+            if (!BadgeViews.TryGetValue(element, out badgeView))
             {
                 return;
             }
 
             if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
-                badgeView.Text = TabBadge.GetBadgeText(page);
+                badgeView.Text = TabBadge.GetBadgeText(element);
                 return;
             }
 
             if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
             {
-                badgeView.BadgeColor = TabBadge.GetBadgeColor(page).ToAndroid();
+                badgeView.BadgeColor = TabBadge.GetBadgeColor(element).ToAndroid();
             }
         }
 
@@ -103,7 +102,7 @@ namespace Plugin.Badge.Droid
 
         private void RemoveTabBadge(Element page)
         {
-            page.PropertyChanged -= OnTabPagePropertyChanged;
+            page.PropertyChanged -= OnTabbedPagePropertyChanged;
             BadgeViews.Remove(page);
         }
 
@@ -123,7 +122,7 @@ namespace Plugin.Badge.Droid
             {
                 foreach (var tab in Element.Children)
                 {
-                    tab.PropertyChanged -= OnTabPagePropertyChanged;
+                    tab.PropertyChanged -= OnTabbedPagePropertyChanged;
                 }
 
                 Element.ChildRemoved -= OnTabRemoved;

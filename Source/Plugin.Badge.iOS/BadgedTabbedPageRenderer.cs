@@ -1,54 +1,79 @@
 ﻿using Plugin.Badge.Abstractions;
-using Plugin.Badge.iOS;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms.Internals;
 
-[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
 namespace Plugin.Badge.iOS
 {
     [Preserve]
     public class BadgedTabbedPageRenderer : TabbedRenderer
     {
-        public static void Init()
-        {
-            var r = new BadgedTabbedPageRenderer();
-        }
-
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-
-            var tabbedPage = Tabbed;
-
-            for (int i = 0; i < TabBar.Items.Length; i++)
+            
+            for (var i = 0; i < TabBar.Items.Length; i++)
             {
-                tabbedPage.Children[i].PropertyChanged += TabbedPage_PropertyChanged;
-              
-                TabBar.Items[i].BadgeValue = TabBadge.GetBadgeText(tabbedPage.Children[i]);
+                AddTabBadge(i);
+            }
 
-                var tabColor = TabBadge.GetBadgeColor(tabbedPage.Children[i]);
-                if(tabColor != Color.Default)
-                    TabBar.Items[i].BadgeColor = tabColor.ToUIColor();
 
+            Element.ChildAdded += OnTabAdded;
+            Element.ChildRemoved += OnTabRemoved;
+        }
+        
+        private void AddTabBadge(int tabIndex)
+        {
+            var element = Tabbed.Children[tabIndex];
+            element.PropertyChanged += OnTabbedPagePropertyChanged;
+
+            var tabBarItem = TabBar.Items[tabIndex];
+            tabBarItem.BadgeValue = TabBadge.GetBadgeText(element);
+
+            var tabColor = TabBadge.GetBadgeColor(element);
+            if (tabColor != Color.Default)
+            {
+                tabBarItem.BadgeColor = tabColor.ToUIColor();
             }
         }
 
-        void TabbedPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            var page = sender as Page;
+            if (page == null)
+                return;
+
             if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
-                var tabIndex = Tabbed.Children.IndexOf(sender as Page);
-                TabBar.Items[tabIndex].BadgeValue = TabBadge.GetBadgeText(sender as Page);
+                var tabIndex = Tabbed.Children.IndexOf(page);
+                TabBar.Items[tabIndex].BadgeValue = TabBadge.GetBadgeText(page);
                 return;
             }
 
             if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
             {
-                var tabIndex = Tabbed.Children.IndexOf(sender as Page);
-                TabBar.Items[tabIndex].BadgeColor = TabBadge.GetBadgeColor(sender as Page).ToUIColor();
-                return;
+                var tabIndex = Tabbed.Children.IndexOf(page);
+                TabBar.Items[tabIndex].BadgeColor = TabBadge.GetBadgeColor(page).ToUIColor();
             }
+        }
+
+        private void OnTabAdded(object sender, ElementEventArgs e)
+        {
+            var page = sender as Page;
+            if (page == null)
+                return;
+
+            var tabIndex = Tabbed.Children.IndexOf(page);
+            AddTabBadge(tabIndex);
+        }
+
+        private void OnTabRemoved(object sender, ElementEventArgs e)
+        {
+            var page = sender as Page;
+            if (page == null)
+                return;
+
+            page.PropertyChanged -= OnTabbedPagePropertyChanged;
         }
 
         protected override void Dispose(bool disposing)
@@ -57,7 +82,7 @@ namespace Plugin.Badge.iOS
             {
                 foreach (var tab in Tabbed.Children)
                 {
-                    tab.PropertyChanged -= TabbedPage_PropertyChanged;
+                    tab.PropertyChanged -= OnTabbedPagePropertyChanged;
                 }
             }
             base.Dispose(disposing);
