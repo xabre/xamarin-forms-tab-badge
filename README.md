@@ -7,10 +7,11 @@
 
 ## Support & Limitations
 
-| Platform  | Version | Limitations |
+| Feature / Availability  | Xamarin.Android | Xamarin.iOS |
 | ------------- | ----------- | ----------- |
-| Xamarin.Android | |  |
-| Xamarin.iOS     |  |  |
+| Bindable Badge Text | ✓ | ✓ |
+| Bindable Badge Color | ✓ | ✓ |
+| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. |
 
 ## Installation
 

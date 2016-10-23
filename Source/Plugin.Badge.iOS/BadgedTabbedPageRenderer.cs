@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms.Internals;
+using System.Threading.Tasks;
 
 namespace Plugin.Badge.iOS
 {
@@ -26,13 +27,16 @@ namespace Plugin.Badge.iOS
             var element = Tabbed.Children[tabIndex];
             element.PropertyChanged += OnTabbedPagePropertyChanged;
 
-            var tabBarItem = TabBar.Items[tabIndex];
-            tabBarItem.BadgeValue = TabBadge.GetBadgeText(element);
-
-            var tabColor = TabBadge.GetBadgeColor(element);
-            if (tabColor != Color.Default)
+            if (TabBar.Items.Length > tabIndex)
             {
-                tabBarItem.BadgeColor = tabColor.ToUIColor();
+                var tabBarItem = TabBar.Items[tabIndex];
+                tabBarItem.BadgeValue = TabBadge.GetBadgeText(element);
+
+                var tabColor = TabBadge.GetBadgeColor(element);
+                if (tabColor != Color.Default)
+                {
+                    tabBarItem.BadgeColor = tabColor.ToUIColor();
+                }
             }
         }
 
@@ -45,19 +49,23 @@ namespace Plugin.Badge.iOS
             if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
                 var tabIndex = Tabbed.Children.IndexOf(page);
-                TabBar.Items[tabIndex].BadgeValue = TabBadge.GetBadgeText(page);
+                if(tabIndex < TabBar.Items.Length)
+                    TabBar.Items[tabIndex].BadgeValue = TabBadge.GetBadgeText(page);
                 return;
             }
 
             if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
             {
                 var tabIndex = Tabbed.Children.IndexOf(page);
-                TabBar.Items[tabIndex].BadgeColor = TabBadge.GetBadgeColor(page).ToUIColor();
+                if (tabIndex < TabBar.Items.Length)
+                    TabBar.Items[tabIndex].BadgeColor = TabBadge.GetBadgeColor(page).ToUIColor();
             }
         }
 
-        private void OnTabAdded(object sender, ElementEventArgs e)
+        private async void OnTabAdded(object sender, ElementEventArgs e)
         {
+            //workaround for XF, tabbar is not updated at this point and we have no way to know when its updated.
+            await Task.Delay(10);
             var page = e.Element as Page;
             if (page == null)
                 return;
@@ -79,7 +87,13 @@ namespace Plugin.Badge.iOS
                 {
                     tab.PropertyChanged -= OnTabbedPagePropertyChanged;
                 }
+
+                Tabbed.ChildAdded -= OnTabAdded;
+                Tabbed.ChildRemoved -= OnTabRemoved;
             }
+
+
+
             base.Dispose(disposing);
         }
     }
