@@ -58,7 +58,7 @@ namespace Plugin.Badge.Sample.ViewModels
 
         private int _count = 0;
         private int _color = 0;
-        public string Count => _count <= 0 ? null : _count.ToString();
+        public string Count => _count <= 0 ? string.Empty : _count.ToString();
 
         public event PropertyChangedEventHandler PropertyChanged;
 

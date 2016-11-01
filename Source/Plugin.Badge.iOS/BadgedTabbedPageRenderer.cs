@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms.Internals;
 using System.Threading.Tasks;
+using UIKit;
 
 namespace Plugin.Badge.iOS
 {
@@ -12,16 +13,16 @@ namespace Plugin.Badge.iOS
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            
+
             for (var i = 0; i < TabBar.Items.Length; i++)
             {
                 AddTabBadge(i);
             }
-            
+
             Element.ChildAdded += OnTabAdded;
             Element.ChildRemoved += OnTabRemoved;
         }
-        
+
         private void AddTabBadge(int tabIndex)
         {
             var element = Tabbed.Children[tabIndex];
@@ -30,7 +31,7 @@ namespace Plugin.Badge.iOS
             if (TabBar.Items.Length > tabIndex)
             {
                 var tabBarItem = TabBar.Items[tabIndex];
-                tabBarItem.BadgeValue = TabBadge.GetBadgeText(element);
+                UpdateTabBadgeText(tabBarItem, element);
 
                 var tabColor = TabBadge.GetBadgeColor(element);
                 if (tabColor != Color.Default)
@@ -38,6 +39,13 @@ namespace Plugin.Badge.iOS
                     tabBarItem.BadgeColor = tabColor.ToUIColor();
                 }
             }
+        }
+
+        private void UpdateTabBadgeText(UITabBarItem tabBarItem, Element element)
+        {
+            var text = TabBadge.GetBadgeText(element);
+
+            tabBarItem.BadgeValue = string.IsNullOrEmpty(text) ? null : text;
         }
 
         private void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -49,8 +57,8 @@ namespace Plugin.Badge.iOS
             if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
                 var tabIndex = Tabbed.Children.IndexOf(page);
-                if(tabIndex < TabBar.Items.Length)
-                    TabBar.Items[tabIndex].BadgeValue = TabBadge.GetBadgeText(page);
+                if (tabIndex < TabBar.Items.Length)
+                    UpdateTabBadgeText(TabBar.Items[tabIndex], page);
                 return;
             }
 
