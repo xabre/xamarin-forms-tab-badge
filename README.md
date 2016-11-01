@@ -46,6 +46,20 @@ You have to register the custom renderer. I usually put this in the AssemblyInfo
 
 If you are using a custom renderer for TabbedPage please change it to inherit from `BadgedTabbedPageRenderer` and you are all set. Of course dont forget to register your own renderer.
 
+### Linker
+
+As you already know when you enable linkling for your application the likner might remove some of the methods/types/proeprties/events used by third party libraries. This is why it's necessary to update your `LinkerPleaseInclude.cs`. Check this [blogpost](https://lostechies.com/jimmybogard/2014/11/11/dealing-with-the-linker-in-xamarin-apps/) for more linker info.
+
+- For iOS add the following lines:
+```
+public void Include(UITabBarItem item)
+{
+    item.BadgeColor = UIColor.Red;
+    item.BadgeValue = "badge";
+}
+```
+- For Android no issues detected yet :). Feel free to report any issues here.
+
 ## Usage
 
 ### Badge Text
