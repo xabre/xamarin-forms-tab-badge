@@ -43,4 +43,4 @@ Thumbs.db
 /.build/out/lib
 /.build/out/nuget
 
-Resource.designer.cs
+**/Resource.designer.cs
