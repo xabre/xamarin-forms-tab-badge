@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("dev")]
+[assembly: AssemblyCopyright("xabre")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

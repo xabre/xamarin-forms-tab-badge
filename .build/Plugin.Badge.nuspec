@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>1.0.0-beta3</version>
+    <version>1.0.0</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
@@ -9,12 +9,15 @@
     <projectUrl>https://github.com/xabre/xamarin-forms-tab-badge</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      Xamarin.Forms plugin to add bindable tab (tabbar) badge functionality.
+      Xamarin.Forms plugin to add cross-platform bindable tab (tabbar) badge functionality.
       Read the full documentation on the project page.
     </description>
-    <tags>xamarin monodroid Xamarin.iOS xamarin.forms badge tab</tags>
+    <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.0.0]
+      - stable release
+      - #3 hide ios badge on string.empty
       [1.0.0-beta3]
       - react to dynamic tab changes add/remove
       - improved registration without implicitly replacing standard renderer

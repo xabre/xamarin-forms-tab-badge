@@ -7,9 +7,9 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("Plugin.Badge.Sample")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("xabre")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("dev")]
+[assembly: AssemblyCopyright("xabre")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
