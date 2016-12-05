@@ -9,8 +9,8 @@
 
 | Feature / Availability  | Xamarin.Android | Xamarin.iOS |
 | ------------- | ----------- | ----------- |
-| Bindable Badge Text | ✓ | ✓ |
-| Bindable Badge Color | ✓ | (iOS >= 10) |
+| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) |
+| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) |
 | Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. |
 
 ## Installation
