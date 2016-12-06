@@ -42,5 +42,6 @@ Thumbs.db
 /.build/FAKE.4.10.5
 /.build/out/lib
 /.build/out/nuget
+/.build/tools
 
 **/Resource.designer.cs
