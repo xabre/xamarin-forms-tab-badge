@@ -4,6 +4,7 @@ using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms.Internals;
 using System.Threading.Tasks;
 using UIKit;
+using System;
 
 namespace Plugin.Badge.iOS
 {
@@ -32,20 +33,30 @@ namespace Plugin.Badge.iOS
             {
                 var tabBarItem = TabBar.Items[tabIndex];
                 UpdateTabBadgeText(tabBarItem, element);
-
-                var tabColor = TabBadge.GetBadgeColor(element);
-                if (tabColor != Color.Default)
-                {
-                    tabBarItem.BadgeColor = tabColor.ToUIColor();
-                }
+                UpdateTabBadgeColor(tabBarItem, element);
             }
         }
-
         private void UpdateTabBadgeText(UITabBarItem tabBarItem, Element element)
         {
             var text = TabBadge.GetBadgeText(element);
 
             tabBarItem.BadgeValue = string.IsNullOrEmpty(text) ? null : text;
+        }
+
+        private void UpdateTabBadgeColor(UITabBarItem tabBarItem, Element element)
+        {
+            if (!tabBarItem.RespondsToSelector(new ObjCRuntime.Selector("setBadgeColor:")))
+            {
+                // method not available, ios < 10
+                Console.WriteLine("Plugin.Badge: badge color only available starting with iOS 10.0.");
+                return;
+            }
+            
+            var tabColor = TabBadge.GetBadgeColor(element);
+            if (tabColor != Color.Default)
+            {
+                tabBarItem.BadgeColor = tabColor.ToUIColor();
+            }
         }
 
         private void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -66,13 +77,13 @@ namespace Plugin.Badge.iOS
             {
                 var tabIndex = Tabbed.Children.IndexOf(page);
                 if (tabIndex < TabBar.Items.Length)
-                    TabBar.Items[tabIndex].BadgeColor = TabBadge.GetBadgeColor(page).ToUIColor();
+                    UpdateTabBadgeColor(TabBar.Items[tabIndex], page);
             }
         }
 
         private async void OnTabAdded(object sender, ElementEventArgs e)
         {
-            //workaround for XF, tabbar is not updated at this point and we have no way to know when its updated.
+            //workaround for XF, tabbar is not updated at this point and we have no way of knowing for sure when it will be updated. so we have to wait ... 
             await Task.Delay(10);
             var page = e.Element as Page;
             if (page == null)
