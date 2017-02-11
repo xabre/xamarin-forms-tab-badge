@@ -9,9 +9,11 @@
 
 | Feature / Availability  | Xamarin.Android | Xamarin.iOS |
 | ------------- | ----------- | ----------- |
-| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) |
-| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) |
-| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. |
+| Bindable Badge Text | ✓* | ✓ (iOS >=8.0) |
+| Bindable Badge Color | ✓* | ✓ (iOS >= 10.0) |
+| Dynamic tab add/removal | ✓* | On overflow, 'More' / '...' menu don't have badges...yet. |
+
+*Caution: Fora Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from **FormsAppCompatActivity**
 
 ## Installation
 
