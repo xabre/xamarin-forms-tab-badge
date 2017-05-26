@@ -13,6 +13,8 @@ using Android.Widget;
 using Plugin.Badge.Abstractions;
 using Xamarin.Forms.Platform.Android;
 
+[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
+
 namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
