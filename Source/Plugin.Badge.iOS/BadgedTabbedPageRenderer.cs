@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using UIKit;
 using System;
 
+[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
+
 namespace Plugin.Badge.iOS
 {
     [Preserve]
