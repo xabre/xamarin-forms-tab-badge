@@ -27,7 +27,7 @@ void BuildProject(string projectName, string targetSubDir)
 
 Task("Restore")
     .Does(() =>
-{
+{	
     var solutions = GetFiles("../Source/*.sln");
     // Restore all NuGet packages.
     foreach(var solution in solutions)

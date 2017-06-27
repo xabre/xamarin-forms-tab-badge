@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Threading.Tasks;
-using Android.Database;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms;
-using Plugin.Badge.Droid;
 using Android.Support.Design.Widget;
-using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
 using Plugin.Badge.Abstractions;
@@ -20,13 +16,11 @@ namespace Plugin.Badge.Droid
         private const int DeleayBeforeTabAdded = 10;
         protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
         private TabLayout _tabLayout;
-        private TabLayout.SlidingTabStrip _tabStrip;
+        private LinearLayout _tabStrip;
 
         protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
         {
             base.OnElementChanged(e);
-
-
 
             _tabLayout = ViewGroup.FindChildOfType<TabLayout>();
             if (_tabLayout == null)
@@ -35,7 +29,7 @@ namespace Plugin.Badge.Droid
                 return;
             }
 
-            _tabStrip = _tabLayout.FindChildOfType<TabLayout.SlidingTabStrip>();
+            _tabStrip = _tabLayout.FindChildOfType<LinearLayout>();
 
             for (var i = 0; i < _tabLayout.TabCount; i++)
             {
@@ -59,7 +53,7 @@ namespace Plugin.Badge.Droid
                 var imageView = (view as ViewGroup)?.FindChildOfType<ImageView>();
 
                 var badgeTarget = imageView?.Drawable != null
-                    ? (Android.Views.View) imageView
+                    ? (Android.Views.View)imageView
                     : (view as ViewGroup)?.FindChildOfType<TextView>();
 
                 //create badge for tab
@@ -88,8 +82,7 @@ namespace Plugin.Badge.Droid
             if (element == null)
                 return;
 
-            BadgeView badgeView;
-            if (!BadgeViews.TryGetValue(element, out badgeView))
+            if (!BadgeViews.TryGetValue(element, out BadgeView badgeView))
             {
                 return;
             }
@@ -142,6 +135,6 @@ namespace Plugin.Badge.Droid
             base.Dispose(disposing);
         }
 
-      
+
     }
 }

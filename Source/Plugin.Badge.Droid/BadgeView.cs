@@ -80,6 +80,7 @@ namespace Plugin.Badge.Droid
             SetPadding(paddingPixels, 0, paddingPixels, 0);
             SetTextColor(Color.White);
             SetTextSize(ComplexUnitType.Dip, TextSizeDip);
+            SetForegroundGravity(GravityFlags.Center);
 
             _fadeInAnimation = new AlphaAnimation(0, 1)
             {

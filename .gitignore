@@ -39,9 +39,10 @@ Thumbs.db
 # dotCover
 *.dotCover
 /.build/.fake
-/.build/FAKE.4.10.5
+/.build/FAKE*
 /.build/out/lib
 /.build/out/nuget
 /.build/tools
 
 **/Resource.designer.cs
+/.build/FAKE.4.61.3
