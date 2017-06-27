@@ -2,8 +2,7 @@
 **Xamarin Forms** bindable tab badges for iOS and Android. The plugin creates a custom renderer (iOS & Android) and a custom attached property for adding tab bar badges which can be bound in XF shared code.
 
 ## Sample
-<img src="Screencasts/xamarin.forms.android.gif" height="600"/>
-<img src="Screencasts/xamarin.forms.ios.gif" height="600"/>
+<img src="Screencasts/xamarin.forms.android.gif" height="600"/><img src="Screencasts/xamarin.forms.ios.gif" height="600"/>
 
 ## Support & Limitations
 
@@ -50,7 +49,7 @@ If you are using a custom renderer for TabbedPage please change it to inherit fr
 
 ### Linker
 
-As you already know when you enable linkling for your application the likner might remove some of the methods/types/proeprties/events used by third party libraries. This is why it's necessary to update your `LinkerPleaseInclude.cs`. Check this [blogpost](https://lostechies.com/jimmybogard/2014/11/11/dealing-with-the-linker-in-xamarin-apps/) for more linker info.
+As you already know when you enable linkling for your application the linker might remove some of the methods/types/properties/events used by third party libraries. This is why it's necessary to update your `LinkerPleaseInclude.cs`. Check this [blogpost](https://lostechies.com/jimmybogard/2014/11/11/dealing-with-the-linker-in-xamarin-apps/) for more linker info.
 
 - For iOS add the following lines:
 ```
