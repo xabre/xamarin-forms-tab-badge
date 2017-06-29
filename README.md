@@ -116,13 +116,13 @@ Very similar to `BadgeText` just use [`TabBadge.BadgeColor` (XAML) or `TabBadge.
 
 Very similar to `BadgeColor` just use [`TabBadge.BadgeTextColor` (XAML) or `TabBadge.BadgeTextColorPropery` (CSharp)].
 
-<img src="Screencasts/xamarin.forms.tabbadge.textcolors.png" height="100"/>
+<img src="Screencasts/xamarin.forms.tabbadge.textcolors.PNG" height="100"/>
 
 ### Badge Font Attributes
 
 Very similar to `BadgeColor` just use [`TabBadge.BadgeFont` (XAML) or `TabBadge.BadgeFontPropery` (CSharp)].
 
-<img src="Screencasts/xamarin.forms.tabbadge.fontattributes.png" height="100"/>
+<img src="Screencasts/xamarin.forms.tabbadge.fontattributes.PNG" height="100"/>
 
 ToDo:
 - you can alo try to set font family, should wrok in theory
