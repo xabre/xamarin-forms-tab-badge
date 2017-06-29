@@ -73,8 +73,24 @@ namespace Plugin.Badge.Droid
                 badgeView.BadgeColor = tabColor.ToAndroid();
             }
 
+            // set text color if not default
+            var tabTextColor = TabBadge.GetBadgeTextColor(element);
+            if (tabTextColor != Color.Default)
+            {
+                badgeView.TextColor = tabTextColor.ToAndroid();
+            }
+
+            // set font if not default
+            var font = TabBadge.GetBadgeFont(element);
+            if (font != Font.Default)
+            {
+                badgeView.SetTypeface(font.ToTypeface(), Android.Graphics.TypefaceStyle.Normal);
+            }
+
             element.PropertyChanged += OnTabbedPagePropertyChanged;
         }
+
+
 
         protected virtual void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -96,6 +112,20 @@ namespace Plugin.Badge.Droid
             if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
             {
                 badgeView.BadgeColor = TabBadge.GetBadgeColor(element).ToAndroid();
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeTextColorProperty.PropertyName)
+            {
+                badgeView.TextColor = TabBadge.GetBadgeTextColor(element).ToAndroid();
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeFontProperty.PropertyName)
+            {
+                var font = TabBadge.GetBadgeFont(element);
+                badgeView.SetTypeface(font.ToTypeface(), Android.Graphics.TypefaceStyle.Normal);
+                return;
             }
         }
 

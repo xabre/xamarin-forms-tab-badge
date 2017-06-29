@@ -5,7 +5,7 @@
              x:Class="Plugin.Badge.Sample.TabXaml">
   <TabbedPage.Children>
     <ContentPage Title="Tab1" 
-                 Icon="icontab1.png"
+                 Icon="icontab1.png"                 
                  plugin:TabBadge.BadgeText="{Binding Count}">
       <StackLayout></StackLayout>
     </ContentPage>

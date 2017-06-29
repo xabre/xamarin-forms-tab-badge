@@ -27,10 +27,21 @@ namespace Plugin.Badge.Sample.ViewModels
             Color.Red,
             Color.Silver,
             Color.Teal,
-            Color.Transparent
+            Color.White,
+            Color.Wheat,
+            Color.WhiteSmoke
         };
-    
+
+        private static readonly List<Font> Fonts = new List<Font>()
+        {
+            Font.Default.WithAttributes(FontAttributes.Bold),
+            Font.Default.WithAttributes(FontAttributes.Italic),
+            Font.Default.WithAttributes(FontAttributes.Bold | FontAttributes.Italic),
+            Font.Default.WithAttributes(FontAttributes.None)
+        };
+
         public Color BadgeColor { get; private set; }
+        public Color BadgeTextColor { get; private set; }
 
         public ICommand ChangeColorCommand => new Command((obj) =>
         {
@@ -40,6 +51,16 @@ namespace Plugin.Badge.Sample.ViewModels
 
             BadgeColor = Colors[_color];
             RaisePropertyChanged(nameof(BadgeColor));
+        });
+
+        public ICommand ChangeTextColorCommand => new Command((obj) =>
+        {
+            _textColor--;
+            if (_textColor < 0)
+                _textColor = Colors.Count - 1;
+
+            BadgeTextColor = Colors[_textColor];
+            RaisePropertyChanged(nameof(BadgeTextColor));
         });
 
         public ICommand IncrementCommand => new Command((obj) =>
@@ -56,9 +77,23 @@ namespace Plugin.Badge.Sample.ViewModels
            RaisePropertyChanged(nameof(Count));
        });
 
+        public ICommand ChangeFontAttributesCommand => new Command((obj) =>
+        {
+            _fontIndex++;
+            if (_fontIndex >= Fonts.Count)
+                _fontIndex = 0;
+            BadgeFont = Fonts[_fontIndex];
+            RaisePropertyChanged(nameof(BadgeFont));
+        });
+
         private int _count = 0;
         private int _color = 0;
+        private int _textColor = 0;
+        private int _fontIndex = 0;
+
         public string Count => _count <= 0 ? string.Empty : _count.ToString();
+
+        public Font BadgeFont { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

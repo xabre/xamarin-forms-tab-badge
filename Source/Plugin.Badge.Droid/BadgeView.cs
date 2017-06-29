@@ -67,7 +67,7 @@ namespace Plugin.Badge.Droid
         }
 
         private void Init(Context context, View target)
-        {
+        {            
             _context = context;
             Target = target;
 

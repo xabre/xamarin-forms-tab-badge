@@ -107,6 +107,14 @@ namespace Plugin.Badge.Sample
             buttonChangeColor.SetBinding(Button.CommandProperty, "ChangeColorCommand");
             tab1Layout.Children.Add(buttonChangeColor);
 
+            var buttonChangeTextColor = new Button { Text = "Change Text Color" };
+            buttonChangeTextColor.SetBinding(Button.CommandProperty, "ChangeTextColorCommand");
+            tab1Layout.Children.Add(buttonChangeTextColor);
+
+            var buttonChangeFontAttributes = new Button { Text = "Change Font Attributes" };
+            buttonChangeFontAttributes.SetBinding(Button.CommandProperty, "ChangeFontAttributesCommand");
+            tab1Layout.Children.Add(buttonChangeFontAttributes);
+
             var buttonAddTab = new Button() { Text = "Add tab" };
             buttonAddTab.Clicked += ButtonAddTab_Clicked;
             tab1Layout.Children.Add(buttonAddTab);
@@ -124,6 +132,8 @@ namespace Plugin.Badge.Sample
 
             tab1.SetBinding(TabBadge.BadgeTextProperty, new Binding("Count"));
             tab1.SetBinding(TabBadge.BadgeColorProperty, new Binding("BadgeColor"));
+            tab1.SetBinding(TabBadge.BadgeTextColorProperty, new Binding("BadgeTextColor"));
+            tab1.SetBinding(TabBadge.BadgeFontProperty, new Binding("BadgeFont"));
 
             tab1.BindingContext = new Tab1ViewModel();
             return tab1;

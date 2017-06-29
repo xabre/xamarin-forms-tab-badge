@@ -34,13 +34,44 @@ namespace Plugin.Badge.iOS
                 var tabBarItem = TabBar.Items[tabIndex];
                 UpdateTabBadgeText(tabBarItem, element);
                 UpdateTabBadgeColor(tabBarItem, element);
+
+                tabBarItem.SetBadgeTextAttributes(new UIStringAttributes(), UIControlState.Normal);
+                UpdateTabBadgeTextAttributes(tabBarItem, element);
             }
         }
+
         private void UpdateTabBadgeText(UITabBarItem tabBarItem, Element element)
         {
             var text = TabBadge.GetBadgeText(element);
 
             tabBarItem.BadgeValue = string.IsNullOrEmpty(text) ? null : text;
+        }
+
+        private void UpdateTabBadgeTextAttributes(UITabBarItem tabBarItem, Element element)
+        {
+            //ToDO ios <10
+            //if (!tabBarItem.RespondsToSelector(new ObjCRuntime.Selector("setBadgeTextAttributes:")))
+            //{
+            //    // method not available, ios < 10
+            //    Console.WriteLine("Plugin.Badge: badge text attributes only available starting with iOS 10.0.");
+
+            //}
+
+            var attrs = new UIStringAttributes();
+
+            var textColor = TabBadge.GetBadgeTextColor(element);
+            if (textColor != Color.Default)
+            {
+                attrs.ForegroundColor = textColor.ToUIColor();
+            }
+
+            var font = TabBadge.GetBadgeFont(element);
+            if (font != Font.Default)
+            {
+                attrs.Font = font.ToUIFont();
+            }
+
+            tabBarItem.SetBadgeTextAttributes(attrs, UIControlState.Normal);
         }
 
         private void UpdateTabBadgeColor(UITabBarItem tabBarItem, Element element)
@@ -51,7 +82,7 @@ namespace Plugin.Badge.iOS
                 Console.WriteLine("Plugin.Badge: badge color only available starting with iOS 10.0.");
                 return;
             }
-            
+
             var tabColor = TabBadge.GetBadgeColor(element);
             if (tabColor != Color.Default)
             {
@@ -67,18 +98,30 @@ namespace Plugin.Badge.iOS
 
             if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
-                var tabIndex = Tabbed.Children.IndexOf(page);
-                if (tabIndex < TabBar.Items.Length)
+                if (CheckValidTabIndex(page, out int tabIndex))
                     UpdateTabBadgeText(TabBar.Items[tabIndex], page);
                 return;
             }
 
             if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
             {
-                var tabIndex = Tabbed.Children.IndexOf(page);
-                if (tabIndex < TabBar.Items.Length)
+                if (CheckValidTabIndex(page, out int tabIndex))
                     UpdateTabBadgeColor(TabBar.Items[tabIndex], page);
+                return;
             }
+
+            if (e.PropertyName == TabBadge.BadgeTextColorProperty.PropertyName || e.PropertyName == TabBadge.BadgeFontProperty.PropertyName)
+            {
+                if (CheckValidTabIndex(page, out int tabIndex))
+                    UpdateTabBadgeTextAttributes(TabBar.Items[tabIndex], page);
+                return;
+            }
+        }
+
+        public bool CheckValidTabIndex(Page page, out int tabIndex)
+        {
+            tabIndex = Tabbed.Children.IndexOf(page);
+            return tabIndex < TabBar.Items.Length;
         }
 
         private async void OnTabAdded(object sender, ElementEventArgs e)
