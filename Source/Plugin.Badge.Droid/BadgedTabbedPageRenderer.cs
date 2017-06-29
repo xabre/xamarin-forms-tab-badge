@@ -84,7 +84,7 @@ namespace Plugin.Badge.Droid
             var font = TabBadge.GetBadgeFont(element);
             if (font != Font.Default)
             {
-                badgeView.SetTypeface(font.ToTypeface(), Android.Graphics.TypefaceStyle.Normal);
+                badgeView.Typeface = font.ToTypeface();
             }
 
             element.PropertyChanged += OnTabbedPagePropertyChanged;
@@ -123,8 +123,7 @@ namespace Plugin.Badge.Droid
 
             if (e.PropertyName == TabBadge.BadgeFontProperty.PropertyName)
             {
-                var font = TabBadge.GetBadgeFont(element);
-                badgeView.SetTypeface(font.ToTypeface(), Android.Graphics.TypefaceStyle.Normal);
+                badgeView.Typeface = TabBadge.GetBadgeFont(element).ToTypeface();
                 return;
             }
         }
