@@ -15,6 +15,7 @@
 | Dynamic tab add/removal | ✓* | On overflow, 'More' / '...' menu don't have badges...yet. |
 
 *Caution: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
+
 *\*Font restrictions: able to bind font attributes and family but not size
 
 ## Installation
