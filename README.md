@@ -6,17 +6,17 @@
 
 ## Support & Limitations
 
-| Feature / Availability  | Xamarin.Android | Xamarin.iOS |
+| Feature / Availability  | Xamarin.Android\* | Xamarin.iOS |
 | ------------- | ----------- | ----------- |
-| Bindable Badge Text | ✓* | ✓ (iOS >=8.0) |
-| Bindable Badge Color | ✓* | ✓ (iOS >= 10.0) |
-| Bindable Badge Text Color | ✓* | ✓ (iOS >= 10.0) |
-| Bindable Badge Font | ✓ | ✓ *\*(iOS >= 10.0) |
-| Dynamic tab add/removal | ✓* | On overflow, 'More' / '...' menu don't have badges...yet. |
+| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) |
+| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) |
+| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) |
+| Bindable Badge Font | ✓\*\* | ✓ \*\*(iOS >= 10.0) |
+| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. |
 
-*Caution: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
+\***Caution**: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
 
-*\*Font restrictions: able to bind font attributes and family but not size
+\*\***Font restrictions**: able to bind font attributes and family but not size
 
 ## Installation
 
