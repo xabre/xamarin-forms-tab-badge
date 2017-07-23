@@ -33,9 +33,7 @@ namespace Plugin.Badge.iOS
             {
                 var tabBarItem = TabBar.Items[tabIndex];
                 UpdateTabBadgeText(tabBarItem, element);
-                UpdateTabBadgeColor(tabBarItem, element);
-
-                tabBarItem.SetBadgeTextAttributes(new UIStringAttributes(), UIControlState.Normal);
+                UpdateTabBadgeColor(tabBarItem, element);                               
                 UpdateTabBadgeTextAttributes(tabBarItem, element);
             }
         }
@@ -49,13 +47,12 @@ namespace Plugin.Badge.iOS
 
         private void UpdateTabBadgeTextAttributes(UITabBarItem tabBarItem, Element element)
         {
-            //ToDO ios <10
-            //if (!tabBarItem.RespondsToSelector(new ObjCRuntime.Selector("setBadgeTextAttributes:")))
-            //{
-            //    // method not available, ios < 10
-            //    Console.WriteLine("Plugin.Badge: badge text attributes only available starting with iOS 10.0.");
-
-            //}
+            if (!tabBarItem.RespondsToSelector(new ObjCRuntime.Selector("setBadgeTextAttributes:forState:")))
+            {
+                // method not available, ios < 10
+                Console.WriteLine("Plugin.Badge: badge text attributes only available starting with iOS 10.0.");
+                return;
+            }
 
             var attrs = new UIStringAttributes();
 
