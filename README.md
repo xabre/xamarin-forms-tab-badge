@@ -6,13 +6,17 @@
 
 ## Support & Limitations
 
-| Feature / Availability  | Xamarin.Android | Xamarin.iOS |
+| Feature / Availability  | Xamarin.Android\* | Xamarin.iOS |
 | ------------- | ----------- | ----------- |
-| Bindable Badge Text | ✓* | ✓ (iOS >=8.0) |
-| Bindable Badge Color | ✓* | ✓ (iOS >= 10.0) |
-| Dynamic tab add/removal | ✓* | On overflow, 'More' / '...' menu don't have badges...yet. |
+| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) |
+| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) |
+| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) |
+| Bindable Badge Font | ✓\*\* | ✓ \*\*(iOS >= 10.0) |
+| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. |
 
-*Caution: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
+\***Caution**: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
+
+\*\***Font restrictions**: able to bind font attributes and family but not size
 
 ## Installation
 
@@ -108,6 +112,22 @@ tab1.SetBinding(TabBadge.BadgeTextProperty, new Binding("Count"));
 Very similar to `BadgeText` just use [`TabBadge.BadgeColor` (XAML) or `TabBadge.BadgeColorPropery` (CSharp)].
 
 <img src="Screencasts/xamarin.forms.tabbadge.colors.png" height="100"/>
+
+### Badge Text Color
+
+Very similar to `BadgeColor` just use [`TabBadge.BadgeTextColor` (XAML) or `TabBadge.BadgeTextColorPropery` (CSharp)].
+
+<img src="Screencasts/xamarin.forms.tabbadge.textcolors.PNG" height="100"/>
+
+### Badge Font Attributes
+
+Very similar to `BadgeColor` just use [`TabBadge.BadgeFont` (XAML) or `TabBadge.BadgeFontPropery` (CSharp)].
+
+<img src="Screencasts/xamarin.forms.tabbadge.fontattributes.PNG" height="100"/>
+
+ToDo:
+- you can alo try to set font family, should wrok in theory
+- font size is not supported yet on android ......
 
 ## Showning / Hiding the badge
 If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
