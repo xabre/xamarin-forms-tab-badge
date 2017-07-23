@@ -126,7 +126,7 @@ Very similar to `BadgeColor` just use [`TabBadge.BadgeFont` (XAML) or `TabBadge.
 <img src="Screencasts/xamarin.forms.tabbadge.fontattributes.PNG" height="100"/>
 
 ToDo:
-- you can alo try to set font family, should wrok in theory
+- you can alo try to set font family, should work in theory
 - font size is not supported yet on android ......
 
 ## Showning / Hiding the badge

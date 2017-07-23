@@ -1,11 +1,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
-    <!--<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>-->
     <projectUrl>https://github.com/xabre/xamarin-forms-tab-badge</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
@@ -15,10 +14,12 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.1.1]
+      - #22 #24 Responds to selector check for iOS text attributes. Prevents crash for versions earlier than iOS 10.
       [1.1.0]
       - #19 Badge Text Color
       - #20 Badge font and font attributes
-      - #15 final fix for missing method in android      
+      - #15 final fix for missing method in android
       [1.0.2]
       - #15 fixed support for android support libs 25.3.1
       - tested sample app with latest XF and android support version
