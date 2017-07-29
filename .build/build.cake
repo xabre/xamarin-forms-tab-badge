@@ -19,7 +19,7 @@ void BuildProject(string projectName, string targetSubDir)
     Information("Building {0} ...", projectName);
     var project = GetProjectDir(projectName);
     var outputDir = Path.Combine(BuildTargetDir, targetSubDir);
-    DotNetBuild(project, settings => settings
+    MSBuild(project, settings => settings
             .SetConfiguration("Release")           
             .WithTarget("Build")
             .WithProperty("outputPath", outputDir));

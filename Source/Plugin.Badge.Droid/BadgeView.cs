@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
 using Android.Graphics.Drawables.Shapes;
+using Android.Support.V4.View;
 
 namespace Plugin.Badge.Droid
 {
@@ -94,7 +95,7 @@ namespace Plugin.Badge.Droid
             };
 
             _backgroundShape = CreateBackgroundShape();
-            Background = _backgroundShape;
+            ViewCompat.SetBackground(this, _backgroundShape);
             BadgeColor = _defaultBadgeColor;
 
             if (Target != null)
