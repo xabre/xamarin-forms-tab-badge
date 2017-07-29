@@ -15,7 +15,7 @@
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
       [1.1.2]
-      - #23 Use ViewCompat.SetBackgorund to prevent missing method crash on Android API 15
+      - #23 Use ViewCompat.SetBackground to prevent missing method crash on Android API 15
       [1.1.1]
       - #22 #24 Responds to selector check for iOS text attributes. Prevents crash for versions earlier than iOS 10.
       [1.1.0]
