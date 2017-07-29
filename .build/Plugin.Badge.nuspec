@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
@@ -14,6 +14,8 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.1.2]
+      - #23 Use ViewCompat.SetBackgorund to prevent missing method crash on Android API 15
       [1.1.1]
       - #22 #24 Responds to selector check for iOS text attributes. Prevents crash for versions earlier than iOS 10.
       [1.1.0]
