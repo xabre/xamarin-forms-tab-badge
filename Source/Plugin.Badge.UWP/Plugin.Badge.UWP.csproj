@@ -107,6 +107,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BadgedTabbedPageRenderer.cs" />
+    <Compile Include="BadgeColorConverter.cs" />
+    <Compile Include="BadgeFontSizeConverter.cs" />
+    <Compile Include="BadgeFontWeightConverter.cs" />
+    <Compile Include="BadgeTextColorConverter.cs" />
+    <Compile Include="BadgeFontStyleConverter.cs" />
+    <Compile Include="BadgeVisibilityConverter.cs" />
+    <Compile Include="BadgeTextConverter.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="HeaderTemplate.xaml.cs">
+      <DependentUpon>HeaderTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Plugin.Badge.UWP.rd.xml" />
   </ItemGroup>
@@ -123,6 +134,12 @@
       <Project>{99155358-bfe1-4e45-8f84-78614f69b7fc}</Project>
       <Name>Plugin.Badge.Abstractions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="HeaderTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
