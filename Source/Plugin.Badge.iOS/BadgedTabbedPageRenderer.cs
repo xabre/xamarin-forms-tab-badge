@@ -11,17 +11,28 @@ namespace Plugin.Badge.iOS
     [Preserve]
     public class BadgedTabbedPageRenderer : TabbedRenderer
     {
+        protected override void OnElementChanged(VisualElementChangedEventArgs e)
+        {
+            base.OnElementChanged(e);
+
+            // make sure we cleanup old event registrations
+            Cleanup(e.OldElement as TabbedPage);
+        }
+
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
+
+            // make sure we cleanup old event registrations
+            Cleanup(Tabbed);
 
             for (var i = 0; i < TabBar.Items.Length; i++)
             {
                 AddTabBadge(i);
             }
 
-            Element.ChildAdded += OnTabAdded;
-            Element.ChildRemoved += OnTabRemoved;
+            Tabbed.ChildAdded += OnTabAdded;
+            Tabbed.ChildRemoved += OnTabRemoved;
         }
 
         private void AddTabBadge(int tabIndex)
@@ -33,7 +44,7 @@ namespace Plugin.Badge.iOS
             {
                 var tabBarItem = TabBar.Items[tabIndex];
                 UpdateTabBadgeText(tabBarItem, element);
-                UpdateTabBadgeColor(tabBarItem, element);                               
+                UpdateTabBadgeColor(tabBarItem, element);
                 UpdateTabBadgeTextAttributes(tabBarItem, element);
             }
         }
@@ -140,20 +151,25 @@ namespace Plugin.Badge.iOS
 
         protected override void Dispose(bool disposing)
         {
-            if (Tabbed != null)
-            {
-                foreach (var tab in Tabbed.Children)
-                {
-                    tab.PropertyChanged -= OnTabbedPagePropertyChanged;
-                }
-
-                Tabbed.ChildAdded -= OnTabAdded;
-                Tabbed.ChildRemoved -= OnTabRemoved;
-            }
-
-
+            Cleanup(Tabbed);
 
             base.Dispose(disposing);
+        }
+
+        private void Cleanup(TabbedPage page)
+        {
+            if (page == null)
+            {
+                return;
+            }
+
+            foreach (var tab in page.Children)
+            {
+                tab.PropertyChanged -= OnTabbedPagePropertyChanged;
+            }
+
+            page.ChildAdded -= OnTabAdded;
+            page.ChildRemoved -= OnTabRemoved;
         }
     }
 }

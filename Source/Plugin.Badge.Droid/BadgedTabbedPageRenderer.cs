@@ -22,10 +22,14 @@ namespace Plugin.Badge.Droid
         {
             base.OnElementChanged(e);
 
+            // make sure we cleanup old event registrations
+            Cleanup(e.OldElement);
+            Cleanup(Element);
+
             _tabLayout = ViewGroup.FindChildOfType<TabLayout>();
             if (_tabLayout == null)
             {
-                Console.WriteLine("Plugin.Badge: No TabLayout found. Bedge not added.");
+                Console.WriteLine("Plugin.Badge: No TabLayout found. Badge not added.");
                 return;
             }
 
@@ -148,22 +152,27 @@ namespace Plugin.Badge.Droid
 
         protected override void Dispose(bool disposing)
         {
-            if (Element != null)
-            {
-                foreach (var tab in Element.Children)
-                {
-                    tab.PropertyChanged -= OnTabbedPagePropertyChanged;
-                }
-
-                Element.ChildRemoved -= OnTabRemoved;
-                Element.ChildAdded -= OnTabAdded;
-
-                BadgeViews.Clear();
-            }
+            Cleanup(Element);
 
             base.Dispose(disposing);
         }
 
+        private void Cleanup(TabbedPage page)
+        {
+            if (page == null)
+            {
+                return;
+            }
 
+            foreach (var tab in page.Children)
+            {
+                tab.PropertyChanged -= OnTabbedPagePropertyChanged;
+            }
+
+            page.ChildRemoved -= OnTabRemoved;
+            page.ChildAdded -= OnTabAdded;
+
+            BadgeViews.Clear();
+        }
     }
 }
