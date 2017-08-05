@@ -138,7 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Plugin.Badge.UWP\Plugin.Badge.UWP.csproj">
-      <Project>{B1E432D3-6D60-4125-BA49-F4B6BEAD2E15}</Project>
+      <Project>{b1e432d3-6d60-4125-ba49-f4b6bead2e15}</Project>
       <Name>Plugin.Badge.UWP</Name>
     </ProjectReference>
     <ProjectReference Include="..\Plugin.Badge.Sample\Plugin.Badge.Sample.csproj">
