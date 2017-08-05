@@ -97,6 +97,7 @@ Target "build" (fun _ ->
     Build("Plugin.Badge.Abstractions", "pcl")
     Build("Plugin.Badge.Droid", "android")
     Build("Plugin.Badge.iOS", "ios")
+    Build("Plugin.Badge.UWP", "uwp")
 )
 
 Target "nupack" (fun _ ->

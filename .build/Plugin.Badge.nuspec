@@ -14,6 +14,8 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.2.0-beta] 
+      - #26 UWP support
       [1.1.2]
       - #23 Use ViewCompat.SetBackground to prevent missing method crash on Android API 15
       [1.1.1]
@@ -37,17 +39,27 @@
       <group targetFramework="Xamarin.iOS">
         <dependency id="Xamarin.Forms" version="2.3.0.107" />
       </group>
-      <group targetFramework="portable-net45+win8+wpa81+wp8">
+      <group targetFramework="portable-net45+win+wpa81+wp80">
+        <dependency id="Xamarin.Forms" version="2.3.0.107" />
+      </group>
+      <group targetFramework="uap">
         <dependency id="Xamarin.Forms" version="2.3.0.107" />
       </group>
     </dependencies>
   </metadata>
   <files>
+
     <!-- PCL -->
     <file src="pcl\Plugin.Badge.*" target="lib\portable-net45+win8+wpa81+wp8" />
+
     <!-- droid -->
     <file src="android\Plugin.Badge.*" target="lib\MonoAndroid" />
+
     <!-- iOS -->
     <file src="ios\Plugin.Badge.*" target="lib\Xamarin.iOS10" />
+
+    <!-- uap -->
+    <file src="uwp\Plugin.Badge.*" target="lib\UAP10" />
+
   </files>
 </package>
