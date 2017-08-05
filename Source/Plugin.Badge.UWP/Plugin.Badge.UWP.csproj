@@ -107,18 +107,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BadgedTabbedPageRenderer.cs" />
-    <Compile Include="BadgeColorConverter.cs" />
-    <Compile Include="BadgeFontSizeConverter.cs" />
-    <Compile Include="BadgeFontWeightConverter.cs" />
-    <Compile Include="BadgeTextColorConverter.cs" />
-    <Compile Include="BadgeFontStyleConverter.cs" />
-    <Compile Include="BadgeVisibilityConverter.cs" />
-    <Compile Include="BadgeTextConverter.cs" />
+    <Compile Include="Converters\BadgeColorConverter.cs" />
+    <Compile Include="Converters\BadgeFontSizeConverter.cs" />
+    <Compile Include="Converters\BadgeFontWeightConverter.cs" />
+    <Compile Include="Converters\BadgeTextColorConverter.cs" />
+    <Compile Include="Converters\BadgeFontStyleConverter.cs" />
+    <Compile Include="Converters\BadgeVisibilityConverter.cs" />
+    <Compile Include="Converters\BadgeTextConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="HeaderTemplate.xaml.cs">
       <DependentUpon>HeaderTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Converters\TabIconConverter.cs" />
     <EmbeddedResource Include="Properties\Plugin.Badge.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>

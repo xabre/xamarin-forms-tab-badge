@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="Plugin.Badge.UWP.HeaderTemplate"
+﻿<UserControl x:Name="userControl"
+             x:Class="Plugin.Badge.UWP.HeaderTemplate"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Plugin.Badge.UWP"
@@ -15,19 +16,30 @@
         <local:BadgeFontSizeConverter x:Key="BadgeFontSizeConverter" />
         <local:BadgeFontStyleConverter x:Key="BadgeFontStyleConverter" />
         <local:BadgeFontWeightConverter x:Key="BadgeFontWeightConverter" />
+        <local:TabIconConverter x:Key="TabIconConverter" />
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <DataTemplate x:Key="HeaderTemplate">
             <RelativePanel>
+                <Image x:Name="icon"
+                       Source="{Binding Icon, Converter={StaticResource TabIconConverter}}"
+                       MaxHeight="30"
+                       Margin="10,5"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+                       ToolTipService.ToolTip="{Binding Title}" />
                 <TextBlock x:Name="title"
                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                           Text="{Binding Title}" />
+                           Text="{Binding Title}"                           
+                           Margin="10,0"
+                           Visibility="{Binding ElementName=icon, Path=Source, Converter={StaticResource NullToVisibilityConverter}}" />
                 <Grid CornerRadius="11"
                       Visibility="{Binding Converter={StaticResource BadgeVisibilityConverter}}"
                       Background="{Binding Converter={StaticResource BadgeColorConverter}}"
-                      RelativePanel.RightOf="title"
+                      RelativePanel.AlignRightWithPanel="True"
                       RelativePanel.AlignTopWithPanel="True"
-                      Padding="3,1,3,2">
-                    <TextBlock Text="00"
+                      Padding="2.5,0.5,3,1.5">
+                    <TextBlock Text="99"
                                Opacity="0"
                                FontSize="{Binding Converter={StaticResource BadgeFontSizeConverter}}" />
                     <TextBlock Text="{Binding Converter={StaticResource BadgeTextConverter}}"
@@ -37,6 +49,7 @@
                                Foreground="{Binding Converter={StaticResource BadgeTextColorConverter}}"
                                TextAlignment="Center" />
                 </Grid>
+
             </RelativePanel>
         </DataTemplate>
     </UserControl.Resources>

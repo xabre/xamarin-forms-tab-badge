@@ -22,7 +22,7 @@ namespace Plugin.Badge.Sample
             _tabbedPage = new TabbedPage
             {
                 Title = "Tab badge sample",
-                Children ={
+                Children = {
                     tab1,
                     tab2,
                     tab3
@@ -64,12 +64,22 @@ namespace Plugin.Badge.Sample
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.Center,
+                    Orientation = StackOrientation.Vertical,
+                    BackgroundColor = Color.AliceBlue,
                     Children =
                     {
                         new Label
                         {
                             HorizontalTextAlignment = TextAlignment.Center,
                             Text = "Welcome to Xamarin Forms Tab2!"
+                        },
+                        new Image
+                        {
+
+                            Margin = new Thickness(0, 40),
+                            VerticalOptions = LayoutOptions.CenterAndExpand,
+                            HorizontalOptions = LayoutOptions.Center,
+                            Source = "tabicon.png"
                         }
                     }
                 }

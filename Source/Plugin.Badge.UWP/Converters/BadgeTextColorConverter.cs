@@ -1,16 +1,10 @@
 ﻿using Plugin.Badge.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 using Xamarin.Forms;
 
 namespace Plugin.Badge.UWP
 {
-    public class BadgeFontStyleConverter : Windows.UI.Xaml.Data.IValueConverter
+    public class BadgeTextColorConverter : Windows.UI.Xaml.Data.IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -18,14 +12,16 @@ namespace Plugin.Badge.UWP
             var element = value as Element;
             if (element != null)
             {
-                var font = TabBadge.GetBadgeFont(element);
-                if (font.FontAttributes.HasFlag(FontAttributes.Italic))
+                var color = TabBadge.GetBadgeTextColor(element);
+                if (color == Color.Default)
                 {
-                    return Windows.UI.Text.FontStyle.Italic;
+                    color = Color.Black;
                 }
+
+                return color.ToBrush();
             }
 
-            return Windows.UI.Text.FontStyle.Normal;
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

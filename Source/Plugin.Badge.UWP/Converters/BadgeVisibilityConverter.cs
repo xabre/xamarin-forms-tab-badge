@@ -1,16 +1,11 @@
 ﻿using Plugin.Badge.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml;
 using Xamarin.Forms;
 
 namespace Plugin.Badge.UWP
 {
-    public class BadgeColorConverter : Windows.UI.Xaml.Data.IValueConverter
+    public class BadgeVisibilityConverter : Windows.UI.Xaml.Data.IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -18,16 +13,10 @@ namespace Plugin.Badge.UWP
             var element = value as Element;
             if (element != null)
             {
-                var color = TabBadge.GetBadgeColor(element);
-                if (color == Color.Default)
-                {
-                    color = Color.Red;
-                }
-
-                return color.ToBrush();
+                return string.IsNullOrEmpty(TabBadge.GetBadgeText(element)) ? Visibility.Collapsed : Visibility.Visible;
             }
 
-            return null;
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

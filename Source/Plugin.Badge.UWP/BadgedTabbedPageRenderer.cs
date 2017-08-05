@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Markup;
-using Windows.UI.Xaml.Media;
+﻿using Windows.UI.Xaml;
 using Xamarin.Forms.Platform.UWP;
 
 namespace Plugin.Badge.UWP
@@ -21,25 +11,13 @@ namespace Plugin.Badge.UWP
             base.OnElementChanged(e);
 
             var template = Control.HeaderTemplate;
-            //Control.ToolbarBackground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x00, 0x00));
 
-            //var assembly = this.GetType().GetTypeInfo().Assembly;
-            //var all = assembly.GetManifestResourceNames();
 
-            //using (Stream stream = assembly.GetManifestResourceStream(all.First(s => s.Contains("Resources.xaml"))))
-            //using (StreamReader reader = new StreamReader(stream))
-            //{
-            //    string result = reader.ReadToEnd();
-            //    var resources = (ResourceDictionary)XamlReader.Load(result);
-            //    Control.HeaderTemplate = resources["HeaderTemplate"] as DataTemplate;
-            //}
+            Control.HeaderTemplate = header.Resources[nameof(HeaderTemplate)] as DataTemplate;
 
-           
-            Control.HeaderTemplate = header.Resources["HeaderTemplate"] as DataTemplate;
-
-            foreach(var tab in Element.Children)
+            foreach (var tab in Element.Children)
             {
-                tab.PropertyChanged += Tab_PropertyChanged;
+                tab.PropertyChanged += Tab_PropertyChanged;                              
             }
         }
 
@@ -47,8 +25,9 @@ namespace Plugin.Badge.UWP
         {
             if (e.PropertyName.StartsWith("Badge"))
             {
+                //ToDo find a better way to refresh the bindings, this causes flickering for the tab icon
                 Control.HeaderTemplate = null;
-                Control.HeaderTemplate = header.Resources["HeaderTemplate"] as DataTemplate;
+                Control.HeaderTemplate = header.Resources[nameof(HeaderTemplate)] as DataTemplate;
             }
         }
 
