@@ -7,7 +7,7 @@
 ## Support & Limitations
 
 | Feature / Availability  | Xamarin.Android\* | Xamarin.iOS | UWP\*\*\* |
-| ------------- | ----------- | ----------- |
+| ------------- | ----------- | ----------- | ----------- |
 | Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ |
 | Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
 | Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
@@ -19,7 +19,7 @@
 
 \*\***Font restrictions**: able to bind font attributes and family but not size
 
-\*\*\* Min UWP version: Win 10 November Update.
+\*\*\* **Min UWP version**: Win 10 November Update.
 
 ## Installation
 
