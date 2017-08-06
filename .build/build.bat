@@ -1,4 +1,4 @@
 @echo off
-".nuget/nuget.exe" install FAKE -Version 4.61.3
+".nuget/nuget.exe" install FAKE -Version 4.63.0
 
-"FAKE.4.61.3/tools/FAKE.exe" build.fsx %*
+"FAKE.4.63.0/tools/FAKE.exe" build.fsx %*

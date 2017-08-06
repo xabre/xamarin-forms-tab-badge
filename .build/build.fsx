@@ -1,5 +1,5 @@
 ﻿// don't forget nuget setapikey <key> before publish ;)
-#r @"FAKE.4.61.3/tools/FakeLib.dll"
+#r @"FAKE.4.63.0/tools/FakeLib.dll"
 #r "System.Xml.Linq"
 
 open System.Xml.Linq
