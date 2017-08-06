@@ -132,14 +132,15 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>5.3.3</Version>
     </PackageReference>
-    <PackageReference Include="Plugin.Badge">
-      <Version>1.2.0-beta</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>2.3.4.247</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Plugin.Badge.UWP\Plugin.Badge.UWP.csproj">
+      <Project>{b1e432d3-6d60-4125-ba49-f4b6bead2e15}</Project>
+      <Name>Plugin.Badge.UWP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plugin.Badge.Sample\Plugin.Badge.Sample.csproj">
       <Project>{e66692ba-0ba6-4b5c-a519-dd0102b88231}</Project>
       <Name>Plugin.Badge.Sample</Name>
