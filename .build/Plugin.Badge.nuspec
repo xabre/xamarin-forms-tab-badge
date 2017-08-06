@@ -36,16 +36,16 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework="MonoAndroid">
-        <dependency id="Xamarin.Forms" version="2.3.0.107" />
+        <dependency id="Xamarin.Forms" version="2.3.4.247" />
       </group>
       <group targetFramework="Xamarin.iOS">
-        <dependency id="Xamarin.Forms" version="2.3.0.107" />
+        <dependency id="Xamarin.Forms" version="2.3.4.247" />
       </group>
       <group targetFramework="portable-net45+win+wpa81+wp80">
-        <dependency id="Xamarin.Forms" version="2.3.0.107" />
+        <dependency id="Xamarin.Forms" version="2.3.4.247" />
       </group>
-      <group targetFramework="uap">
-        <dependency id="Xamarin.Forms" version="2.3.0.107" />
+      <group targetFramework="uap10.0">
+        <dependency id="Xamarin.Forms" version="2.3.4.247" />
       </group>
     </dependencies>
   </metadata>
@@ -57,6 +57,7 @@
     <!-- iOS -->
     <file src="ios\Plugin.Badge.*" target="lib\Xamarin.iOS10" />
     <!-- uap -->
-    <file src="uwp\Plugin.Badge.*" target="lib\UAP10" />
+    <file src="uwp\Plugin.Badge.*" target="lib\uap10.0" />
+    <file src="uwp\Plugin.Badge.*.xr" target="lib\uap10.0" />
   </files>
 </package>
