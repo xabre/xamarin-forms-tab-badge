@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>1.2.0-beta</version>
+    <version>1.2.0-beta2</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
@@ -58,6 +58,6 @@
     <file src="ios\Plugin.Badge.*" target="lib\Xamarin.iOS10" />
     <!-- uap -->
     <file src="uwp\Plugin.Badge.*" target="lib\uap10.0" />
-    <file src="uwp\Plugin.Badge.*.xr" target="lib\uap10.0" />
+    <!--<file src="uwp\Plugin.Badge.*.xml" target="lib\uap10.0\Plugin.Badge.UWP" />-->
   </files>
 </package>
