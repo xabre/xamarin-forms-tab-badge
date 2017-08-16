@@ -1,27 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AppKit;
+using Plugin.Badge.Abstractions;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.MacOS;
 
 namespace Plugin.Badge.Mac
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
     {
-        public BadgedTabbedPageRenderer()
-        {
-        }
+        protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
+        private NSSegmentedControl _segmentedControl;
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
-            
             base.OnElementChanged(e);
-
-            foreach(var item in this.TabViewItems){
-                item.ToolTip = "bla";
-            }
-
-
-
-
         }
 
         public override void ViewWillAppear()
@@ -29,44 +24,124 @@ namespace Plugin.Badge.Mac
             base.ViewWillAppear();
 
 
-			//foreach (var item in this.TabViewItems)
-			//{
-			//	item.ToolTip = "blabla";
-   //             item.View.Layer.BackgroundColor = new CoreGraphics.CGColor(0.1f, 0.5f, 0.7f);
-               
-   //             Console.WriteLine(item.View.GetType().Name);
-   //             foreach(var view in item.View.Subviews){
-   //                 Console.WriteLine(view.GetType().Name);
-   //             }
-			//}
-
-			foreach (var view in this.View.Subviews)
-			{
-				Console.WriteLine(view.GetType().Name);
-                if(view is NSSegmentedControl){
-                    var segmentedControl = view as NSSegmentedControl;
-                    segmentedControl.SegmentStyle = NSSegmentStyle.TexturedSquare;
-
-                    foreach (var segment in segmentedControl.Subviews)
-                    {
-                        
-                        var badge = new NSView(new CoreGraphics.CGRect(0, 0, 20, 20));
-                        badge.WantsLayer = true;
-                        badge.Layer.BackgroundColor = new CoreGraphics.CGColor(1f, 0f, 0f);
-                        //badge.AddConstraints(new []{});
-
-                        segment.AddSubview(badge);
-						var constraint = NSLayoutConstraint.Create(badge, NSLayoutAttribute.Right, NSLayoutRelation.Equal);
-                        badge.AddConstraint(constraint);
+            Cleanup(Tabbed);
 
 
-						Console.WriteLine(segment.GetType().Name);
-                    }
-                }
-			}
+            Tabbed.ChildAdded += OnTabAdded;
+            Tabbed.ChildRemoved += OnTabRemoved;
+
+            _segmentedControl = this.View.Subviews.FirstOrDefault(s => s is NSSegmentedControl) as NSSegmentedControl;
+            if (_segmentedControl == null)
+            {
+                Console.WriteLine("[TabBadge] No SegmentedControl found. Not adding tabs.");
+            }
 
 
+            _segmentedControl.SegmentStyle = NSSegmentStyle.TexturedSquare;
 
+            var tabWidth = this.View.Frame.Width / _segmentedControl.SegmentCount;
+
+			for (var i = 0; i < Tabbed.Children.Count; i++)
+            {
+                AddTabBadge(i);
+            }
+        }
+
+        protected virtual void AddTabBadge(int tabIndex)
+        {
+            var segment = _segmentedControl.Subviews[tabIndex];
+          
+			var element = Tabbed.Children[tabIndex];
+            element.PropertyChanged += OnTabbedPagePropertyChanged;
+
+            var badge = new BadgeView(segment, false)
+            {
+                Color = TabBadge.GetBadgeColor(element),
+                TextColor = TabBadge.GetBadgeTextColor(element),
+                Text = TabBadge.GetBadgeText(element)
+            };
+
+            BadgeViews.Add(element, badge);
+        }
+
+        protected virtual void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var element = sender as Element;
+            if (element == null)
+                return;
+
+            if (!BadgeViews.TryGetValue(element, out BadgeView badgeView))
+            {
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
+            {
+                badgeView.Text = TabBadge.GetBadgeText(element);
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeColorProperty.PropertyName)
+            {
+                badgeView.Color = TabBadge.GetBadgeColor(element);
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeTextColorProperty.PropertyName)
+            {
+                badgeView.TextColor = TabBadge.GetBadgeTextColor(element);
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeFontProperty.PropertyName)
+            {
+                badgeView.Font = TabBadge.GetBadgeFont(element);
+                return;
+            }
+        }
+
+        private void OnTabRemoved(object sender, ElementEventArgs e)
+        {
+            e.Element.PropertyChanged -= OnTabbedPagePropertyChanged;
+            BadgeViews.Remove(e.Element);
+        }
+
+        private async void OnTabAdded(object sender, ElementEventArgs e)
+        {
+            //workaround for XF, tabbar is not updated at this point and we have no way of knowing for sure when it will be updated. so we have to wait ... 
+            await Task.Delay(10);
+
+            var page = e.Element as Page;
+            if (page == null)
+                return;
+
+            var tabIndex = Tabbed.Children.IndexOf(page);
+            AddTabBadge(tabIndex);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            Cleanup(Tabbed);
+
+            base.Dispose(disposing);
+        }
+
+        private void Cleanup(TabbedPage page)
+        {
+            if (page == null)
+            {
+                return;
+            }
+
+            foreach (var tab in page.Children)
+            {
+                tab.PropertyChanged -= OnTabbedPagePropertyChanged;
+            }
+
+            page.ChildRemoved -= OnTabRemoved;
+            page.ChildAdded -= OnTabAdded;
+
+            BadgeViews.Clear();
         }
     }
 }
