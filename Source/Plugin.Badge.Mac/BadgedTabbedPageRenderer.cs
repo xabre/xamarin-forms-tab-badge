@@ -23,9 +23,7 @@ namespace Plugin.Badge.Mac
         {
             base.ViewWillAppear();
 
-
             Cleanup(Tabbed);
-
 
             Tabbed.ChildAdded += OnTabAdded;
             Tabbed.ChildRemoved += OnTabRemoved;
@@ -36,12 +34,11 @@ namespace Plugin.Badge.Mac
                 Console.WriteLine("[TabBadge] No SegmentedControl found. Not adding tabs.");
             }
 
-
             _segmentedControl.SegmentStyle = NSSegmentStyle.TexturedSquare;
 
             var tabWidth = this.View.Frame.Width / _segmentedControl.SegmentCount;
 
-			for (var i = 0; i < Tabbed.Children.Count; i++)
+            for (var i = 0; i < Tabbed.Children.Count; i++)
             {
                 AddTabBadge(i);
             }
@@ -50,8 +47,8 @@ namespace Plugin.Badge.Mac
         protected virtual void AddTabBadge(int tabIndex)
         {
             var segment = _segmentedControl.Subviews[tabIndex];
-          
-			var element = Tabbed.Children[tabIndex];
+
+            var element = Tabbed.Children[tabIndex];
             element.PropertyChanged += OnTabbedPagePropertyChanged;
 
             var badge = new BadgeView(segment, false)
