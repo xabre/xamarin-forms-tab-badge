@@ -37,17 +37,9 @@ Install-Package Plugin.Badge -Pre
 [![NuGet](https://img.shields.io/nuget/v/Plugin.Badge.svg?label=NuGet&style=flat-square)](https://www.nuget.org/packages/Plugin.Badge) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.Badge.svg?label=NuGet%20Beta&style=flat-square)](https://www.nuget.org/packages/Plugin.Badge)
 
 
-### iOS
+### iOS, Android, UWP, MacOS
 
-You have to register the custom renderer. I usually put this in the AssemblyInfo.cs file of my iOS csproj.
-
-```
-[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
-```
-
-### Android
-
-You have to register the custom renderer. I usually put this in the AssemblyInfo.cs file of my Android csproj.
+You have to register the custom renderer. I usually put this in the AssemblyInfo.cs file of my Platform specific project (iOS, Android, UWP, MacOS) csproj.
 
 ```
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
