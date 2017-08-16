@@ -98,6 +98,7 @@ Target "build" (fun _ ->
     Build("Plugin.Badge.Droid", "android")
     Build("Plugin.Badge.iOS", "ios")
     Build("Plugin.Badge.UWP", "uwp")
+    Build("Plugin.Badge.Mac", "macos")
 )
 
 Target "nupack" (fun _ ->
