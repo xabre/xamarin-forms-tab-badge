@@ -6,20 +6,23 @@
 
 ## Support & Limitations
 
-| Feature / Availability  | Xamarin.Android\* | Xamarin.iOS | UWP\*\*\* |
-| ------------- | ----------- | ----------- | ----------- |
-| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ |
-| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
-| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
-| Bindable Badge Font | ✓\*\* | ✓ \*\*(iOS >= 10.0) | ✓ |
-| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. | ✓ |
+| Feature / Availability  | Xamarin.Android (1) | Xamarin.iOS | UWP (2) | MacOS (3) |
+| ------------- | ----------- | ----------- | ----------- | ----------- |
+| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ | ✓ |
+| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ |
+| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ |
+| Bindable Badge Font | ✓\* | ✓ \*(iOS >= 10.0) | ✓ | ✓ |
+| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges. | ✓ | ✓ |
 
 \***Caution**: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
-\*Min Android **API level 15**
+
+\*(1) Min Android **API level 15**
+
+\*(2) **Min UWP version**: Win 10 November Update.
+
+\*(3) **MacOS version**: Depends on Xamarin Forms 2.3.5-pre6 at the moment. 
 
 \*\***Font restrictions**: able to bind font attributes and family but not size
-
-\*\*\* **Min UWP version**: Win 10 November Update.
 
 ## Installation
 
@@ -31,7 +34,7 @@ Install-Package Plugin.Badge
 // or pre-release
 Install-Package Plugin.Badge -Pre
 ```
-[![NuGet](https://img.shields.io/nuget/v/Plugin.Badge.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.Badge) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.Badge.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.Badge)
+[![NuGet](https://img.shields.io/nuget/v/Plugin.Badge.svg?label=NuGet&style=flat-square)](https://www.nuget.org/packages/Plugin.Badge) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.Badge.svg?label=NuGet%20Beta&style=flat-square)](https://www.nuget.org/packages/Plugin.Badge)
 
 
 ### iOS
