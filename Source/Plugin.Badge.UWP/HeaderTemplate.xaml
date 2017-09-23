@@ -18,6 +18,7 @@
         <local:BadgeFontWeightConverter x:Key="BadgeFontWeightConverter" />
         <local:TabIconConverter x:Key="TabIconConverter" />
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <local:BadgePositionConverter x:Key="BadgePositionConverter" />
         <DataTemplate x:Key="HeaderTemplate">
             <RelativePanel>
                 <Image x:Name="icon"
@@ -36,8 +37,12 @@
                 <Grid CornerRadius="11"
                       Visibility="{Binding Converter={StaticResource BadgeVisibilityConverter}}"
                       Background="{Binding Converter={StaticResource BadgeColorConverter}}"
-                      RelativePanel.AlignRightWithPanel="True"
-                      RelativePanel.AlignTopWithPanel="True"
+                      RelativePanel.AlignRightWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignRightWithPanel}"
+                      RelativePanel.AlignTopWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignTopWithPanel}"
+                      RelativePanel.AlignBottomWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignBottomWithPanel}"
+                      RelativePanel.AlignLeftWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignLeftWithPanel}"
+                      RelativePanel.AlignHorizontalCenterWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignHorizontalCenterWithPanel}"
+                      RelativePanel.AlignVerticalCenterWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignVerticalCenterWithPanel}"
                       Padding="2.5,0.5,3,1.5">
                     <TextBlock Text="99"
                                Opacity="0"

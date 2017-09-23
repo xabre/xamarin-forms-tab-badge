@@ -8,20 +8,12 @@ using Android.Views.Animations;
 using Android.Widget;
 using Android.Graphics.Drawables.Shapes;
 using Android.Support.V4.View;
+using Plugin.Badge.Abstractions;
 
 namespace Plugin.Badge.Droid
 {
     public class BadgeView : TextView
     {
-        public enum BadgePosition
-        {
-            PositionTopLeft = 1,
-            PositionTopRight = 2,
-            PositionBottomLeft = 3,
-            PositionBottomRight = 4,
-            PositionCenter = 5
-        }
-        
         private const int DefaultHmarginDip = -10;
         private const int DefaultVmarginDip = -5;
         private const int DefaultLrPaddingDip = 4;
@@ -33,13 +25,29 @@ namespace Plugin.Badge.Droid
         private Context _context;
         private readonly Color _defaultBadgeColor = Color.ParseColor("#CCFF0000");
         private ShapeDrawable _backgroundShape;
+        private BadgePosition _position;
 
         public View Target { get; private set; }
-        public BadgePosition Postion { get; set; } = BadgePosition.PositionTopRight;
         public int BadgeMarginH { get; set; }
         public int BadgeMarginV { get; set; }
 
         public static int TextSizeDip { get; set; } = 11;
+
+        public BadgePosition Postion
+        {
+            get => _position;
+
+            set
+            {
+                if (_position == value)
+                {
+                    return;
+                }
+
+                _position = value;
+                ApplyLayoutParams();
+            }
+        }
 
         public Color BadgeColor
         {
@@ -47,7 +55,7 @@ namespace Plugin.Badge.Droid
             set
             {
                 _backgroundShape.Paint.Color = value;
-                
+
                 Background.InvalidateSelf();
             }
         }
@@ -68,7 +76,7 @@ namespace Plugin.Badge.Droid
         }
 
         private void Init(Context context, View target)
-        {            
+        {
             _context = context;
             Target = target;
 
@@ -155,13 +163,13 @@ namespace Plugin.Badge.Droid
         {
             Show(animate, _fadeInAnimation);
         }
-        
+
 
         public void Hide(bool animate)
         {
             Hide(animate, _fadeOutAnimation);
         }
-        
+
         private void Show(bool animate, Animation anim)
         {
             ApplyLayoutParams();
@@ -183,7 +191,7 @@ namespace Plugin.Badge.Droid
                 StartAnimation(anim);
             }
         }
-        
+
         private void ApplyLayoutParams()
         {
             var layoutParameters = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);

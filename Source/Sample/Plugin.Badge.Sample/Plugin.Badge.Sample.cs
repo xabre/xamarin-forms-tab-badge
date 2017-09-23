@@ -29,6 +29,8 @@ namespace Plugin.Badge.Sample
                 }
             };
 
+            _tabbedPage.ToolbarItems.Add(new ToolbarItem("Item1", "tabicon.png", () => { }, ToolbarItemOrder.Primary));
+
             MainPage = new NavigationPage(_tabbedPage);
         }
 
@@ -125,6 +127,10 @@ namespace Plugin.Badge.Sample
             buttonChangeFontAttributes.SetBinding(Button.CommandProperty, "ChangeFontAttributesCommand");
             tab1Layout.Children.Add(buttonChangeFontAttributes);
 
+            var buttonChangePosition = new Button { Text = "Change Position" };
+            buttonChangePosition.SetBinding(Button.CommandProperty, "ChangePositionCommand");
+            tab1Layout.Children.Add(buttonChangePosition);
+
             var buttonAddTab = new Button() { Text = "Add tab" };
             buttonAddTab.Clicked += ButtonAddTab_Clicked;
             tab1Layout.Children.Add(buttonAddTab);
@@ -144,6 +150,7 @@ namespace Plugin.Badge.Sample
             tab1.SetBinding(TabBadge.BadgeColorProperty, new Binding("BadgeColor"));
             tab1.SetBinding(TabBadge.BadgeTextColorProperty, new Binding("BadgeTextColor"));
             tab1.SetBinding(TabBadge.BadgeFontProperty, new Binding("BadgeFont"));
+            tab1.SetBinding(TabBadge.BadgePositionProperty, new Binding("Position"));
 
             tab1.BindingContext = new Tab1ViewModel();
             return tab1;

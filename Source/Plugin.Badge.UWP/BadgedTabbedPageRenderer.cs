@@ -10,13 +10,11 @@ namespace Plugin.Badge.UWP
         {
             base.OnElementChanged(e);
 
-            var template = Control.HeaderTemplate;
-
-
             Control.HeaderTemplate = header.Resources[nameof(HeaderTemplate)] as DataTemplate;
 
             foreach (var tab in Element.Children)
             {
+                tab.PropertyChanged -= Tab_PropertyChanged;
                 tab.PropertyChanged += Tab_PropertyChanged;                              
             }
         }
@@ -34,6 +32,11 @@ namespace Plugin.Badge.UWP
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
+
+            foreach (var tab in Element.Children)
+            {
+                tab.PropertyChanged -= Tab_PropertyChanged;
+            }
         }
     }
 }

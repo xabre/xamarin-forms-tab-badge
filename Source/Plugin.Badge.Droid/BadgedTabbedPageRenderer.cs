@@ -91,6 +91,9 @@ namespace Plugin.Badge.Droid
                 badgeView.Typeface = font.ToTypeface();
             }
 
+            // set position
+            badgeView.Postion = TabBadge.GetBadgePosition(element);
+
             element.PropertyChanged += OnTabbedPagePropertyChanged;
         }
 
@@ -128,6 +131,12 @@ namespace Plugin.Badge.Droid
             if (e.PropertyName == TabBadge.BadgeFontProperty.PropertyName)
             {
                 badgeView.Typeface = TabBadge.GetBadgeFont(element).ToTypeface();
+                return;
+            }
+
+            if(e.PropertyName == TabBadge.BadgePositionProperty.PropertyName)
+            {
+                badgeView.Postion = TabBadge.GetBadgePosition(element);
                 return;
             }
         }

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Plugin.Badge.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -40,6 +42,8 @@ namespace Plugin.Badge.Sample.ViewModels
             Font.Default.WithAttributes(FontAttributes.None)
         };
 
+        private static readonly List<BadgePosition> Positions = Enum.GetValues(typeof(BadgePosition)).Cast<BadgePosition>().ToList();
+        
         public Color BadgeColor { get; private set; }
         public Color BadgeTextColor { get; private set; }
 
@@ -86,14 +90,25 @@ namespace Plugin.Badge.Sample.ViewModels
             RaisePropertyChanged(nameof(BadgeFont));
         });
 
+        public ICommand ChangePositionCommand => new Command((obj) =>
+        {
+            _positionIndex++;
+            if (_positionIndex >= Positions.Count)
+                _positionIndex = 0;
+            Position = Positions[_positionIndex];
+            RaisePropertyChanged(nameof(Position));
+        });
+
         private int _count = 0;
         private int _color = 0;
         private int _textColor = 0;
         private int _fontIndex = 0;
+        private int _positionIndex = 0;
 
         public string Count => _count <= 0 ? string.Empty : _count.ToString();
 
         public Font BadgeFont { get; private set; }
+        public BadgePosition Position { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

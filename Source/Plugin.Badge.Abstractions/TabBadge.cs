@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 namespace Plugin.Badge.Abstractions
 {
-    public class TabBadge //: TabbedPage
+    public class TabBadge
     {
         public static BindableProperty BadgeTextProperty = BindableProperty.CreateAttached("BadgeText", typeof(string), typeof(TabBadge), default(string), BindingMode.OneWay);
 
@@ -51,6 +51,18 @@ namespace Plugin.Badge.Abstractions
         public static void SetBadgeFont(BindableObject view, Font value)
         {
             view.SetValue(BadgeFontProperty, value);
+        }
+
+        public static BindableProperty BadgePositionProperty = BindableProperty.CreateAttached("BadgePosition", typeof(BadgePosition), typeof(TabBadge), BadgePosition.PositionTopRight, BindingMode.OneWay);
+
+        public static BadgePosition GetBadgePosition(BindableObject view)
+        {
+            return (BadgePosition)view.GetValue(BadgePositionProperty);
+        }
+
+        public static void SetBadgePosition(BindableObject view, BadgePosition value)
+        {
+            view.SetValue(BadgePositionProperty, value);
         }
     }
 }
