@@ -12,6 +12,7 @@
 | Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
 | Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
 | Bindable Badge Font | ✓\*\* | ✓ \*\*(iOS >= 10.0) | ✓ |
+| Bindable Badge Postion | ✓ | ✕ | ✓ |
 | Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. | ✓ |
 
 \***Caution**: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
