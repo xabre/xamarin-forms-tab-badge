@@ -19,12 +19,11 @@ namespace Plugin.Badge.UWP
     {
         private static Dictionary<BadgePosition, bool[]> Alignments = new Dictionary<BadgePosition, bool[]>()
         {
-            {BadgePosition.PositionBottomLeft, new[]{ false, false, true, true, false, false} },
-            {BadgePosition.PositionBottomRight, new[]{ true, false, true, false, false, false} },
-            {BadgePosition.PositionTopLeft, new[]{ false, true, false, true, false, false} },
-            {BadgePosition.PositionTopRight, new[]{ true, true, false, false, false, false} },
-            {BadgePosition.PositionCenter, new[]{ false, false, false, false, true, true} }
-
+            { BadgePosition.PositionBottomLeft, new[] { false, false, true, true, false, false } },
+            { BadgePosition.PositionBottomRight, new[] { true, false, true, false, false, false } },
+            { BadgePosition.PositionTopLeft, new[] { false, true, false, true, false, false } },
+            { BadgePosition.PositionTopRight, new[] { true, true, false, false, false, false } },
+            { BadgePosition.PositionCenter, new[] { false, false, false, false, true, true } }
         };
 
         public object Convert(object value, Type targetType, object parameter, string language)
