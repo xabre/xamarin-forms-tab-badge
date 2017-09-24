@@ -31,8 +31,8 @@ using Xamarin.Forms;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.2.0")]
-[assembly: AssemblyFileVersion("1.2.0")]
+[assembly: AssemblyVersion("1.2.1")]
+[assembly: AssemblyFileVersion("1.2.1")]
 
 //register renderer
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
