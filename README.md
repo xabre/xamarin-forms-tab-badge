@@ -1,5 +1,5 @@
 # <img src="icon_small.png" width="80" height="80"/> xamarin-forms-tab-badge [![Build Status](https://www.bitrise.io/app/6fbb08a710d8f2aa.svg?token=SlEUDTzwNV54nK7HHhUdOQ&branch=master)](https://www.bitrise.io/app/6fbb08a710d8f2aa)
-**Xamarin Forms** bindable tab badges for iOS and Android. The plugin creates a custom renderer (iOS & Android) and a custom attached property for adding tab bar badges which can be bound in XF shared code.
+**Xamarin Forms** bindable tab badges for iOS, Android and UWP. The plugin creates a custom renderer (iOS, Android & UWP) and a custom attached property for adding tab bar badges which can be bound in XF shared code.
 
 ## Sample
 <img src="Screencasts/xamarin.forms.android.gif" height="600"/><img src="Screencasts/xamarin.forms.ios.gif" height="600"/>
@@ -12,6 +12,7 @@
 | Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
 | Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ |
 | Bindable Badge Font | ✓\*\* | ✓ \*\*(iOS >= 10.0) | ✓ |
+| Bindable Badge Postion | ✓ | ✕ | ✓ |
 | Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges...yet. | ✓ |
 
 \***Caution**: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
@@ -131,6 +132,14 @@ Very similar to `BadgeColor` just use [`TabBadge.BadgeFont` (XAML) or `TabBadge.
 ToDo:
 - you can alo try to set font family, should work in theory
 - font size is not supported yet on android ......
+
+### Badge Position
+
+Very similar to `BadgeColor` just use [`TabBadge.BadgePosition` (XAML) or `TabBadge.BadgePositionPropery` (CSharp)].
+
+| Top Left | Bottom Left | Bottom Right | Center |
+| ------------- | ----------- | ----------- | ----------- |
+| <img src="Screencasts/badge_topleft.PNG" height="50"/> | <img src="Screencasts/badge_bottomleft.PNG" height="50"/> | <img src="Screencasts/badge_bottomright.PNG" height="50"/> | <img src="Screencasts/badge_center.PNG" height="50"/> |
 
 ## Showning / Hiding the badge
 If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
