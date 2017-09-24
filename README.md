@@ -133,6 +133,14 @@ ToDo:
 - you can alo try to set font family, should work in theory
 - font size is not supported yet on android ......
 
+### Badge Position
+
+Very similar to `BadgeColor` just use [`TabBadge.BadgePosition` (XAML) or `TabBadge.BadgePositionPropery` (CSharp)].
+
+| Top Left | Bottom Left | Bottom Right | Center |
+| ------------- | ----------- | ----------- | ----------- |
+| <img src="Screencasts/badge_topleft.PNG" height="50"/> | <img src="Screencasts/badge_bottomleft.PNG" height="50"/> | <img src="Screencasts/badge_bottomright.PNG" height="50"/> | <img src="Screencasts/badge_center.PNG" height="50"/> |
+
 ## Showning / Hiding the badge
 If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
 
