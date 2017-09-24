@@ -31,7 +31,7 @@
                 <TextBlock x:Name="title"
                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                           Text="{Binding Title}"                           
+                           Text="{Binding Title}"
                            Margin="10,0"
                            Visibility="{Binding ElementName=icon, Path=Source, Converter={StaticResource NullToVisibilityConverter}}" />
                 <Grid CornerRadius="11"

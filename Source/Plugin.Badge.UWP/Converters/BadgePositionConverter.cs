@@ -23,7 +23,11 @@ namespace Plugin.Badge.UWP
             { BadgePosition.PositionBottomRight, new[] { true, false, true, false, false, false } },
             { BadgePosition.PositionTopLeft, new[] { false, true, false, true, false, false } },
             { BadgePosition.PositionTopRight, new[] { true, true, false, false, false, false } },
-            { BadgePosition.PositionCenter, new[] { false, false, false, false, true, true } }
+            { BadgePosition.PositionCenter, new[] { false, false, false, false, true, true } },
+            { BadgePosition.PositionTopCenter, new[] { false, true, false, false, true, false } },
+            { BadgePosition.PositionBottomCenter, new[] { false, false, true, false, true, false } },
+            { BadgePosition.PositionLeftCenter, new[] { false, false, false, true, false, true } },
+            { BadgePosition.PositionRightCenter, new[] { true, false, false, false, false, true } },
         };
 
         public object Convert(object value, Type targetType, object parameter, string language)

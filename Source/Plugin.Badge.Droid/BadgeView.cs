@@ -218,6 +218,22 @@ namespace Plugin.Badge.Droid
                     layoutParameters.Gravity = GravityFlags.Center;
                     layoutParameters.SetMargins(0, 0, 0, 0);
                     break;
+                case BadgePosition.PositionTopCenter:
+                    layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Top;
+                    layoutParameters.SetMargins(0, BadgeMarginV, 0, 0);
+                    break;
+                case BadgePosition.PositionBottomCenter:
+                    layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Bottom;
+                    layoutParameters.SetMargins(0, 0, 0, BadgeMarginV);
+                    break;
+                case BadgePosition.PositionLeftCenter:
+                    layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Center;
+                    layoutParameters.SetMargins(BadgeMarginH, 0, 0, 0);
+                    break;
+                case BadgePosition.PositionRightCenter:
+                    layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Center;
+                    layoutParameters.SetMargins(0, 0, BadgeMarginH, 0);
+                    break;
             }
 
             LayoutParameters = layoutParameters;
