@@ -82,8 +82,9 @@ namespace Plugin.Badge.Abstractions
             {
                 case Device.Android:
                     return new Thickness(-10, -5);
-                case Device.iOS:
                 case Device.Windows:
+                    return new Thickness(0);
+                case Device.iOS:
                     return new Thickness(0);
             }
 

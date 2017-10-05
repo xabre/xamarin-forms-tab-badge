@@ -19,6 +19,7 @@
         <local:TabIconConverter x:Key="TabIconConverter" />
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <local:BadgePositionConverter x:Key="BadgePositionConverter" />
+        <local:BadgeMarginConverter x:Key="BadgeMarginConverter" />
         <DataTemplate x:Key="HeaderTemplate">
             <RelativePanel>
                 <Image x:Name="icon"
@@ -34,6 +35,7 @@
                            Text="{Binding Title}"
                            Margin="10,0"
                            Visibility="{Binding ElementName=icon, Path=Source, Converter={StaticResource NullToVisibilityConverter}}" />
+                <!---->
                 <Grid CornerRadius="11"
                       Visibility="{Binding Converter={StaticResource BadgeVisibilityConverter}}"
                       Background="{Binding Converter={StaticResource BadgeColorConverter}}"
@@ -43,7 +45,8 @@
                       RelativePanel.AlignLeftWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignLeftWithPanel}"
                       RelativePanel.AlignHorizontalCenterWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignHorizontalCenterWithPanel}"
                       RelativePanel.AlignVerticalCenterWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignVerticalCenterWithPanel}"
-                      Padding="2.5,0.5,3,1.5">
+                      Padding="2.5,0.5,3,1.5"
+                      Margin="{Binding Converter={StaticResource BadgeMarginConverter}}">
                     <TextBlock Text="99"
                                Opacity="0"
                                FontSize="{Binding Converter={StaticResource BadgeFontSizeConverter}}" />

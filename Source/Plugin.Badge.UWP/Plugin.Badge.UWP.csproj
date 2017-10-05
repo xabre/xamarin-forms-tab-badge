@@ -107,6 +107,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BadgedTabbedPageRenderer.cs" />
+    <Compile Include="Converters\BadgeMarginConverter.cs" />
     <Compile Include="Converters\BadgePositionConverter.cs" />
     <Compile Include="Converters\BadgeColorConverter.cs" />
     <Compile Include="Converters\BadgeFontSizeConverter.cs" />
