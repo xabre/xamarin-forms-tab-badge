@@ -28,8 +28,10 @@ namespace Plugin.Badge.Droid
         private BadgePosition _position;
 
         public View Target { get; private set; }
-        public int BadgeMarginH { get; set; }
-        public int BadgeMarginV { get; set; }
+        private int _badgeMarginL;
+        private int _badgeMarginR;
+        private int _badgeMarginT;
+        private int _badgeMarginB;
 
         public static int TextSizeDip { get; set; } = 11;
 
@@ -43,7 +45,7 @@ namespace Plugin.Badge.Droid
                 {
                     return;
                 }
-
+                
                 _position = value;
                 ApplyLayoutParams();
             }
@@ -66,6 +68,16 @@ namespace Plugin.Badge.Droid
             set { SetTextColor(value); }
         }
 
+        public void SetMargins(float left, float top, float right, float bottom)
+        {
+            _badgeMarginL = DipToPixels(left);
+            _badgeMarginT = DipToPixels(top);
+            _badgeMarginR = DipToPixels(right);
+            _badgeMarginB = DipToPixels(bottom);
+
+            ApplyLayoutParams();
+        }
+
         public BadgeView(Context context, View target) : this(context, null, Android.Resource.Attribute.TextViewStyle, target)
         {
         }
@@ -81,9 +93,11 @@ namespace Plugin.Badge.Droid
             Target = target;
 
             // apply defaults
-            BadgeMarginH = DipToPixels(DefaultHmarginDip);
-            BadgeMarginV = DipToPixels(DefaultVmarginDip);
-
+            _badgeMarginL = DipToPixels(DefaultHmarginDip);
+            _badgeMarginT = DipToPixels(DefaultVmarginDip);
+            _badgeMarginR = DipToPixels(DefaultHmarginDip);
+            _badgeMarginB = DipToPixels(DefaultVmarginDip);
+            
             Typeface = Typeface.DefaultBold;
             var paddingPixels = DipToPixels(DefaultLrPaddingDip);
             SetPadding(paddingPixels, 0, paddingPixels, 0);
@@ -138,7 +152,7 @@ namespace Plugin.Badge.Droid
 
             group.SetClipChildren(false);
             group.SetClipToPadding(false);
-
+            
 
             var container = new FrameLayout(_context);
             var index = group.IndexOfChild(target);
@@ -200,19 +214,19 @@ namespace Plugin.Badge.Droid
             {
                 case BadgePosition.PositionTopLeft:
                     layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Top;
-                    layoutParameters.SetMargins(BadgeMarginH, BadgeMarginV, 0, 0);
+                    layoutParameters.SetMargins(_badgeMarginL, _badgeMarginT, 0, 0);
                     break;
                 case BadgePosition.PositionTopRight:
                     layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Top;
-                    layoutParameters.SetMargins(0, BadgeMarginV, BadgeMarginH, 0);
+                    layoutParameters.SetMargins(0, _badgeMarginT, _badgeMarginR, 0);
                     break;
                 case BadgePosition.PositionBottomLeft:
                     layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Bottom;
-                    layoutParameters.SetMargins(BadgeMarginH, 0, 0, BadgeMarginV);
+                    layoutParameters.SetMargins(_badgeMarginL, 0, 0, _badgeMarginB);
                     break;
                 case BadgePosition.PositionBottomRight:
                     layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Bottom;
-                    layoutParameters.SetMargins(0, 0, BadgeMarginH, BadgeMarginV);
+                    layoutParameters.SetMargins(0, 0, _badgeMarginR, _badgeMarginB);
                     break;
                 case BadgePosition.PositionCenter:
                     layoutParameters.Gravity = GravityFlags.Center;
@@ -220,19 +234,19 @@ namespace Plugin.Badge.Droid
                     break;
                 case BadgePosition.PositionTopCenter:
                     layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Top;
-                    layoutParameters.SetMargins(0, BadgeMarginV, 0, 0);
+                    layoutParameters.SetMargins(0, _badgeMarginT, 0, 0);
                     break;
                 case BadgePosition.PositionBottomCenter:
                     layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Bottom;
-                    layoutParameters.SetMargins(0, 0, 0, BadgeMarginV);
+                    layoutParameters.SetMargins(0, 0, 0, _badgeMarginB);
                     break;
                 case BadgePosition.PositionLeftCenter:
                     layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Center;
-                    layoutParameters.SetMargins(BadgeMarginH, 0, 0, 0);
+                    layoutParameters.SetMargins(_badgeMarginL, 0, 0, 0);
                     break;
                 case BadgePosition.PositionRightCenter:
                     layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Center;
-                    layoutParameters.SetMargins(0, 0, BadgeMarginH, 0);
+                    layoutParameters.SetMargins(0, 0, _badgeMarginR, 0);
                     break;
             }
 
@@ -240,7 +254,7 @@ namespace Plugin.Badge.Droid
 
         }
 
-        private int DipToPixels(int dip)
+        private int DipToPixels(float dip)
         {
             return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, dip, Resources.DisplayMetrics);
         }

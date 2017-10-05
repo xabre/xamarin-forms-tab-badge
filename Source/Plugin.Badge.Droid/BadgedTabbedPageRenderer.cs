@@ -91,6 +91,9 @@ namespace Plugin.Badge.Droid
                 badgeView.Typeface = font.ToTypeface();
             }
 
+            var margin = TabBadge.GetBadgeMargin(element);
+            badgeView.SetMargins((float)margin.Left, (float)margin.Top, (float)margin.Right, (float)margin.Bottom);
+
             // set position
             badgeView.Postion = TabBadge.GetBadgePosition(element);
 
@@ -134,9 +137,16 @@ namespace Plugin.Badge.Droid
                 return;
             }
 
-            if(e.PropertyName == TabBadge.BadgePositionProperty.PropertyName)
+            if (e.PropertyName == TabBadge.BadgePositionProperty.PropertyName)
             {
                 badgeView.Postion = TabBadge.GetBadgePosition(element);
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeMarginProperty.PropertyName)
+            {
+                var margin = TabBadge.GetBadgeMargin(element);
+                badgeView.SetMargins((float)margin.Left, (float)margin.Top, (float)margin.Right, (float)margin.Bottom);
                 return;
             }
         }

@@ -16,7 +16,6 @@ namespace Plugin.Badge.Abstractions
             view.SetValue(BadgeTextProperty, value);
         }
 
-
         public static BindableProperty BadgeColorProperty = BindableProperty.CreateAttached("BadgeColor", typeof(Color), typeof(TabBadge), Color.Default, BindingMode.OneWay);
 
         public static Color GetBadgeColor(BindableObject view)
@@ -63,6 +62,32 @@ namespace Plugin.Badge.Abstractions
         public static void SetBadgePosition(BindableObject view, BadgePosition value)
         {
             view.SetValue(BadgePositionProperty, value);
+        }
+
+        public static BindableProperty BadgeMarginProperty = BindableProperty.CreateAttached("BadgeMargin", typeof(Thickness), typeof(TabBadge), GetDefaultMargins(), BindingMode.OneWay);
+
+        public static Thickness GetBadgeMargin(BindableObject view)
+        {
+            return (Thickness)view.GetValue(BadgeMarginProperty);
+        }
+
+        public static void SetBadgeMargin(BindableObject view, Thickness value)
+        {
+            view.SetValue(BadgeMarginProperty, value);
+        }
+
+        public static Thickness GetDefaultMargins()
+        {
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    return new Thickness(-10, -5);
+                case Device.iOS:
+                case Device.Windows:
+                    return new Thickness(0);
+            }
+
+            return new Thickness(0);
         }
     }
 }

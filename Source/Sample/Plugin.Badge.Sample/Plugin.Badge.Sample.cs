@@ -109,10 +109,10 @@ namespace Plugin.Badge.Sample
 
             var buttonIncrement = new Button { Text = "Increment" };
             buttonIncrement.SetBinding(Button.CommandProperty, "IncrementCommand");
-            tab1Layout.Children.Add(buttonIncrement);
-
             var buttonDecrement = new Button { Text = "Decrement" };
             buttonDecrement.SetBinding(Button.CommandProperty, "DecrementCommand");
+            
+            tab1Layout.Children.Add(buttonIncrement);
             tab1Layout.Children.Add(buttonDecrement);
 
             var buttonChangeColor = new Button { Text = "Change Color" };
