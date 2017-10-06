@@ -15,7 +15,7 @@ namespace Plugin.Badge.UWP
             foreach (var tab in Element.Children)
             {
                 tab.PropertyChanged -= Tab_PropertyChanged;
-                tab.PropertyChanged += Tab_PropertyChanged;                              
+                tab.PropertyChanged += Tab_PropertyChanged;
             }
         }
 

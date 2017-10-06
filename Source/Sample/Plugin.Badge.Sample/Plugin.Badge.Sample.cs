@@ -34,33 +34,17 @@ namespace Plugin.Badge.Sample
             MainPage = new NavigationPage(_tabbedPage);
         }
 
+        private ContentPage CreateTab2()
+        {
+            var tab2 = CreateTab1();
+            tab2.Icon = "tabicon.png";
+            (tab2.BindingContext as Tab1ViewModel).CountValue = 1;
+            return tab2;
+        }
+
         private ContentPage CreateTab3()
         {
             var tab3 = new ContentPage
-            {
-                Title = "Tab3",
-                Icon = "tabicon.png",
-                Content = new StackLayout
-                {
-                    VerticalOptions = LayoutOptions.Center,
-                    Children =
-                    {
-                        new Label
-                        {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms Tab3!"
-                        }
-                    }
-                }
-            };
-
-            TabBadge.SetBadgeText(tab3, "X");
-            return tab3;
-        }
-
-        private ContentPage CreateTab2()
-        {
-            var tab2 = new ContentPage
             {
                 Title = "Tab2",
                 Content = new StackLayout
@@ -87,9 +71,9 @@ namespace Plugin.Badge.Sample
                 }
             };
 
-            TabBadge.SetBadgeText(tab2, "1+");
-            TabBadge.SetBadgeColor(tab2, Color.FromHex("#A0FFA500"));
-            return tab2;
+            TabBadge.SetBadgeText(tab3, "1+");
+            TabBadge.SetBadgeColor(tab3, Color.FromHex("#A0FFA500"));
+            return tab3;
         }
 
         private ContentPage CreateTab1()
@@ -157,8 +141,8 @@ namespace Plugin.Badge.Sample
             grid = new Grid { RowSpacing = 0 };
             grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
@@ -180,22 +164,22 @@ namespace Plugin.Badge.Sample
             rightStepper.SetBinding(Stepper.ValueProperty, nameof(Tab1ViewModel.MarginRight), BindingMode.TwoWay);
             var rightMarginLabel = new Label();
             rightMarginLabel.SetBinding(Label.TextProperty, nameof(Tab1ViewModel.MarginRight), stringFormat: "Right: {0}");
-            grid.Children.Add(rightMarginLabel, 2, 0);
-            grid.Children.Add(rightStepper, 2, 1);
+            grid.Children.Add(rightMarginLabel, 0, 2);
+            grid.Children.Add(rightStepper, 0, 3);
 
             var bottomStepper = new Stepper { Increment = 1, Minimum = -50, Maximum = 50 };
             bottomStepper.SetBinding(Stepper.ValueProperty, nameof(Tab1ViewModel.MarginBottom), BindingMode.TwoWay);
             var bottomMarginLabel = new Label();
             bottomMarginLabel.SetBinding(Label.TextProperty, nameof(Tab1ViewModel.MarginBottom), stringFormat: "Bottom: {0}");
-            grid.Children.Add(bottomMarginLabel, 3, 0);
-            grid.Children.Add(bottomStepper, 3, 1);
+            grid.Children.Add(bottomMarginLabel, 1, 2);
+            grid.Children.Add(bottomStepper, 1, 3);
 
             tab1Layout.Children.Add(grid);
 
             var tab1 = new ContentPage
             {
                 Title = "Tab1",
-                Content = tab1Layout
+                Content = new ScrollView() { Content = tab1Layout }
             };
 
             tab1.SetBinding(TabBadge.BadgeTextProperty, nameof(Tab1ViewModel.Count));
