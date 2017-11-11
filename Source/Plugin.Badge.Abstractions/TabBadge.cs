@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 namespace Plugin.Badge.Abstractions
 {
-    public class TabBadge //: TabbedPage
+    public class TabBadge
     {
         public static BindableProperty BadgeTextProperty = BindableProperty.CreateAttached("BadgeText", typeof(string), typeof(TabBadge), default(string), BindingMode.OneWay);
 
@@ -15,7 +15,6 @@ namespace Plugin.Badge.Abstractions
         {
             view.SetValue(BadgeTextProperty, value);
         }
-
 
         public static BindableProperty BadgeColorProperty = BindableProperty.CreateAttached("BadgeColor", typeof(Color), typeof(TabBadge), Color.Default, BindingMode.OneWay);
 
@@ -51,6 +50,45 @@ namespace Plugin.Badge.Abstractions
         public static void SetBadgeFont(BindableObject view, Font value)
         {
             view.SetValue(BadgeFontProperty, value);
+        }
+
+        public static BindableProperty BadgePositionProperty = BindableProperty.CreateAttached("BadgePosition", typeof(BadgePosition), typeof(TabBadge), BadgePosition.PositionTopRight, BindingMode.OneWay);
+
+        public static BadgePosition GetBadgePosition(BindableObject view)
+        {
+            return (BadgePosition)view.GetValue(BadgePositionProperty);
+        }
+
+        public static void SetBadgePosition(BindableObject view, BadgePosition value)
+        {
+            view.SetValue(BadgePositionProperty, value);
+        }
+
+        public static BindableProperty BadgeMarginProperty = BindableProperty.CreateAttached("BadgeMargin", typeof(Thickness), typeof(TabBadge), GetDefaultMargins(), BindingMode.OneWay);
+
+        public static Thickness GetBadgeMargin(BindableObject view)
+        {
+            return (Thickness)view.GetValue(BadgeMarginProperty);
+        }
+
+        public static void SetBadgeMargin(BindableObject view, Thickness value)
+        {
+            view.SetValue(BadgeMarginProperty, value);
+        }
+
+        public static Thickness GetDefaultMargins()
+        {
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    return new Thickness(-10, -5);
+                case Device.Windows:
+                    return new Thickness(0);
+                case Device.iOS:
+                    return new Thickness(0);
+            }
+
+            return new Thickness(0);
         }
     }
 }

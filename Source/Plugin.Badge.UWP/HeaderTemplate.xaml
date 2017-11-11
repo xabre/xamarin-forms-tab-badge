@@ -18,6 +18,8 @@
         <local:BadgeFontWeightConverter x:Key="BadgeFontWeightConverter" />
         <local:TabIconConverter x:Key="TabIconConverter" />
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <local:BadgePositionConverter x:Key="BadgePositionConverter" />
+        <local:BadgeMarginConverter x:Key="BadgeMarginConverter" />
         <DataTemplate x:Key="HeaderTemplate">
             <RelativePanel>
                 <Image x:Name="icon"
@@ -30,15 +32,21 @@
                 <TextBlock x:Name="title"
                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                           Text="{Binding Title}"                           
+                           Text="{Binding Title}"
                            Margin="10,0"
                            Visibility="{Binding ElementName=icon, Path=Source, Converter={StaticResource NullToVisibilityConverter}}" />
+                <!---->
                 <Grid CornerRadius="11"
                       Visibility="{Binding Converter={StaticResource BadgeVisibilityConverter}}"
                       Background="{Binding Converter={StaticResource BadgeColorConverter}}"
-                      RelativePanel.AlignRightWithPanel="True"
-                      RelativePanel.AlignTopWithPanel="True"
-                      Padding="2.5,0.5,3,1.5">
+                      RelativePanel.AlignRightWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignRightWithPanel}"
+                      RelativePanel.AlignTopWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignTopWithPanel}"
+                      RelativePanel.AlignBottomWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignBottomWithPanel}"
+                      RelativePanel.AlignLeftWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignLeftWithPanel}"
+                      RelativePanel.AlignHorizontalCenterWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignHorizontalCenterWithPanel}"
+                      RelativePanel.AlignVerticalCenterWithPanel="{Binding Converter={StaticResource BadgePositionConverter}, ConverterParameter=AlignVerticalCenterWithPanel}"
+                      Padding="2.5,0.5,3,1.5"
+                      Margin="{Binding Converter={StaticResource BadgeMarginConverter}}">
                     <TextBlock Text="99"
                                Opacity="0"
                                FontSize="{Binding Converter={StaticResource BadgeFontSizeConverter}}" />
