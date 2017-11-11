@@ -125,10 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>2.3.5.256-pre6</Version>
+      <Version>2.4.0.74863</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
