@@ -95,6 +95,18 @@ namespace Plugin.Badge.Mac
                 badgeView.Font = TabBadge.GetBadgeFont(element);
                 return;
             }
+
+            if (e.PropertyName == TabBadge.BadgePositionProperty.PropertyName)
+            {
+                badgeView.Position = TabBadge.GetBadgePosition(element);
+                return;
+            }
+
+            if (e.PropertyName == TabBadge.BadgeMarginProperty.PropertyName)
+            {
+                badgeView.Margin = TabBadge.GetBadgeMargin(element);
+                return;
+            }
         }
 
         private void OnTabRemoved(object sender, ElementEventArgs e)
