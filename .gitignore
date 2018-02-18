@@ -56,3 +56,4 @@ Thumbs.db
 /Source/Plugin.Badge.Abstractions/.build/out/lib
 /tools
 /.vscode
+/.build/nuget

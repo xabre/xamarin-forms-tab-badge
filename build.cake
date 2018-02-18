@@ -110,7 +110,7 @@ Task("Publish")
     .Does(() =>
     {    
         var nupack = GetFiles("./.build/nuget/*.nuspec").FirstOrDefault();        
-        NuGetPush(nupack.FullPath);
+        NuGetPush(nupack.FullPath, new NuGetPushSettings());
     });
 
 RunTarget(target);

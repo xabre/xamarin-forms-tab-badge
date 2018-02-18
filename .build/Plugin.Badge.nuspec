@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>2.0.0</version>
+    <version>2.0.0-pre</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
@@ -14,7 +14,7 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS uwp uap android ios windows universal mac macos osx</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
-      [2.0.0] 
+      [2.0.0-pre] 
         - NET Standard support
         - Changelog: https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/changelog.md
     </releaseNotes>
@@ -27,7 +27,7 @@
       </group>
       <group targetFramework="Xamarin.iOS10">
         <dependency id="Xamarin.Forms" version="2.5.0.280555" />
-      </group>    
+      </group>
       <group targetFramework="uap10.0">
         <dependency id="Xamarin.Forms" version="2.5.0.280555" />
       </group>
@@ -39,17 +39,13 @@
   <files>
     <!-- .net standard -->
     <file src="out\lib\netstandard1.4\Plugin.Badge.*" target="lib\netstandard1.4" />
-    
     <!-- droid -->
     <file src="out\lib\android\Plugin.Badge.*" target="lib\MonoAndroid10" />
-
     <!-- iOS -->
     <file src="out\lib\ios\Plugin.Badge.*" target="lib\Xamarin.iOS10" />
-
     <!-- uap -->
     <file src="out\lib\uwp\Plugin.Badge.*" target="lib\uap10.0" />
     <file src="out\lib\uwp\Plugin.Badge.*.xml" target="lib\uap10.0\Plugin.Badge.UWP" />
-
     <!-- mac -->
     <file src="out\lib\mac\Plugin.Badge.*" target="lib\xamarinmac20" />
   </files>
