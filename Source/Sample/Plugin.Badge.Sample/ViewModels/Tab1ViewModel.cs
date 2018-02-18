@@ -1,11 +1,9 @@
-﻿using Plugin.Badge.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Plugin.Badge.Abstractions;
 using Xamarin.Forms;
 namespace Plugin.Badge.Sample.ViewModels
 {
@@ -85,17 +83,17 @@ namespace Plugin.Badge.Sample.ViewModels
             RaisePropertyChanged(nameof(Position));
         });
 
-        private int _color = 0;
-        private int _count = 0;
-        private int _textColor = 0;
-        private int _fontIndex = 0;
-        private int _positionIndex = 0;
+        private int _color;
+        private int _count;
+        private int _textColor;
+        private int _fontIndex;
+        private int _positionIndex;
 
         public string Count => _count <= 0 ? string.Empty : _count.ToString();
 
         public int CountValue
         {
-            get { return _count; }
+            get => _count;
             set
             {
                 if (_count == value)
@@ -113,7 +111,7 @@ namespace Plugin.Badge.Sample.ViewModels
         private int _marginLeft = (int)TabBadge.GetDefaultMargins().Left;
         public int MarginLeft
         {
-            get { return _marginLeft; }
+            get => _marginLeft;
             set
             {
                 _marginLeft = value;
@@ -125,7 +123,7 @@ namespace Plugin.Badge.Sample.ViewModels
         private int _marginTop = (int)TabBadge.GetDefaultMargins().Top;
         public int MarginTop
         {
-            get { return _marginTop; }
+            get => _marginTop;
             set
             {
                 _marginTop = value;
@@ -137,7 +135,7 @@ namespace Plugin.Badge.Sample.ViewModels
         private int _marginRight = (int)TabBadge.GetDefaultMargins().Right;
         public int MarginRight
         {
-            get { return _marginRight; }
+            get => _marginRight;
             set
             {
                 _marginRight = value;
@@ -149,7 +147,7 @@ namespace Plugin.Badge.Sample.ViewModels
         private int _marginBottom = (int)TabBadge.GetDefaultMargins().Bottom;
         public int MarginBottom
         {
-            get { return _marginBottom; }
+            get => _marginBottom;
             set
             {
                 _marginBottom = value;
