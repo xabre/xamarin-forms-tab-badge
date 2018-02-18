@@ -106,11 +106,12 @@ Task("Pack")
     });
 
 Task("Publish")
-    .IsDependentOn("Build")
+    .IsDependentOn("Pack")
     .Does(() =>
     {    
-        var nupack = GetFiles("./.build/nuget/*.nuspec").FirstOrDefault();        
-        NuGetPush(nupack.FullPath, new NuGetPushSettings());
+        var nupack = GetFiles(".build/nuget/*.nupkg").FirstOrDefault();
+        Information($"Pushing package: {nupack.FullPath}") ;       
+        NuGetPush(nupack.FullPath, new NuGetPushSettings(){ Source = "https://nuget.org" });
     });
 
 RunTarget(target);
