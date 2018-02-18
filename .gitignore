@@ -48,3 +48,11 @@ Thumbs.db
 /.build/FAKE.4.61.3
 /Source/.vs/Plugin.Badge/v15/sqlite3/storage.ide
 /Source/.vs/Plugin.Badge/v15
+/nuget
+/Source/Plugin.Badge.UWP/.build/out/lib/uwp
+/Source/Plugin.Badge.Mac/.build/out/lib/macos
+/Source/Plugin.Badge.iOS/.build/out/lib/ios
+/Source/Plugin.Badge.Droid/.build/out/lib/android
+/Source/Plugin.Badge.Abstractions/.build/out/lib
+/tools
+/.vscode
