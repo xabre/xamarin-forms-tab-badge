@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
-using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
-using Plugin.Badge.Abstractions;
 using Xamarin.Forms.Platform.Android;
 using Android.Content;
 
 namespace Plugin.Badge.Droid
 {
-    public class BadgedTabbedPageRenderer : TabbedPageRenderer
+    /// <summary>
+    /// Tab badge renderer for legacy (Non-AppCompat) FormsApplicationActivity 
+    /// </summary>
+    public class LegacyBadgedTabbedRenderer : TabbedRenderer
     {
         private const int DeleayBeforeTabAdded = 10;
         protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
-        private TabLayout _tabLayout;
-        private LinearLayout _tabStrip;
+        private LinearLayout _tabLinearLayout;
 
-        public BadgedTabbedPageRenderer(Context context) : base(context)
+        public LegacyBadgedTabbedRenderer(Context context) : base(context)
         {
         }
 
@@ -31,39 +31,62 @@ namespace Plugin.Badge.Droid
             Cleanup(e.OldElement);
             Cleanup(Element);
 
-            _tabLayout = ViewGroup.FindChildOfType<TabLayout>();
-            if (_tabLayout == null)
+            Element.ChildAdded += OnTabAdded;
+            Element.ChildRemoved += OnTabRemoved;
+            Element.Appearing += OnAppearing;
+        }
+
+        private void OnAppearing(object sender, EventArgs e)
+        {
+            Element.Appearing -= OnAppearing;
+
+            IViewParent root = ViewGroup;
+            while (root.Parent?.Parent != null)
             {
-                Console.WriteLine("Plugin.Badge: No TabLayout found. Badge not added.");
+                root = root.Parent;
+            }
+
+            if (!(root is ViewGroup rootGroup))
+            {
                 return;
             }
 
-            _tabStrip = _tabLayout.FindChildOfType<LinearLayout>();
+            for (var i = 0; i < rootGroup.ChildCount; i++)
+            {
+                _tabLinearLayout = _tabLinearLayout ?? (rootGroup.GetChildAt(i) as ViewGroup)?.FindChildOfType<HorizontalScrollView>()?.FindChildOfType<LinearLayout>();
+            }
 
-            for (var i = 0; i < _tabLayout.TabCount; i++)
+            if (_tabLinearLayout == null)
+            {
+                Console.WriteLine("Plugin.Badge: No ActionBar bit ha tab layout found. Badges not added.");
+                return;
+            }
+
+            for (var i = 0; i < _tabLinearLayout.ChildCount; i++)
             {
                 AddTabBadge(i);
             }
-
-            Element.ChildAdded += OnTabAdded;
-            Element.ChildRemoved += OnTabRemoved;
         }
-
 
         private void AddTabBadge(int tabIndex)
         {
-            var element = Element.Children[tabIndex];
-            var view = _tabLayout?.GetTabAt(tabIndex).CustomView ?? _tabStrip?.GetChildAt(tabIndex);
+            if (!(_tabLinearLayout.GetChildAt(tabIndex) is ViewGroup view))
+            {
+                return;
+            }
 
-            var badgeView = (view as ViewGroup)?.FindChildOfType<BadgeView>();
+            var element = Element.Children[tabIndex];
+
+            var badgeView = view.FindChildOfType<BadgeView>();
 
             if (badgeView == null)
             {
-                var imageView = (view as ViewGroup)?.FindChildOfType<ImageView>();
-
-                var badgeTarget = imageView?.Drawable != null
-                    ? (Android.Views.View)imageView
-                    : (view as ViewGroup)?.FindChildOfType<TextView>();
+                var badgeTarget = view.FindChildOfType<TextView>();
+                if (badgeTarget == null)
+                {
+                    Console.WriteLine("Plugin.Badge: No Text view found to attach badge");
+                    return;
+                }
 
                 //create badge for tab
                 badgeView = new BadgeView(Context, badgeTarget);
@@ -73,11 +96,10 @@ namespace Plugin.Badge.Droid
 
             badgeView.UpdateFromElement(element);
 
-            element.PropertyChanged -= OnTabbedPagePropertyChanged;
             element.PropertyChanged += OnTabbedPagePropertyChanged;
         }
 
-        protected virtual void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected virtual void OnTabbedPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (!(sender is Element element))
                 return;
@@ -125,10 +147,10 @@ namespace Plugin.Badge.Droid
 
             page.ChildRemoved -= OnTabRemoved;
             page.ChildAdded -= OnTabAdded;
+            page.Appearing -= OnAppearing;
 
             BadgeViews.Clear();
-            _tabLayout = null;
-            _tabStrip = null;
+            _tabLinearLayout = null;
         }
     }
 }

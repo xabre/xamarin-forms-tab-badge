@@ -1,8 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Abstractions", "Plugin.Badge.Abstractions\Plugin.Badge.Abstractions.csproj", "{99155358-BFE1-4E45-8F84-78614F69B7FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.Badge.Abstractions", "Plugin.Badge.Abstractions\Plugin.Badge.Abstractions.csproj", "{99155358-BFE1-4E45-8F84-78614F69B7FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.iOS", "Plugin.Badge.iOS\Plugin.Badge.iOS.csproj", "{3EA52389-9136-44EB-8A4E-C6C2B30094D0}"
 EndProject
@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Droid", "Plugi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{F2A4C316-91B1-45B8-81B6-64235C89A2A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Sample", "Sample\Plugin.Badge.Sample\Plugin.Badge.Sample.csproj", "{E66692BA-0BA6-4B5C-A519-DD0102B88231}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.Badge.Sample", "Sample\Plugin.Badge.Sample\Plugin.Badge.Sample.csproj", "{E66692BA-0BA6-4B5C-A519-DD0102B88231}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Sample.Droid", "Sample\Plugin.Badge.Sample.Droid\Plugin.Badge.Sample.Droid.csproj", "{119FCCAA-7446-4DE0-8F47-5A0A08AC4DB3}"
 EndProject
@@ -39,6 +39,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Sample.Mac", "Sample\Plugin.Badge.Sample.Mac\Plugin.Badge.Sample.Mac.csproj", "{0AE3BD6B-5046-4423-881B-C312C00427D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Mac", "Plugin.Badge.Mac\Plugin.Badge.Mac.csproj", "{889C8F61-5875-4994-AC88-82B99A299593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Sample.Droid.Legacy", "Plugin.Badge.Sample.Droid.Legacy\Plugin.Badge.Sample.Droid.Legacy.csproj", "{65041A77-F0C4-4263-BF2F-4A631B50A718}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -302,6 +304,42 @@ Global
 		{889C8F61-5875-4994-AC88-82B99A299593}.Release|x64.Build.0 = Release|Any CPU
 		{889C8F61-5875-4994-AC88-82B99A299593}.Release|x86.ActiveCfg = Release|Any CPU
 		{889C8F61-5875-4994-AC88-82B99A299593}.Release|x86.Build.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|ARM.Build.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|iPhone.Deploy.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|x64.Build.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|x86.Build.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|ARM.ActiveCfg = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|ARM.Build.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|ARM.Deploy.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|iPhone.Build.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|iPhone.Deploy.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|x64.ActiveCfg = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|x64.Build.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|x64.Deploy.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|x86.ActiveCfg = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|x86.Build.0 = Release|Any CPU
+		{65041A77-F0C4-4263-BF2F-4A631B50A718}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -312,5 +350,9 @@ Global
 		{E6894584-C17F-4057-B4D0-5DFBBE098A94} = {F2A4C316-91B1-45B8-81B6-64235C89A2A8}
 		{9D38EFD5-5ADC-4ECB-9B96-1B0A67842326} = {F2A4C316-91B1-45B8-81B6-64235C89A2A8}
 		{0AE3BD6B-5046-4423-881B-C312C00427D6} = {F2A4C316-91B1-45B8-81B6-64235C89A2A8}
+		{65041A77-F0C4-4263-BF2F-4A631B50A718} = {F2A4C316-91B1-45B8-81B6-64235C89A2A8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DE06F37-C18A-40B6-BB91-CC2F1ED2C116}
 	EndGlobalSection
 EndGlobal

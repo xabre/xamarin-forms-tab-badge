@@ -22,6 +22,9 @@
       <group targetFramework="netstandard1.4">
         <dependency id="Xamarin.Forms" version="2.5.0.280555" />
       </group>
+      <group targetFramework="portable-net45+win+wpa81+wp80">
+        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+      </group>
       <group targetFramework="MonoAndroid10">
         <dependency id="Xamarin.Forms" version="2.5.0.280555" />
       </group>
@@ -39,6 +42,8 @@
   <files>
     <!-- .net standard -->
     <file src="out\lib\netstandard1.4\Plugin.Badge.*" target="lib\netstandard1.4" />
+    <!-- PCL -->
+    <file src="out\lib\netstandard1.4\Plugin.Badge.*" target="lib\portable-net45+win8+wpa81+wp8" />
     <!-- droid -->
     <file src="out\lib\android\Plugin.Badge.*" target="lib\MonoAndroid10" />
     <!-- iOS -->
