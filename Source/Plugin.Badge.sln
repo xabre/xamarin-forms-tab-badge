@@ -30,6 +30,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4450C664-C9A2-4531-900B-CEFB62ABED91}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		..\changelog.md = ..\changelog.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Badge.Sample.UWP", "Sample\Plugin.Badge.Sample.UWP\Plugin.Badge.Sample.UWP.csproj", "{9D38EFD5-5ADC-4ECB-9B96-1B0A67842326}"

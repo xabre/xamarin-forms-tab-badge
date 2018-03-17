@@ -1,6 +1,9 @@
 # Changelog
 ##[2.0.0]
-      - .NET Standard 1.4 support   
+      - #40 Added support for NON-AppCompat android activity (actionbar)
+      - .NET Standard support with backwards compatibility to PCL
+##[2.0.0-pre]
+      - .NET Standard 1.4 support
 ##[1.3.0]
       - #33 Updated dependencies to Xamarin Forms 2.4.0.280 (first stable 2.4.x)
       - #37 #20 [Android][MacOS][UWP] Bindable badge postion and margin
