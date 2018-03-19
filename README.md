@@ -16,13 +16,11 @@
 | Bindable Badge Margin | ✓ | ✕ | ✓ | ✓ |
 | Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges. | ✓ | ✓ |
 
-\***Caution**: For Xamarin.Forms Android make sure to use AppCompat. I.e.inherit from FormsAppCompatActivity
-
 \*(1) Min Android **API level 15**
 
 \*(2) **Min UWP version**: Win 10 November Update.
 
-\*(3) **MacOS version**: Depends on Xamarin Forms 2.3.5-pre6 at the moment. 
+\*(3) **MacOS version**: -
 
 \*\***Font restrictions**: able to bind font attributes and family but not size
 
@@ -45,6 +43,12 @@ You have to register the custom renderer. I usually put this in the AssemblyInfo
 
 ```
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
+```
+
+**Caution**: *If you are using the **NON AppCompat** MainActivity (i.e. you Main activity inherits from FormsApplicationActivity) please register the 'Legacy' renderer*
+
+```
+[assembly: ExportRenderer(typeof(TabbedPage), typeof(LegacyBadgedTabbedRenderer))]
 ```
 
 ### Caution - Custom TabbedPage / Custom Renderers
