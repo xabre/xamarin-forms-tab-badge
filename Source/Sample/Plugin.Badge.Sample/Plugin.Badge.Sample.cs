@@ -8,9 +8,36 @@ namespace Plugin.Badge.Sample
 {
     public class App : Application
     {
-        private readonly TabbedPage _tabbedPage;
+        private TabbedPage _tabbedPage;
 
         public App()
+        {
+            MainPage = new NavigationPage(new ContentPage
+            {
+                Title = "XF Tab Badges",
+                Content = new StackLayout
+                {
+                    Children =
+                    {
+                        new Button
+                        {
+                            Text = "Tabbed page as root",
+                            Command = new Command(CreateTabedPageAsRoot),
+                            VerticalOptions = LayoutOptions.Center
+                        },
+
+                        new Button
+                        {
+                            Text = "Tabbed page inside navigation page",
+                            Command = new Command(CreateTabedPageInsideNavigationPage),
+                            VerticalOptions = LayoutOptions.Center
+                        },
+                    }
+                }
+            });
+        }
+
+        private void CreateTabedPageAsRoot()
         {
             var tab1 = CreateTab1();
 
@@ -22,7 +49,8 @@ namespace Plugin.Badge.Sample
             _tabbedPage = new TabbedPage
             {
                 Title = "Tab badge sample",
-                Children = {
+                Children =
+                {
                     tab1,
                     tab2,
                     tab3
@@ -30,8 +58,31 @@ namespace Plugin.Badge.Sample
             };
 
             _tabbedPage.ToolbarItems.Add(new ToolbarItem("Item1", "tabicon.png", () => { }, ToolbarItemOrder.Primary));
-
             MainPage = new NavigationPage(_tabbedPage);
+        }
+
+        private void CreateTabedPageInsideNavigationPage()
+        {
+            var tab1 = CreateTab1();
+
+            var tab2 = CreateTab2();
+
+            var tab3 = CreateTab3();
+
+            // The root page of your application
+            _tabbedPage = new TabbedPage
+            {
+                Title = "Tab badge sample",
+                Children =
+                {
+                    tab1,
+                    tab2,
+                    tab3
+                }
+            };
+
+            _tabbedPage.ToolbarItems.Add(new ToolbarItem("Item1", "tabicon.png", () => { }, ToolbarItemOrder.Primary));
+            (MainPage as NavigationPage)?.PushAsync(_tabbedPage);
         }
 
         private ContentPage CreateTab2()
@@ -46,7 +97,7 @@ namespace Plugin.Badge.Sample
         {
             var tab3 = new ContentPage
             {
-                Title = "Tab2",
+                Title = "Tab3",
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.Center,
@@ -57,7 +108,7 @@ namespace Plugin.Badge.Sample
                         new Label
                         {
                             HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms Tab2!"
+                            Text = "Welcome to Xamarin Forms Tab3!"
                         },
                         new Image
                         {
@@ -66,6 +117,14 @@ namespace Plugin.Badge.Sample
                             VerticalOptions = LayoutOptions.CenterAndExpand,
                             HorizontalOptions = LayoutOptions.Center,
                             Source = "tabicon.png"
+                        },
+                        new Button
+                        {
+                            Text = "Navigate to other page",
+                            Command =  new Command(() =>
+                            {
+                                (this.MainPage as NavigationPage)?.PushAsync(CreateNavigationPage());
+                            })
                         }
                     }
                 }
@@ -193,6 +252,36 @@ namespace Plugin.Badge.Sample
             return tab1;
         }
 
+        private ContentPage CreateNavigationPage()
+        {
+            return new ContentPage()
+            {
+                Title = "Demo navigation",
+                Content = new StackLayout()
+                {
+                    Children =
+                    {
+                        new Button()
+                        {
+                            Text = "Use navigation page for tabs",
+                            Command = new Command(() =>
+                            {
+                                (this.MainPage as NavigationPage)?.PushAsync(new TabbedPage
+                                {
+                                    Title = "Tab badge inside navigation page",
+                                    Children =
+                                    {
+                                        CreateTab1(),
+                                        CreateTab2()
+                                    }
+                                });
+                            })
+                        }
+                    }
+                }
+            };
+        }
+
         private void ButtonRemoveTab_Clicked(object sender, EventArgs e)
         {
             if (_tabbedPage.Children.Count > 1)
@@ -240,6 +329,8 @@ namespace Plugin.Badge.Sample
         {
             // Handle when your app resumes
         }
+
+        
     }
 }
 

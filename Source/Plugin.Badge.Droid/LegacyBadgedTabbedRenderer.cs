@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Android.Content;
+using View = Android.Views.View;
 
 namespace Plugin.Badge.Droid
 {
@@ -15,9 +16,16 @@ namespace Plugin.Badge.Droid
     /// </summary>
     public class LegacyBadgedTabbedRenderer : TabbedRenderer
     {
-        private const int DeleayBeforeTabAdded = 10;
+        protected const int DelayBeforeTabAdded = 10;
         protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
-        private LinearLayout _tabLinearLayout;
+        protected LinearLayout _tabLinearLayout;
+
+        /// <summary>
+        /// The legacy renderer has an issue which causes the badges not to appear if the initialization is done too soon before the tab layout is set-up. 
+        /// Unfortunately events like OnAppearing and attached to window do not guarantee that the tab layout is initialized.
+        /// A workaround for this is setting this initialization delay and ensure that the layouting has finished before the tabs are initialized.
+        /// </summary>
+        public static int InitializationDelayInMiliseconds { get; set; } = 600;
 
         public LegacyBadgedTabbedRenderer(Context context) : base(context)
         {
@@ -33,13 +41,17 @@ namespace Plugin.Badge.Droid
 
             Element.ChildAdded += OnTabAdded;
             Element.ChildRemoved += OnTabRemoved;
-            Element.Appearing += OnAppearing;
         }
 
-        private void OnAppearing(object sender, EventArgs e)
+        protected override async void OnAttachedToWindow()
         {
-            Element.Appearing -= OnAppearing;
+            base.OnAttachedToWindow();
+            await Task.Delay(InitializationDelayInMiliseconds);
+            Initialize();
+        }
 
+        protected virtual void Initialize()
+        {
             IViewParent root = ViewGroup;
             while (root.Parent?.Parent != null)
             {
@@ -56,9 +68,9 @@ namespace Plugin.Badge.Droid
                 _tabLinearLayout = _tabLinearLayout ?? (rootGroup.GetChildAt(i) as ViewGroup)?.FindChildOfType<HorizontalScrollView>()?.FindChildOfType<LinearLayout>();
             }
 
-            if (_tabLinearLayout == null)
+            if (_tabLinearLayout == null || _tabLinearLayout.ChildCount == 0)
             {
-                Console.WriteLine("Plugin.Badge: No ActionBar bit ha tab layout found. Badges not added.");
+                Console.WriteLine("Plugin.Badge: No ActionBar bit ha tab layout found or has no children. Badges not added.");
                 return;
             }
 
@@ -70,7 +82,7 @@ namespace Plugin.Badge.Droid
 
         private void AddTabBadge(int tabIndex)
         {
-            if (!(_tabLinearLayout.GetChildAt(tabIndex) is ViewGroup view))
+            if (!(_tabLinearLayout.GetChildAt(tabIndex) is ViewGroup view) || tabIndex >= Element.Children.Count)
             {
                 return;
             }
@@ -118,7 +130,7 @@ namespace Plugin.Badge.Droid
 
         private async void OnTabAdded(object sender, ElementEventArgs e)
         {
-            await Task.Delay(DeleayBeforeTabAdded);
+            await Task.Delay(DelayBeforeTabAdded);
 
             if (!(e.Element is Page page))
                 return;
@@ -147,7 +159,6 @@ namespace Plugin.Badge.Droid
 
             page.ChildRemoved -= OnTabRemoved;
             page.ChildAdded -= OnTabAdded;
-            page.Appearing -= OnAppearing;
 
             BadgeViews.Clear();
             _tabLinearLayout = null;
