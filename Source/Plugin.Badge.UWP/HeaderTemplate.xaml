@@ -20,8 +20,9 @@
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <local:BadgePositionConverter x:Key="BadgePositionConverter" />
         <local:BadgeMarginConverter x:Key="BadgeMarginConverter" />
+        <local:NavigationDataContextConverter x:Key="NavigationDataContextConverter" />
         <DataTemplate x:Key="HeaderTemplate">
-            <RelativePanel>
+            <RelativePanel DataContext="{Binding Converter={StaticResource NavigationDataContextConverter}}">
                 <Image x:Name="icon"
                        Source="{Binding Icon, Converter={StaticResource TabIconConverter}}"
                        MaxHeight="30"

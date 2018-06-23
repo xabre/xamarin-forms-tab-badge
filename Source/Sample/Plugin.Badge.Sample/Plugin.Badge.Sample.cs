@@ -32,6 +32,13 @@ namespace Plugin.Badge.Sample
                             Command = new Command(CreateTabedPageInsideNavigationPage),
                             VerticalOptions = LayoutOptions.Center
                         },
+
+                        new Button
+                        {
+                            Text = "Tabbed page root with children as navigation pages",
+                            Command = new Command(CreateTabedPageWithNavigationPageChildren),
+                            VerticalOptions = LayoutOptions.Center
+                        },
                     }
                 }
             });
@@ -59,6 +66,29 @@ namespace Plugin.Badge.Sample
 
             _tabbedPage.ToolbarItems.Add(new ToolbarItem("Item1", "tabicon.png", () => { }, ToolbarItemOrder.Primary));
             MainPage = new NavigationPage(_tabbedPage);
+        }
+
+        private void CreateTabedPageWithNavigationPageChildren()
+        {
+            var tab1 = new NavigationPage(CreateTab1());
+
+            var tab2 = new NavigationPage(CreateTab2());
+
+            var tab3 = new NavigationPage(CreateTab3());
+
+            // The root page of your application
+            _tabbedPage = new TabbedPage
+            {
+                Title = "Tab badge sample",
+                Children =
+                {
+                    tab1,
+                    tab2,
+                    tab3
+                }
+            };
+
+            MainPage = _tabbedPage;
         }
 
         private void CreateTabedPageInsideNavigationPage()
@@ -268,11 +298,11 @@ namespace Plugin.Badge.Sample
                             {
                                 (this.MainPage as NavigationPage)?.PushAsync(new TabbedPage
                                 {
-                                    Title = "Tab badge inside navigation page",
+                                    Title = "Tabed page & content pages navigation page",
                                     Children =
                                     {
-                                        CreateTab1(),
-                                        CreateTab2()
+                                        new NavigationPage(CreateTab1()),
+                                        new NavigationPage(CreateTab2())
                                     }
                                 });
                             })

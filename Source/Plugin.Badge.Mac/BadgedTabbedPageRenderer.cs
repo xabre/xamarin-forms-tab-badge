@@ -49,6 +49,12 @@ namespace Plugin.Badge.Mac
             var segment = _segmentedControl.Subviews[tabIndex];
 
             var element = Tabbed.Children[tabIndex];
+            if (element is NavigationPage navigationPage)
+            {
+                //if the child page is a navigation page get its root page
+                element = navigationPage.RootPage;
+            }
+
             element.PropertyChanged += OnTabbedPagePropertyChanged;
 
             var badge = new BadgeView(segment, false)
@@ -118,7 +124,7 @@ namespace Plugin.Badge.Mac
         private async void OnTabAdded(object sender, ElementEventArgs e)
         {
             //workaround for XF, tabbar is not updated at this point and we have no way of knowing for sure when it will be updated. so we have to wait ... 
-            await Task.Delay(10);
+            await Task.Delay(50);
 
             var page = e.Element as Page;
             if (page == null)

@@ -116,6 +116,7 @@
     <Compile Include="Converters\BadgeFontStyleConverter.cs" />
     <Compile Include="Converters\BadgeVisibilityConverter.cs" />
     <Compile Include="Converters\BadgeTextConverter.cs" />
+    <Compile Include="Converters\NavigationDataContextConverter.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="HeaderTemplate.xaml.cs">
       <DependentUpon>HeaderTemplate.xaml</DependentUpon>

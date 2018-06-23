@@ -1,19 +1,33 @@
-﻿using Windows.UI.Xaml;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
+using DataTemplate = Windows.UI.Xaml.DataTemplate;
 
 namespace Plugin.Badge.UWP
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
     {
-        HeaderTemplate header = new HeaderTemplate();
+        private readonly HeaderTemplate _header = new HeaderTemplate();
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
 
-            Control.HeaderTemplate = header.Resources[nameof(HeaderTemplate)] as DataTemplate;
-
-            foreach (var tab in Element.Children)
+            if (Control == null)
             {
+                return;
+            }
+
+            if (Element == null)
+            {
+                return;
+            }
+
+            Control.HeaderTemplate = _header.Resources[nameof(HeaderTemplate)] as DataTemplate;
+
+            foreach (var element in Element.Children)
+            {
+                //if the child page is a navigation page get its root page
+                var tab = (element as NavigationPage)?.RootPage ?? element;
+                
                 tab.PropertyChanged -= Tab_PropertyChanged;
                 tab.PropertyChanged += Tab_PropertyChanged;
             }
@@ -25,18 +39,18 @@ namespace Plugin.Badge.UWP
             {
                 //ToDo find a better way to refresh the bindings, this causes flickering for the tab icon
                 Control.HeaderTemplate = null;
-                Control.HeaderTemplate = header.Resources[nameof(HeaderTemplate)] as DataTemplate;
+                Control.HeaderTemplate = _header.Resources[nameof(HeaderTemplate)] as DataTemplate;
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             foreach (var tab in Element.Children)
             {
                 tab.PropertyChanged -= Tab_PropertyChanged;
             }
+
+            base.Dispose(disposing);
         }
     }
 }

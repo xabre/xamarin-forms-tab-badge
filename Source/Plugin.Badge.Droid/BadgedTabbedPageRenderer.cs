@@ -53,6 +53,12 @@ namespace Plugin.Badge.Droid
         private void AddTabBadge(int tabIndex)
         {
             var element = Element.Children[tabIndex];
+            if (element is NavigationPage navigationPage)
+            {
+                //if the child page is a navigation page get its root page
+                element = navigationPage.RootPage;
+            }
+
             var view = _tabLayout?.GetTabAt(tabIndex).CustomView ?? _tabStrip?.GetChildAt(tabIndex);
 
             var badgeView = (view as ViewGroup)?.FindChildOfType<BadgeView>();
