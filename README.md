@@ -18,7 +18,7 @@
 
 \*(1) Min Android **API level 15**
 
-\*(2) **Min UWP version**: Win 10 November Update.
+\*(2) **Min UWP version**: Win 10 Fall Creators Update (XF.3 has a .netstandard 2 requirement).
 
 \*(3) **MacOS version**: -
 
