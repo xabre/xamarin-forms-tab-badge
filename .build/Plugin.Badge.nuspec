@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>2.0.0</version>
+    <version>2.1.0-pre.1</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
@@ -14,6 +14,10 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS uwp uap android ios windows universal mac macos osx</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [2.1.0-pre.1]
+      - Update to Xamarin Forms 3.1 
+      - #48 Android Bottom Placement Support
+      - #46 Bugfix: consider tabpage children embedded in navigation pages
       [2.0.0]
       - NET Standard support
       - #40 Added support for NON-AppCompat android activity (actionbar)
@@ -23,22 +27,22 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework="netstandard1.4">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
       </group>
       <group targetFramework="portable-net45+win+wpa81+wp80">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
       </group>
       <group targetFramework="MonoAndroid10">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
       </group>
       <group targetFramework="Xamarin.iOS10">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
       </group>
       <group targetFramework="uap10.0">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
       </group>
       <group targetFramework="xamarinmac20">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
       </group>
     </dependencies>
   </metadata>
