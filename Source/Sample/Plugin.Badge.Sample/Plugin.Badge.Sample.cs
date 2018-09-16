@@ -3,6 +3,10 @@
 using Xamarin.Forms;
 using Plugin.Badge.Sample.ViewModels;
 using Plugin.Badge.Abstractions;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Application = Xamarin.Forms.Application;
+using Button = Xamarin.Forms.Button;
+using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace Plugin.Badge.Sample
 {
@@ -22,7 +26,7 @@ namespace Plugin.Badge.Sample
                         new Button
                         {
                             Text = "Tabbed page as root",
-                            Command = new Command(CreateTabedPageAsRoot),
+                            Command = new Command(() => CreateTabedPageAsRoot()),
                             VerticalOptions = LayoutOptions.Center
                         },
 
@@ -39,12 +43,22 @@ namespace Plugin.Badge.Sample
                             Command = new Command(CreateTabedPageWithNavigationPageChildren),
                             VerticalOptions = LayoutOptions.Center
                         },
+
+                        new Button
+                        {
+                            Text = "Android Bottom Tabs",
+                            Command = new Command(() =>
+                            {
+                                CreateTabedPageAsRoot(true);
+                            }, () => Device.RuntimePlatform == Device.Android),
+                            VerticalOptions = LayoutOptions.Center
+                        },
                     }
                 }
             });
         }
 
-        private void CreateTabedPageAsRoot()
+        private void CreateTabedPageAsRoot(bool androidUseBottomPlacement = false)
         {
             var tab1 = CreateTab1();
 
@@ -63,6 +77,11 @@ namespace Plugin.Badge.Sample
                     tab3
                 }
             };
+
+            if (androidUseBottomPlacement)
+            {
+                _tabbedPage.On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
+            }
 
             _tabbedPage.ToolbarItems.Add(new ToolbarItem("Item1", "tabicon.png", () => { }, ToolbarItemOrder.Primary));
             MainPage = new NavigationPage(_tabbedPage);

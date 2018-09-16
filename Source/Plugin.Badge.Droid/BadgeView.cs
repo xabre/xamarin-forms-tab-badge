@@ -64,8 +64,8 @@ namespace Plugin.Badge.Droid
 
         public Color TextColor
         {
-            get { return new Color(CurrentTextColor); }
-            set { SetTextColor(value); }
+            get => new Color(CurrentTextColor);
+            set => SetTextColor(value);
         }
 
         public void SetMargins(float left, float top, float right, float bottom)
@@ -152,7 +152,6 @@ namespace Plugin.Badge.Droid
 
             group.SetClipChildren(false);
             group.SetClipToPadding(false);
-            
 
             var container = new FrameLayout(_context);
             var index = group.IndexOfChild(target);

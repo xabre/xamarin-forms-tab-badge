@@ -96,8 +96,7 @@ namespace Plugin.Badge.Droid
                 var child = parent.GetChildAt(i);
 
 
-                var typedChild = child as T;
-                if (typedChild != null)
+                if (child is T typedChild)
                 {
                     return typedChild;
                 }

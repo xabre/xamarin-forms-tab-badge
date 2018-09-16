@@ -9,6 +9,9 @@ using Android.Widget;
 using Plugin.Badge.Abstractions;
 using Xamarin.Forms.Platform.Android;
 using Android.Content;
+using Android.Support.V4.View;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace Plugin.Badge.Droid
 {
@@ -16,8 +19,9 @@ namespace Plugin.Badge.Droid
     {
         private const int DeleayBeforeTabAdded = 10;
         protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
-        private TabLayout _tabLayout;
-        private LinearLayout _tabStrip;
+        private TabLayout _topTabLayout;
+        private LinearLayout _topTabStrip;
+        private ViewGroup _bottomTabStrip;
 
         public BadgedTabbedPageRenderer(Context context) : base(context)
         {
@@ -31,18 +35,39 @@ namespace Plugin.Badge.Droid
             Cleanup(e.OldElement);
             Cleanup(Element);
 
-            _tabLayout = ViewGroup.FindChildOfType<TabLayout>();
-            if (_tabLayout == null)
+            switch (this.Element.OnThisPlatform().GetToolbarPlacement())
             {
-                Console.WriteLine("Plugin.Badge: No TabLayout found. Badge not added.");
-                return;
-            }
+                case ToolbarPlacement.Default:
+                case ToolbarPlacement.Top:
+                    _topTabLayout = ViewGroup.FindChildOfType<TabLayout>();
+                    if (_topTabLayout == null)
+                    {
+                        Console.WriteLine("Plugin.Badge: No TabLayout found. Badge not added.");
+                        return;
+                    }
 
-            _tabStrip = _tabLayout.FindChildOfType<LinearLayout>();
+                    _topTabStrip = _topTabLayout.FindChildOfType<LinearLayout>();
 
-            for (var i = 0; i < _tabLayout.TabCount; i++)
-            {
-                AddTabBadge(i);
+                    for (var i = 0; i < _topTabLayout.TabCount; i++)
+                    {
+                        AddTabBadge(i);
+                    }
+                    break;
+                case ToolbarPlacement.Bottom:
+                    _bottomTabStrip = ViewGroup.FindChildOfType<BottomNavigationView>()?.GetChildAt(0) as ViewGroup;
+                    if (_bottomTabStrip == null)
+                    {
+                        Console.WriteLine("Plugin.Badge: No bottom tab layout found. Badge not added.");
+                        return;
+                    }
+
+                    for (var i = 0; i < _bottomTabStrip.ChildCount; i++)
+                    {
+                        AddTabBadge(i);
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             Element.ChildAdded += OnTabAdded;
@@ -52,6 +77,25 @@ namespace Plugin.Badge.Droid
 
         private void AddTabBadge(int tabIndex)
         {
+            if (this.Element.OnThisPlatform().GetToolbarPlacement() == ToolbarPlacement.Bottom)
+            {
+                var target = _bottomTabStrip?.GetChildAt(tabIndex) as ViewGroup;
+                target?.SetClipChildren(false);
+                AddBadgeToTargetView(target, tabIndex);
+            }
+            else
+            {
+                AddBadgeToTargetView((_topTabLayout?.GetTabAt(tabIndex).CustomView ?? _topTabStrip?.GetChildAt(tabIndex)) as ViewGroup, tabIndex);
+            }
+        }
+
+        private void AddBadgeToTargetView(ViewGroup target, int tabIndex)
+        {
+            if (target == null)
+            {
+                Console.WriteLine("Plugin.Badge: Badge traget cannot be null. Badge not added.");
+            }
+
             var element = Element.Children[tabIndex];
             if (element is NavigationPage navigationPage)
             {
@@ -59,17 +103,14 @@ namespace Plugin.Badge.Droid
                 element = navigationPage.RootPage;
             }
 
-            var view = _tabLayout?.GetTabAt(tabIndex).CustomView ?? _tabStrip?.GetChildAt(tabIndex);
-
-            var badgeView = (view as ViewGroup)?.FindChildOfType<BadgeView>();
-
+            var badgeView = target.FindChildOfType<BadgeView>();
             if (badgeView == null)
             {
-                var imageView = (view as ViewGroup)?.FindChildOfType<ImageView>();
+                var imageView = target.FindChildOfType<ImageView>();
 
                 var badgeTarget = imageView?.Drawable != null
                     ? (Android.Views.View)imageView
-                    : (view as ViewGroup)?.FindChildOfType<TextView>();
+                    : target.FindChildOfType<TextView>();
 
                 //create badge for tab
                 badgeView = new BadgeView(Context, badgeTarget);
@@ -82,6 +123,7 @@ namespace Plugin.Badge.Droid
             element.PropertyChanged -= OnTabbedPagePropertyChanged;
             element.PropertyChanged += OnTabbedPagePropertyChanged;
         }
+
 
         protected virtual void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -133,8 +175,9 @@ namespace Plugin.Badge.Droid
             page.ChildAdded -= OnTabAdded;
 
             BadgeViews.Clear();
-            _tabLayout = null;
-            _tabStrip = null;
+            _topTabLayout = null;
+            _topTabStrip = null;
+            _bottomTabStrip = null;
         }
     }
 }

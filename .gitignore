@@ -57,3 +57,4 @@ Thumbs.db
 /tools
 /.vscode
 /.build/nuget
+Source/.vs/Plugin.Badge/DesignTimeBuild/.dtbcache
