@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.Badge</id>
-    <version>2.1.0-pre.1</version>
+    <version>2.1.0-pre.2</version>
     <title>Tab Badge for Xamarin.Forms</title>
     <authors>Adrian Seceleanu</authors>
     <owners>Adrian Seceleanu</owners>
@@ -14,6 +14,8 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS uwp uap android ios windows universal mac macos osx</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [2.1.0-pre.2]
+      - #49 Fix missing UWP dlls from nuget package
       [2.1.0-pre.1]
       - Update to Xamarin Forms 3.1 
       - #48 Android Bottom Placement Support
@@ -56,7 +58,7 @@
     <!-- iOS -->
     <file src="out\lib\ios\Plugin.Badge.*" target="lib\Xamarin.iOS10" />
     <!-- uap -->
-    <file src="out\lib\uwp\Plugin.Badge.*" target="lib\uap10.0" />
+    <file src="out\lib\uwp\Plugin.Badge.UWP\Plugin.Badge.*" target="lib\uap10.0" />
     <file src="out\lib\uwp\Plugin.Badge.*.xml" target="lib\uap10.0\Plugin.Badge.UWP" />
     <!-- mac -->
     <file src="out\lib\mac\Plugin.Badge.*" target="lib\xamarinmac20" />
