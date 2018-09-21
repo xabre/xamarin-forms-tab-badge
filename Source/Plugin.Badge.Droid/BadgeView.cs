@@ -27,7 +27,7 @@ namespace Plugin.Badge.Droid
         private ShapeDrawable _backgroundShape;
         private BadgePosition _position;
 
-        public View Target { get; private set; }
+        public View Target { get; }
         private int _badgeMarginL;
         private int _badgeMarginR;
         private int _badgeMarginT;
@@ -45,7 +45,7 @@ namespace Plugin.Badge.Droid
                 {
                     return;
                 }
-                
+
                 _position = value;
                 ApplyLayoutParams();
             }
@@ -53,7 +53,7 @@ namespace Plugin.Badge.Droid
 
         public Color BadgeColor
         {
-            get { return _backgroundShape.Paint.Color; }
+            get => _backgroundShape.Paint.Color;
             set
             {
                 _backgroundShape.Paint.Color = value;
@@ -78,26 +78,37 @@ namespace Plugin.Badge.Droid
             ApplyLayoutParams();
         }
 
-        public BadgeView(Context context, View target) : this(context, null, Android.Resource.Attribute.TextViewStyle, target)
+        public static BadgeView ForView(Context context, View target)
         {
+            var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle, target);
+            badgeView.ApplyTo(target);
+            return badgeView;
+        }
+        public static BadgeView ForLayout(Context context, ViewGroup layout)
+        {
+            var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle, layout);
+            badgeView.AddTo(layout);
+            badgeView.SetMargins(0, 0, 0, 0);
+            return badgeView;
         }
 
-        public BadgeView(Context context, IAttributeSet attrs, int defStyle, View target) : base(context, attrs, defStyle)
+
+        private BadgeView(Context context, IAttributeSet attrs, int defStyle, View target) : base(context, attrs, defStyle)
         {
-            Init(context, target);
+            this.Target = target;
+            Init(context);
         }
 
-        private void Init(Context context, View target)
+        private void Init(Context context)
         {
             _context = context;
-            Target = target;
 
             // apply defaults
             _badgeMarginL = DipToPixels(DefaultHmarginDip);
             _badgeMarginT = DipToPixels(DefaultVmarginDip);
             _badgeMarginR = DipToPixels(DefaultHmarginDip);
             _badgeMarginB = DipToPixels(DefaultVmarginDip);
-            
+
             Typeface = Typeface.DefaultBold;
             var paddingPixels = DipToPixels(DefaultLrPaddingDip);
             SetPadding(paddingPixels, 0, paddingPixels, 0);
@@ -119,15 +130,6 @@ namespace Plugin.Badge.Droid
             _backgroundShape = CreateBackgroundShape();
             ViewCompat.SetBackground(this, _backgroundShape);
             BadgeColor = _defaultBadgeColor;
-
-            if (Target != null)
-            {
-                ApplyTo(Target);
-            }
-            else
-            {
-                Show();
-            }
         }
 
         private ShapeDrawable CreateBackgroundShape()
@@ -136,6 +138,15 @@ namespace Plugin.Badge.Droid
             var outerR = new float[] { radius, radius, radius, radius, radius, radius, radius, radius };
 
             return new ShapeDrawable(new RoundRectShape(outerR, null, null));
+        }
+
+        private void AddTo(ViewGroup layout)
+        {
+            layout.SetClipChildren(false);
+            layout.SetClipToPadding(false);
+
+            Visibility = ViewStates.Gone;
+            layout.AddView(this);
         }
 
         private void ApplyTo(View target)
@@ -164,7 +175,6 @@ namespace Plugin.Badge.Droid
 
             Visibility = ViewStates.Gone;
             container.AddView(this);
-
         }
 
         public void Show()
