@@ -64,7 +64,7 @@ namespace Plugin.Badge.Abstractions
             view.SetValue(BadgePositionProperty, value);
         }
 
-        public static BindableProperty BadgeMarginProperty = BindableProperty.CreateAttached("BadgeMargin", typeof(Thickness), typeof(TabBadge), GetDefaultMargins(), BindingMode.OneWay);
+        public static BindableProperty BadgeMarginProperty = BindableProperty.CreateAttached("BadgeMargin", typeof(Thickness), typeof(TabBadge), DefaultMargins, BindingMode.OneWay);
 
         public static Thickness GetBadgeMargin(BindableObject view)
         {
@@ -76,19 +76,22 @@ namespace Plugin.Badge.Abstractions
             view.SetValue(BadgeMarginProperty, value);
         }
 
-        public static Thickness GetDefaultMargins()
+        public static Thickness DefaultMargins 
         {
-            switch (Device.RuntimePlatform)
+            get
             {
-                case Device.Android:
-                    return new Thickness(-10, -5);
-                case Device.UWP:
-                case Device.macOS:
-                case Device.iOS:
-                    return new Thickness(0);
-            }
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.Android:
+                        return new Thickness(-10, -5);
+                    case Device.UWP:
+                    case Device.macOS:
+                    case Device.iOS:
+                        return new Thickness(0);
+                }
 
-            return new Thickness(0);
+                return new Thickness(0);
+            }
         }
     }
 }

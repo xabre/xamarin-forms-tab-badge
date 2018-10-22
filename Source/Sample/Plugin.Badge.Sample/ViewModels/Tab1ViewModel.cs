@@ -108,7 +108,7 @@ namespace Plugin.Badge.Sample.ViewModels
         public Font BadgeFont { get; private set; }
         public BadgePosition Position { get; private set; }
 
-        private int _marginLeft = (int)TabBadge.GetDefaultMargins().Left;
+        private int _marginLeft = (int)TabBadge.DefaultMargins.Left;
         public int MarginLeft
         {
             get => _marginLeft;
@@ -120,7 +120,7 @@ namespace Plugin.Badge.Sample.ViewModels
             }
         }
 
-        private int _marginTop = (int)TabBadge.GetDefaultMargins().Top;
+        private int _marginTop = (int)TabBadge.DefaultMargins.Top;
         public int MarginTop
         {
             get => _marginTop;
@@ -132,7 +132,7 @@ namespace Plugin.Badge.Sample.ViewModels
             }
         }
 
-        private int _marginRight = (int)TabBadge.GetDefaultMargins().Right;
+        private int _marginRight = (int)TabBadge.DefaultMargins.Right;
         public int MarginRight
         {
             get => _marginRight;
@@ -144,7 +144,7 @@ namespace Plugin.Badge.Sample.ViewModels
             }
         }
 
-        private int _marginBottom = (int)TabBadge.GetDefaultMargins().Bottom;
+        private int _marginBottom = (int)TabBadge.DefaultMargins.Bottom;
         public int MarginBottom
         {
             get => _marginBottom;

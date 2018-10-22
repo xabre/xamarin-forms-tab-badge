@@ -14,8 +14,6 @@ namespace Plugin.Badge.Droid
 {
     public class BadgeView : TextView
     {
-        private const int DefaultHmarginDip = -10;
-        private const int DefaultVmarginDip = -5;
         private const int DefaultLrPaddingDip = 4;
         private const int DefaultCornerRadiusDip = 7;
 
@@ -27,13 +25,17 @@ namespace Plugin.Badge.Droid
         private ShapeDrawable _backgroundShape;
         private BadgePosition _position;
 
-        public View Target { get; }
+
         private int _badgeMarginL;
         private int _badgeMarginR;
         private int _badgeMarginT;
         private int _badgeMarginB;
 
+        private bool hasWrappedLayout;
+
         public static int TextSizeDip { get; set; } = 11;
+
+        public View Target { get; private set; }
 
         public BadgePosition Postion
         {
@@ -78,36 +80,42 @@ namespace Plugin.Badge.Droid
             ApplyLayoutParams();
         }
 
-        public static BadgeView ForView(Context context, View target)
+        /// <summary>
+        /// Creates a badge view for a given view by wrapping both views in a new layout.
+        /// </summary>
+        /// <returns>The view.</returns>
+        /// <param name="context">Context.</param>
+        /// <param name="target">Target.</param>
+        public static BadgeView WithWrapView(Context context, View target)
         {
-            var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle, target);
-            badgeView.ApplyTo(target);
+            var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle);
+            badgeView.WrapTargetWithLayout(target);
             return badgeView;
         }
-        public static BadgeView ForLayout(Context context, ViewGroup layout)
+
+        /// <summary>
+        /// Creates a bage view and adds it to the specified layout without adding any additionaly wrapping layouts.
+        /// 
+        /// </summary>
+        /// <returns>The layout.</returns>
+        /// <param name="context">Context.</param>
+        /// <param name="target">Target</param>
+        public static BadgeView WithViewLayout(Context context, View target)
         {
-            var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle, layout);
-            badgeView.AddTo(layout);
-            badgeView.SetMargins(0, 0, 0, 0);
+            var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle);
+            badgeView.AddToTargetLayout(target);
             return badgeView;
         }
 
 
-        private BadgeView(Context context, IAttributeSet attrs, int defStyle, View target) : base(context, attrs, defStyle)
+        private BadgeView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
-            this.Target = target;
             Init(context);
         }
 
         private void Init(Context context)
         {
             _context = context;
-
-            // apply defaults
-            _badgeMarginL = DipToPixels(DefaultHmarginDip);
-            _badgeMarginT = DipToPixels(DefaultVmarginDip);
-            _badgeMarginR = DipToPixels(DefaultHmarginDip);
-            _badgeMarginB = DipToPixels(DefaultVmarginDip);
 
             Typeface = Typeface.DefaultBold;
             var paddingPixels = DipToPixels(DefaultLrPaddingDip);
@@ -140,16 +148,35 @@ namespace Plugin.Badge.Droid
             return new ShapeDrawable(new RoundRectShape(outerR, null, null));
         }
 
-        private void AddTo(ViewGroup layout)
+        private void AddToTargetLayout(View target)
         {
+            var layout = target.Parent as ViewGroup;
+            if (layout == null)
+            {
+                Console.WriteLine("Badge target parent has to be a view group");
+                return;
+            }
+
             layout.SetClipChildren(false);
             layout.SetClipToPadding(false);
 
             Visibility = ViewStates.Gone;
-            layout.AddView(this);
+
+            var targetLayoutParams = target.LayoutParameters as FrameLayout.LayoutParams;
+            var layoutParams = new FrameLayout.LayoutParams(target.LayoutParameters);
+            layoutParams.Width = ViewGroup.LayoutParams.WrapContent;
+            layoutParams.Height = ViewGroup.LayoutParams.WrapContent;
+            layoutParams.Gravity = targetLayoutParams.Gravity;
+            layoutParams.TopMargin = targetLayoutParams.TopMargin;
+            layoutParams.BottomMargin = targetLayoutParams.BottomMargin;
+            layoutParams.LeftMargin = targetLayoutParams.LeftMargin;
+            layoutParams.RightMargin = targetLayoutParams.RightMargin;
+            layout.AddView(this, layoutParams);
+
+            Target = target;
         }
 
-        private void ApplyTo(View target)
+        private void WrapTargetWithLayout(View target)
         {
             var lp = target.LayoutParameters;
             var parent = target.Parent;
@@ -175,6 +202,8 @@ namespace Plugin.Badge.Droid
 
             Visibility = ViewStates.Gone;
             container.AddView(this);
+
+            Target = target;
         }
 
         public void Show()
@@ -217,7 +246,11 @@ namespace Plugin.Badge.Droid
 
         private void ApplyLayoutParams()
         {
-            var layoutParameters = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+            var layoutParameters = hasWrappedLayout ? 
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent) :
+                               new FrameLayout.LayoutParams(Target.LayoutParameters) { Width = ViewGroup.LayoutParams.WrapContent, Height = ViewGroup.LayoutParams.WrapContent };
+
+
 
             switch (Postion)
             {
@@ -259,8 +292,7 @@ namespace Plugin.Badge.Droid
                     break;
             }
 
-            LayoutParameters = layoutParameters;
-
+            // LayoutParameters = layoutParameters;
         }
 
         private int DipToPixels(float dip)

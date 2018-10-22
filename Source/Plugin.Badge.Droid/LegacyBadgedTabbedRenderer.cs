@@ -101,7 +101,7 @@ namespace Plugin.Badge.Droid
                 }
 
                 //create badge for tab
-                badgeView = BadgeView.ForView(Context, badgeTarget);
+                badgeView = BadgeView.WithWrapView(Context, badgeTarget);
             }
 
             BadgeViews[element] = badgeView;
