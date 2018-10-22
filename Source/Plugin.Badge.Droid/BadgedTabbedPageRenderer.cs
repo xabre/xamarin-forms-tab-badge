@@ -16,7 +16,6 @@ namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
     {
-        private static Thickness defaultThicknessForBottomPlacement = new Thickness(10, 5);
         private const int DeleayBeforeTabAdded = 10;
         protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
         private TabLayout _topTabLayout;
@@ -99,12 +98,12 @@ namespace Plugin.Badge.Droid
                 if (placement == ToolbarPlacement.Bottom)
                 {
                     // create for entire tab layout
-                    badgeView = BadgeView.WithViewLayout(Context, imageView);
+                    badgeView = BadgeView.ForTargetLayout(Context, imageView);
                 }
                 else
                 {
                     //create badge for tab image or text
-                    badgeView = BadgeView.WithWrapView(Context, imageView?.Drawable != null
+                    badgeView = BadgeView.ForTarget(Context, imageView?.Drawable != null
                         ? (Android.Views.View)imageView
                         : targetLayout.FindChildOfType<TextView>());
                 }
@@ -112,12 +111,6 @@ namespace Plugin.Badge.Droid
 
             BadgeViews[element] = badgeView;
             badgeView.UpdateFromElement(element);
-
-            // adjust default margins for bottom placement
-            if (placement == ToolbarPlacement.Bottom && TabBadge.GetBadgeMargin(element) == TabBadge.DefaultMargins)
-            {
-                badgeView.SetMargins(0, 0, 0, 0);
-            }
 
             element.PropertyChanged -= OnTabbedPagePropertyChanged;
             element.PropertyChanged += OnTabbedPagePropertyChanged;

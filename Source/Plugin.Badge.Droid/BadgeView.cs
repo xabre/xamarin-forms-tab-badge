@@ -31,7 +31,7 @@ namespace Plugin.Badge.Droid
         private int _badgeMarginT;
         private int _badgeMarginB;
 
-        private bool hasWrappedLayout;
+        private bool _hasWrappedLayout;
 
         public static int TextSizeDip { get; set; } = 11;
 
@@ -86,7 +86,7 @@ namespace Plugin.Badge.Droid
         /// <returns>The view.</returns>
         /// <param name="context">Context.</param>
         /// <param name="target">Target.</param>
-        public static BadgeView WithWrapView(Context context, View target)
+        public static BadgeView ForTarget(Context context, View target)
         {
             var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle);
             badgeView.WrapTargetWithLayout(target);
@@ -100,13 +100,12 @@ namespace Plugin.Badge.Droid
         /// <returns>The layout.</returns>
         /// <param name="context">Context.</param>
         /// <param name="target">Target</param>
-        public static BadgeView WithViewLayout(Context context, View target)
+        public static BadgeView ForTargetLayout(Context context, View target)
         {
             var badgeView = new BadgeView(context, null, Android.Resource.Attribute.TextViewStyle);
             badgeView.AddToTargetLayout(target);
             return badgeView;
         }
-
 
         private BadgeView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
@@ -138,6 +137,8 @@ namespace Plugin.Badge.Droid
             _backgroundShape = CreateBackgroundShape();
             ViewCompat.SetBackground(this, _backgroundShape);
             BadgeColor = _defaultBadgeColor;
+
+            Visibility = ViewStates.Gone;
         }
 
         private ShapeDrawable CreateBackgroundShape()
@@ -160,18 +161,7 @@ namespace Plugin.Badge.Droid
             layout.SetClipChildren(false);
             layout.SetClipToPadding(false);
 
-            Visibility = ViewStates.Gone;
-
-            var targetLayoutParams = target.LayoutParameters as FrameLayout.LayoutParams;
-            var layoutParams = new FrameLayout.LayoutParams(target.LayoutParameters);
-            layoutParams.Width = ViewGroup.LayoutParams.WrapContent;
-            layoutParams.Height = ViewGroup.LayoutParams.WrapContent;
-            layoutParams.Gravity = targetLayoutParams.Gravity;
-            layoutParams.TopMargin = targetLayoutParams.TopMargin;
-            layoutParams.BottomMargin = targetLayoutParams.BottomMargin;
-            layoutParams.LeftMargin = targetLayoutParams.LeftMargin;
-            layoutParams.RightMargin = targetLayoutParams.RightMargin;
-            layout.AddView(this, layoutParams);
+            layout.AddView(this);
 
             Target = target;
         }
@@ -200,10 +190,10 @@ namespace Plugin.Badge.Droid
             container.AddView(target);
             group.Invalidate();
 
-            Visibility = ViewStates.Gone;
             container.AddView(this);
 
             Target = target;
+            _hasWrappedLayout = true;
         }
 
         public void Show()
@@ -232,7 +222,6 @@ namespace Plugin.Badge.Droid
             }
 
             Visibility = ViewStates.Visible;
-
         }
 
         private void Hide(bool animate, Animation anim)
@@ -246,53 +235,90 @@ namespace Plugin.Badge.Droid
 
         private void ApplyLayoutParams()
         {
-            var layoutParameters = hasWrappedLayout ? 
-                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent) :
-                               new FrameLayout.LayoutParams(Target.LayoutParameters) { Width = ViewGroup.LayoutParams.WrapContent, Height = ViewGroup.LayoutParams.WrapContent };
+            var layoutParameters = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
 
-
-
-            switch (Postion)
+            if (!_hasWrappedLayout)
             {
-                case BadgePosition.PositionTopLeft:
-                    layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Top;
-                    layoutParameters.SetMargins(_badgeMarginL, _badgeMarginT, 0, 0);
-                    break;
-                case BadgePosition.PositionTopRight:
-                    layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Top;
-                    layoutParameters.SetMargins(0, _badgeMarginT, _badgeMarginR, 0);
-                    break;
-                case BadgePosition.PositionBottomLeft:
-                    layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Bottom;
-                    layoutParameters.SetMargins(_badgeMarginL, 0, 0, _badgeMarginB);
-                    break;
-                case BadgePosition.PositionBottomRight:
-                    layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Bottom;
-                    layoutParameters.SetMargins(0, 0, _badgeMarginR, _badgeMarginB);
-                    break;
-                case BadgePosition.PositionCenter:
-                    layoutParameters.Gravity = GravityFlags.Center;
-                    layoutParameters.SetMargins(0, 0, 0, 0);
-                    break;
-                case BadgePosition.PositionTopCenter:
-                    layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Top;
-                    layoutParameters.SetMargins(0, _badgeMarginT, 0, 0);
-                    break;
-                case BadgePosition.PositionBottomCenter:
-                    layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Bottom;
-                    layoutParameters.SetMargins(0, 0, 0, _badgeMarginB);
-                    break;
-                case BadgePosition.PositionLeftCenter:
-                    layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Center;
-                    layoutParameters.SetMargins(_badgeMarginL, 0, 0, 0);
-                    break;
-                case BadgePosition.PositionRightCenter:
-                    layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Center;
-                    layoutParameters.SetMargins(0, 0, _badgeMarginR, 0);
-                    break;
+                var targetParams = ((FrameLayout.LayoutParams)Target.LayoutParameters);
+                var w = targetParams.Width / 2;
+                var h = targetParams.Height / 2;
+
+                layoutParameters.Gravity = GravityFlags.Center;
+                switch (Postion)
+                {
+                    case BadgePosition.PositionTopLeft:
+                        layoutParameters.SetMargins(_badgeMarginL - w, _badgeMarginT - h, 0, 0);
+                        break;
+                    case BadgePosition.PositionTopRight:
+                        layoutParameters.SetMargins(0, _badgeMarginT - h, _badgeMarginR - w, 0);
+                        break;
+                    case BadgePosition.PositionBottomLeft:
+                        layoutParameters.SetMargins(_badgeMarginL - w, 0, 0, 0 + _badgeMarginB - h);
+                        break;
+                    case BadgePosition.PositionBottomRight:
+                        layoutParameters.SetMargins(0, 0, _badgeMarginR - w, 0 + _badgeMarginB - h);
+                        break;
+                    case BadgePosition.PositionCenter:
+                        layoutParameters.SetMargins(_badgeMarginL, _badgeMarginT, _badgeMarginR, _badgeMarginB);
+                        break;
+                    case BadgePosition.PositionTopCenter:
+                        layoutParameters.SetMargins(0, 0 + _badgeMarginT - h, 0, 0);
+                        break;
+                    case BadgePosition.PositionBottomCenter:
+                        layoutParameters.SetMargins(0, 0, 0, 0 + _badgeMarginB - h);
+                        break;
+                    case BadgePosition.PositionLeftCenter:
+                        layoutParameters.SetMargins(_badgeMarginL - w, 0, 0, 0);
+                        break;
+                    case BadgePosition.PositionRightCenter:
+                        layoutParameters.SetMargins(0, 0, _badgeMarginR - w, 0);
+                        break;
+                }
+            }
+            else
+            {
+                switch (Postion)
+                {
+                    case BadgePosition.PositionTopLeft:
+                        layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Top;
+                        layoutParameters.SetMargins(_badgeMarginL, _badgeMarginT, 0, 0);
+                        break;
+                    case BadgePosition.PositionTopRight:
+                        layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Top;
+                        layoutParameters.SetMargins(0, _badgeMarginT, _badgeMarginR, 0);
+                        break;
+                    case BadgePosition.PositionBottomLeft:
+                        layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Bottom;
+                        layoutParameters.SetMargins(_badgeMarginL, 0, 0, _badgeMarginB);
+                        break;
+                    case BadgePosition.PositionBottomRight:
+                        layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Bottom;
+                        layoutParameters.SetMargins(0, 0, _badgeMarginR, _badgeMarginB);
+                        break;
+                    case BadgePosition.PositionCenter:
+                        layoutParameters.Gravity = GravityFlags.Center;
+                        layoutParameters.SetMargins(0, 0, 0, 0);
+                        break;
+                    case BadgePosition.PositionTopCenter:
+                        layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Top;
+                        layoutParameters.SetMargins(0, _badgeMarginT, 0, 0);
+                        break;
+                    case BadgePosition.PositionBottomCenter:
+                        layoutParameters.Gravity = GravityFlags.Center | GravityFlags.Bottom;
+                        layoutParameters.SetMargins(0, 0, 0, _badgeMarginB);
+                        break;
+                    case BadgePosition.PositionLeftCenter:
+                        layoutParameters.Gravity = GravityFlags.Left | GravityFlags.Center;
+                        layoutParameters.SetMargins(_badgeMarginL, 0, 0, 0);
+                        break;
+                    case BadgePosition.PositionRightCenter:
+                        layoutParameters.Gravity = GravityFlags.Right | GravityFlags.Center;
+                        layoutParameters.SetMargins(0, 0, _badgeMarginR, 0);
+                        break;
+                }
             }
 
-            // LayoutParameters = layoutParameters;
+            LayoutParameters = layoutParameters;
         }
 
         private int DipToPixels(float dip)
@@ -302,18 +328,19 @@ namespace Plugin.Badge.Droid
 
         public new string Text
         {
-            get { return base.Text; }
+            get => base.Text;
             set
             {
                 base.Text = value;
 
-                if (Visibility == ViewStates.Visible && string.IsNullOrEmpty(value))
+                switch (Visibility)
                 {
-                    Hide(true);
-                }
-                else if (Visibility == ViewStates.Gone && !string.IsNullOrEmpty(value))
-                {
-                    Show(true);
+                    case ViewStates.Visible when string.IsNullOrEmpty(value):
+                        Hide(true);
+                        break;
+                    case ViewStates.Gone when !string.IsNullOrEmpty(value):
+                        Show(true);
+                        break;
                 }
             }
         }
