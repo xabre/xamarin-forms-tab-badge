@@ -7,7 +7,7 @@
 ## Support & Limitations
 
 | Feature / Availability  | Xamarin.Android (1) | Xamarin.iOS | UWP (2) | MacOS (3) | WPF |
-| ------------- | ----------- | ----------- | ----------- | ----------- |
+| ------------- | ----------- | ----------- | ----------- | ----------- | ----------- |
 | Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ | ✓ | ✓ |
 | Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ | ✓ |
 | Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ | ✓ |
