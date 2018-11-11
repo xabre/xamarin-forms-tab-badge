@@ -75,12 +75,7 @@ namespace Plugin.Badge.Droid
 
         private void AddTabBadge(int tabIndex)
         {
-            var element = Element.Children[tabIndex];
-            if (element is NavigationPage navigationPage)
-            {
-                //if the child page is a navigation page get its root page
-                element = navigationPage.RootPage;
-            }
+            var page = Element.GetChildPageWithBadges(tabIndex);
 
             var placement = Element.OnThisPlatform().GetToolbarPlacement();
             var targetView = placement == ToolbarPlacement.Bottom ? _bottomTabStrip?.GetChildAt(tabIndex) : _topTabLayout?.GetTabAt(tabIndex).CustomView ?? _topTabStrip?.GetChildAt(tabIndex);
@@ -109,12 +104,14 @@ namespace Plugin.Badge.Droid
                 }
             }
 
-            BadgeViews[element] = badgeView;
-            badgeView.UpdateFromElement(element);
+            BadgeViews[page] = badgeView;
+            badgeView.UpdateFromElement(page);
 
-            element.PropertyChanged -= OnTabbedPagePropertyChanged;
-            element.PropertyChanged += OnTabbedPagePropertyChanged;
+            page.PropertyChanged -= OnTabbedPagePropertyChanged;
+            page.PropertyChanged += OnTabbedPagePropertyChanged;
         }
+
+       
 
         protected virtual void OnTabbedPagePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

@@ -13,6 +13,7 @@ namespace Plugin.Badge.Sample
     public class App : Application
     {
         private TabbedPage _tabbedPage;
+        private readonly Switch _bootomPlacementSwitch;
 
         public App()
         {
@@ -26,7 +27,7 @@ namespace Plugin.Badge.Sample
                         new Button
                         {
                             Text = "Tabbed page as root",
-                            Command = new Command(() => CreateTabedPageAsRoot()),
+                            Command = new Command(CreateTabedPageAsRoot),
                             VerticalOptions = LayoutOptions.Center
                         },
 
@@ -44,21 +45,27 @@ namespace Plugin.Badge.Sample
                             VerticalOptions = LayoutOptions.Center
                         },
 
-                        new Button
+                        new StackLayout
                         {
-                            Text = "Android Bottom Tabs",
-                            Command = new Command(() =>
+                            Orientation = StackOrientation.Horizontal,
+                            IsVisible = Device.RuntimePlatform == Device.Android,
+                            Children =
                             {
-                                CreateTabedPageAsRoot(true);
-                            }, () => Device.RuntimePlatform == Device.Android),
-                            VerticalOptions = LayoutOptions.Center
-                        },
+                                new Label { Text = "Use bottom tab placement" },
+                                (this._bootomPlacementSwitch = new Switch {IsToggled = false})
+                            }
+                        }
                     }
                 }
             });
         }
 
-        private void CreateTabedPageAsRoot(bool androidUseBottomPlacement = false)
+        private void CreateTabedPageAsRoot(bool v)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CreateTabedPageAsRoot()
         {
             var tab1 = CreateTab1();
 
@@ -78,7 +85,7 @@ namespace Plugin.Badge.Sample
                 }
             };
 
-            if (androidUseBottomPlacement)
+            if (this._bootomPlacementSwitch.IsToggled)
             {
                 _tabbedPage.On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
             }
@@ -89,11 +96,13 @@ namespace Plugin.Badge.Sample
 
         private void CreateTabedPageWithNavigationPageChildren()
         {
-            var tab1 = new NavigationPage(CreateTab1());
+            var tab1 = CreateTab1();
+            var tab2 = CreateTab2();
+            var tab3 = CreateTab3();
 
-            var tab2 = new NavigationPage(CreateTab2());
-
-            var tab3 = new NavigationPage(CreateTab3());
+            var tab1NavigationPage = new NavigationPage(tab1) { Title = tab1.Title, Icon = tab1.Icon };
+            var tab2NavigationPage = new NavigationPage(tab2) { Title = tab2.Title, Icon = tab2.Icon };
+            var tab3NavigationPage = new NavigationPage(tab3) { Title = tab3.Title, Icon = tab3.Icon };
 
             // The root page of your application
             _tabbedPage = new TabbedPage
@@ -101,11 +110,16 @@ namespace Plugin.Badge.Sample
                 Title = "Tab badge sample",
                 Children =
                 {
-                    tab1,
-                    tab2,
-                    tab3
+                    tab1NavigationPage,
+                    tab2NavigationPage,
+                    tab3NavigationPage
                 }
             };
+
+            if (this._bootomPlacementSwitch.IsToggled)
+            {
+                _tabbedPage.On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
+            }
 
             MainPage = _tabbedPage;
         }
@@ -129,6 +143,11 @@ namespace Plugin.Badge.Sample
                     tab3
                 }
             };
+
+            if (this._bootomPlacementSwitch.IsToggled)
+            {
+                _tabbedPage.On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
+            }
 
             _tabbedPage.ToolbarItems.Add(new ToolbarItem("Item1", "tabicon.png", () => { }, ToolbarItemOrder.Primary));
             (MainPage as NavigationPage)?.PushAsync(_tabbedPage);
@@ -379,7 +398,7 @@ namespace Plugin.Badge.Sample
             // Handle when your app resumes
         }
 
-        
+
     }
 }
 

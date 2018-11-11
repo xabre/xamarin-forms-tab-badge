@@ -48,13 +48,7 @@ namespace Plugin.Badge.Mac
         {
             var segment = _segmentedControl.Subviews[tabIndex];
 
-            var element = Tabbed.Children[tabIndex];
-            if (element is NavigationPage navigationPage)
-            {
-                //if the child page is a navigation page get its root page
-                element = navigationPage.RootPage;
-            }
-
+            var element = Tabbed.GetChildPageWithBadges(tabIndex);
             element.PropertyChanged += OnTabbedPagePropertyChanged;
 
             var badge = new BadgeView(segment, false)

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
+
 namespace Plugin.Badge.Abstractions
 {
-    public class TabBadge
+    public static class TabBadge
     {
         public static BindableProperty BadgeTextProperty = BindableProperty.CreateAttached("BadgeText", typeof(string), typeof(TabBadge), default(string), BindingMode.OneWay);
 
@@ -92,6 +94,30 @@ namespace Plugin.Badge.Abstractions
 
                 return new Thickness(0);
             }
+        }
+
+        /// <summary>
+        /// Internal use only. Attempts to get the badged child of a tabbed page (either navigation page or content page)
+        /// </summary>
+        /// <param name="parentTabbedPage">Tabbed page</param>
+        /// <param name="tabIndex">Index</param>
+        /// <returns>Page</returns>
+        public static Page GetChildPageWithBadges(this TabbedPage parentTabbedPage, int tabIndex)
+        {
+            var element = parentTabbedPage.Children[tabIndex];
+            if (GetBadgeText(element) != (string)BadgeTextProperty.DefaultValue)
+            {
+                return element;
+            }
+
+            if (element is NavigationPage navigationPage)
+            {
+
+                //if the child page is a navigation page get its root page
+                return navigationPage.RootPage;
+            }
+
+            return element;
         }
     }
 }

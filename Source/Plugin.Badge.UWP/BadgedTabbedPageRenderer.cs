@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Plugin.Badge.Abstractions;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 using DataTemplate = Windows.UI.Xaml.DataTemplate;
 
@@ -23,11 +24,11 @@ namespace Plugin.Badge.UWP
 
             Control.HeaderTemplate = _header.Resources[nameof(HeaderTemplate)] as DataTemplate;
 
-            foreach (var element in Element.Children)
+            for (var tabIndex = 0; tabIndex < Element.Children.Count; tabIndex++)
             {
                 //if the child page is a navigation page get its root page
-                var tab = (element as NavigationPage)?.RootPage ?? element;
-                
+                var tab = Element.GetChildPageWithBadges(tabIndex);
+
                 tab.PropertyChanged -= Tab_PropertyChanged;
                 tab.PropertyChanged += Tab_PropertyChanged;
             }
