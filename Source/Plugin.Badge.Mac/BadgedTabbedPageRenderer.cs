@@ -48,7 +48,7 @@ namespace Plugin.Badge.Mac
         {
             var segment = _segmentedControl.Subviews[tabIndex];
 
-            var element = Tabbed.GetChildPageWithBadges(tabIndex);
+            var element = Tabbed.GetChildPageWithBadge(tabIndex);
             element.PropertyChanged += OnTabbedPagePropertyChanged;
 
             var badge = new BadgeView(segment, false)

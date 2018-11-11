@@ -37,7 +37,7 @@ namespace Plugin.Badge.iOS
 
         private void AddTabBadge(int tabIndex)
         {
-            var element = Tabbed.GetChildPageWithBadges(tabIndex);
+            var element = Tabbed.GetChildPageWithBadge(tabIndex);
             element.PropertyChanged += OnTabbedPagePropertyChanged;
 
             if (TabBar.Items.Length > tabIndex)

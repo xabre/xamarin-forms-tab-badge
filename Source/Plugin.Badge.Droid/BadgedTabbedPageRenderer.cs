@@ -75,7 +75,7 @@ namespace Plugin.Badge.Droid
 
         private void AddTabBadge(int tabIndex)
         {
-            var page = Element.GetChildPageWithBadges(tabIndex);
+            var page = Element.GetChildPageWithBadge(tabIndex);
 
             var placement = Element.OnThisPlatform().GetToolbarPlacement();
             var targetView = placement == ToolbarPlacement.Bottom ? _bottomTabStrip?.GetChildAt(tabIndex) : _topTabLayout?.GetTabAt(tabIndex).CustomView ?? _topTabStrip?.GetChildAt(tabIndex);

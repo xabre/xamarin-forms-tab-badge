@@ -88,7 +88,7 @@ namespace Plugin.Badge.Droid
                 return;
             }
 
-            var page = Element.GetChildPageWithBadges(tabIndex);
+            var page = Element.GetChildPageWithBadge(tabIndex);
 
             var badgeView = view.FindChildOfType<BadgeView>();
 

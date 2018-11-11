@@ -10,7 +10,7 @@ var target = Argument("target", "Build");
 var NuGetTargetDir = MakeAbsolute(Directory(".build/out/nuget"));
 var BuildTargetDir = MakeAbsolute(Directory(".build/out/lib"));
 var ProjectSources = MakeAbsolute(Directory("./Source"));
-var NuspecFiles = new []{".build/Plugin.Badge.nuspec"};
+var NuspecFiles = new [] { ".build/Plugin.Badge.nuspec" };
 
 string GetProjectDir(string projectName)
 {
@@ -68,6 +68,7 @@ Task("Build")
     BuildProject("Plugin.Badge.iOS", "ios");
     BuildProject("Plugin.Badge.Mac", "mac");
     BuildProject("Plugin.Badge.UWP", "uwp");
+    BuildProject("Plugin.Badge.WPF", "wpf");
 });
 
 Task("Clean").Does (() => 

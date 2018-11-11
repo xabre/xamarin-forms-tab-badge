@@ -157,6 +157,7 @@ namespace Plugin.Badge.Sample
         {
             var tab2 = CreateTab1();
             tab2.Icon = "tabicon.png";
+            tab2.Title = "Tab 2";
             (tab2.BindingContext as Tab1ViewModel).CountValue = 1;
             return tab2;
         }

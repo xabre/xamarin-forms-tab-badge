@@ -27,7 +27,7 @@ namespace Plugin.Badge.UWP
             for (var tabIndex = 0; tabIndex < Element.Children.Count; tabIndex++)
             {
                 //if the child page is a navigation page get its root page
-                var tab = Element.GetChildPageWithBadges(tabIndex);
+                var tab = Element.GetChildPageWithBadge(tabIndex);
 
                 tab.PropertyChanged -= Tab_PropertyChanged;
                 tab.PropertyChanged += Tab_PropertyChanged;

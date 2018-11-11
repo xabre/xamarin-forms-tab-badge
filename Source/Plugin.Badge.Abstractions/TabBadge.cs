@@ -102,17 +102,21 @@ namespace Plugin.Badge.Abstractions
         /// <param name="parentTabbedPage">Tabbed page</param>
         /// <param name="tabIndex">Index</param>
         /// <returns>Page</returns>
-        public static Page GetChildPageWithBadges(this TabbedPage parentTabbedPage, int tabIndex)
+        public static Page GetChildPageWithBadge(this TabbedPage parentTabbedPage, int tabIndex)
         {
             var element = parentTabbedPage.Children[tabIndex];
-            if (GetBadgeText(element) != (string)BadgeTextProperty.DefaultValue)
+            return GetPageWithBadge(element);
+        }
+
+        public static Page GetPageWithBadge(this Page element)
+        {
+            if (GetBadgeText(element) != (string) BadgeTextProperty.DefaultValue)
             {
                 return element;
             }
 
             if (element is NavigationPage navigationPage)
             {
-
                 //if the child page is a navigation page get its root page
                 return navigationPage.RootPage;
             }
