@@ -6,15 +6,15 @@
 
 ## Support & Limitations
 
-| Feature / Availability  | Xamarin.Android (1) | Xamarin.iOS | UWP (2) | MacOS (3) |
+| Feature / Availability  | Xamarin.Android (1) | Xamarin.iOS | UWP (2) | MacOS (3) | WPF |
 | ------------- | ----------- | ----------- | ----------- | ----------- |
-| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ | ✓ |
-| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ |
-| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ |
-| Bindable Badge Font | ✓\* | ✓ \*(iOS >= 10.0) | ✓ | ✓ |
-| Bindable Badge Postion | ✓ | ✕ | ✓ | ✓ |
-| Bindable Badge Margin | ✓ | ✕ | ✓ | ✓ |
-| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges. | ✓ | ✓ |
+| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Font | ✓\* | ✓ \*(iOS >= 10.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Postion | ✓ | ✕ | ✓ | ✓ | ✓ |
+| Bindable Badge Margin | ✓ | ✕ | ✓ | ✓ | ✓ |
+| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges. | ✓ | ✓ | ✓ |
 
 \*(1) Min Android **API level 15**
 
