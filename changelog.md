@@ -1,4 +1,15 @@
 # Changelog
+##[2.1.0]
+      - #45 WPF Renderer and sample app
+      - #58 Tabs as navigation pages. Consider Badge attached properties for wrapping navigation pages
+###[2.1.0-pre.3]
+      - #55 #48 Fix bottom layout and placement.
+###[2.1.0-pre.2]
+      - #49 Fix missing UWP dlls from nuget package
+###[2.1.0-pre.1]
+      - Update to Xamarin Forms 3.1 
+      - #48 Android Bottom Placement Support
+      - #46 Bugfix: consider tabpage children embedded in navigation pages
 ##[2.0.0]
       - #40 Added support for NON-AppCompat android activity (actionbar)
       - .NET Standard support with backwards compatibility to PCL

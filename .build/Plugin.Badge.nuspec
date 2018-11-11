@@ -14,6 +14,11 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS uwp uap android ios windows universal mac macos osx</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [2.1.0]
+      - #45 WPF Renderer and sample app
+      - #58 Tabs as navigation pages
+      [2.1.0-pre.3]
+      - #55 #48 Fix bottom layout and placement.
       [2.1.0-pre.2]
       - #49 Fix missing UWP dlls from nuget package
       [2.1.0-pre.1]
