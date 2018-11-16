@@ -1,26 +1,28 @@
 # <img src="icon_small.png" width="80" height="80"/> xamarin-forms-tab-badge [![Build Status](https://www.bitrise.io/app/6fbb08a710d8f2aa.svg?token=SlEUDTzwNV54nK7HHhUdOQ&branch=master)](https://www.bitrise.io/app/6fbb08a710d8f2aa)
-**Xamarin Forms** bindable tab badges for iOS, Android and UWP. The plugin creates a custom renderer (iOS, Android & UWP) and a custom attached property for adding tab bar badges which can be bound in XF shared code.
+**Xamarin Forms** bindable tab badges for iOS, Android, UWP, MacOS and WPF. The plugin creates a custom renderer (for each platform) and a custom attached property for adding tab bar badges which can be bound in XF shared code.
 
 ## Sample
 <img src="Screencasts/xamarin.forms.android.gif" height="600"/><img src="Screencasts/xamarin.forms.ios.gif" height="600"/>
 
 ## Support & Limitations
 
-| Feature / Availability  | Xamarin.Android (1) | Xamarin.iOS | UWP (2) | MacOS (3) |
-| ------------- | ----------- | ----------- | ----------- | ----------- |
-| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ | ✓ |
-| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ |
-| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ |
-| Bindable Badge Font | ✓\* | ✓ \*(iOS >= 10.0) | ✓ | ✓ |
-| Bindable Badge Postion | ✓ | ✕ | ✓ | ✓ |
-| Bindable Badge Margin | ✓ | ✕ | ✓ | ✓ |
-| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges. | ✓ | ✓ |
+| Feature / Availability  | Xamarin.Android (1) | Xamarin.iOS | UWP (2) | MacOS (3) | WPF (4) |
+| ------------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| Bindable Badge Text | ✓ | ✓ (iOS >=8.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Text Color | ✓ | ✓ (iOS >= 10.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Font | ✓\* | ✓ \*(iOS >= 10.0) | ✓ | ✓ | ✓ |
+| Bindable Badge Postion | ✓ | ✕ | ✓ | ✓ | ✓ |
+| Bindable Badge Margin | ✓ | ✕ | ✓ | ✓ | ✓ |
+| Dynamic tab add/removal | ✓ | On overflow, 'More' / '...' menu don't have badges. | ✓ | ✓ | ✓ |
 
-\*(1) Min Android **API level 15**
+\*(1) Min Android **API level 15**, bottom placement also supported starting with v2.1.0
 
 \*(2) **Min UWP version**: Win 10 Fall Creators Update (XF.3 has a .netstandard 2 requirement).
 
 \*(3) **MacOS version**: -
+
+\*(4) **WPF version**: -
 
 \*\***Font restrictions**: able to bind font attributes and family but not size
 
@@ -37,9 +39,9 @@ Install-Package Plugin.Badge -Pre
 [![NuGet](https://img.shields.io/nuget/v/Plugin.Badge.svg?label=NuGet&style=flat-square)](https://www.nuget.org/packages/Plugin.Badge) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.Badge.svg?label=NuGet%20Beta&style=flat-square)](https://www.nuget.org/packages/Plugin.Badge)
 
 
-### iOS, Android, UWP, MacOS
+### iOS, Android, UWP, MacOS, WPF
 
-You have to register the custom renderer. I usually put this in the AssemblyInfo.cs file of my Platform specific project (iOS, Android, UWP, MacOS) csproj.
+You have to register the custom renderer. I usually put this in the AssemblyInfo.cs file of my Platform specific project (iOS, Android, UWP, MacOS, WPF) csproj.
 
 ```
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
