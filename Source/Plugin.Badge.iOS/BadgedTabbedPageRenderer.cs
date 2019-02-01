@@ -129,7 +129,9 @@ namespace Plugin.Badge.iOS
         public bool CheckValidTabIndex(Page page, out int tabIndex)
         {
             tabIndex = Tabbed.Children.IndexOf(page);
-            return tabIndex < TabBar.Items.Length;
+            if (tabIndex == -1 && page.Parent != null)
+                tabIndex = Tabbed.Children.IndexOf(page.Parent);
+            return tabIndex >= 0 && tabIndex < TabBar.Items.Length;
         }
 
         private async void OnTabAdded(object sender, ElementEventArgs e)
