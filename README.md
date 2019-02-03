@@ -28,7 +28,7 @@
 
 ## Installation
 
-- Make sure to install the package in your Xamarin.Forms PCL, iOS and Android project.
+- Make sure to install the package in your Xamarin.Forms shared/core project as well as a platform specifc projects.
 
 ```
 // stable
