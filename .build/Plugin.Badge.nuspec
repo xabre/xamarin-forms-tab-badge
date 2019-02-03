@@ -67,7 +67,8 @@
     <file src="out\lib\ios\Plugin.Badge.*" target="lib\Xamarin.iOS10" />
     <!-- uap -->
     <file src="out\lib\uwp\Plugin.Badge.UWP\Plugin.Badge.*" target="lib\uap10.0" />
-    <file src="out\lib\uwp\Plugin.Badge.*.xml" target="lib\uap10.0\Plugin.Badge.UWP" />
+    <file src="..\Source\Plugin.Badge.UWP\bin\Release\HeaderTemplate.xbf" target="lib\uap10.0\Plugin.Badge.UWP" />
+    <file src="..\Source\Plugin.Badge.UWP\bin\Release\Plugin.Badge.UWP.xr.xml" target="lib\uap10.0\Plugin.Badge.UWP" />
     <!-- mac -->
     <file src="out\lib\mac\Plugin.Badge.*" target="lib\xamarinmac20" />
     <!-- wpf -->
