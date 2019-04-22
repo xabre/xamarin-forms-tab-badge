@@ -189,6 +189,17 @@ namespace Plugin.Badge.Sample
                         },
                         new Button
                         {
+                            Text = "Change tab icon",
+                            Command =  new Command(() =>
+                            {
+                                var page = ((this.MainPage as NavigationPage)?.CurrentPage as TabbedPage)?.GetChildPageWithBadge(2);
+
+                                page.Icon = page.Icon == null ? "tabicon.png" : null;
+
+                            })
+                        },
+                        new Button
+                        {
                             Text = "Navigate to other page",
                             Command =  new Command(() =>
                             {
