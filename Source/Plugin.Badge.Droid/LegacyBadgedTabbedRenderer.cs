@@ -154,7 +154,7 @@ namespace Plugin.Badge.Droid
                 return;
             }
 
-            foreach (var tab in page.Children.Select(c => c.GetPageWithBadge())
+            foreach (var tab in page.Children.Select(c => c.GetPageWithBadge()))
             {
                 tab.PropertyChanged -= OnTabbedPagePropertyChanged;
             }
