@@ -1,4 +1,8 @@
 # Changelog
+## [2.1.2]
+      - #65 iOS: Update badge properties on icon property changed
+      - #66 Enusure cleanup also takes into account tabs wrapped by navigation pages
+      - Android: Update target sdk to 28
 ## [2.1.1]
       - #62 Merged fix from PR #63
       - #61 UWP Nuget pacakge - Explicitly include .xr.xml and .xbf files

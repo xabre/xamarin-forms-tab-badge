@@ -16,7 +16,7 @@
     <releaseNotes>
       [2.1.2]
       - #65 iOS: Update badge properties on icon property changed
-      - #66 Enusre cleanup also takes into account tabs wrapped by navigation pages
+      - #66 Ensure cleanup also takes into account tabs wrapped by navigation pages
       - Android: Update target sdk to 28
       [2.1.1]
       - #62 Merged fix from PR #63
