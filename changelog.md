@@ -1,4 +1,6 @@
 # Changelog
+### [2.2.0-pre.1]      
+      - #67: Update to XF 4.0-pre. This is a pre release build design to workaround the issue described in #67. If your code is not affected by the issue please use the latest stable release instead.  
 ## [2.1.2]
       - #65 iOS: Update badge properties on icon property changed
       - #66 Enusure cleanup also takes into account tabs wrapped by navigation pages
