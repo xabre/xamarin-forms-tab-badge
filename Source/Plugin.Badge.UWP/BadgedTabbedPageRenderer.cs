@@ -1,4 +1,5 @@
 ﻿using Plugin.Badge.Abstractions;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 using DataTemplate = Windows.UI.Xaml.DataTemplate;
@@ -46,7 +47,7 @@ namespace Plugin.Badge.UWP
 
         protected override void Dispose(bool disposing)
         {
-            foreach (var tab in Element.Children)
+            foreach (var tab in Element.Children.Select(c => c.GetPageWithBadge()))
             {
                 tab.PropertyChanged -= Tab_PropertyChanged;
             }

@@ -5,6 +5,7 @@ using Xamarin.Forms.Internals;
 using System.Threading.Tasks;
 using UIKit;
 using System;
+using System.Linq;
 
 namespace Plugin.Badge.iOS
 {
@@ -171,20 +172,20 @@ namespace Plugin.Badge.iOS
             base.Dispose(disposing);
         }
 
-        private void Cleanup(TabbedPage page)
+        private void Cleanup(TabbedPage tabbedPage)
         {
-            if (page == null)
+            if (tabbedPage == null)
             {
                 return;
             }
 
-            foreach (var tab in page.Children)
+            foreach (var tab in tabbedPage.Children.Select(c => c.GetPageWithBadge()))
             {
                 tab.PropertyChanged -= OnTabbedPagePropertyChanged;
             }
 
-            page.ChildAdded -= OnTabAdded;
-            page.ChildRemoved -= OnTabRemoved;
+            tabbedPage.ChildAdded -= OnTabAdded;
+            tabbedPage.ChildRemoved -= OnTabRemoved;
         }
     }
 }

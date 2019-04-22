@@ -9,6 +9,7 @@ using Xamarin.Forms.Platform.Android;
 using Android.Content;
 using Plugin.Badge.Abstractions;
 using View = Android.Views.View;
+using System.Linq;
 
 namespace Plugin.Badge.Droid
 {
@@ -153,7 +154,7 @@ namespace Plugin.Badge.Droid
                 return;
             }
 
-            foreach (var tab in page.Children)
+            foreach (var tab in page.Children.Select(c => c.GetPageWithBadge())
             {
                 tab.PropertyChanged -= OnTabbedPagePropertyChanged;
             }

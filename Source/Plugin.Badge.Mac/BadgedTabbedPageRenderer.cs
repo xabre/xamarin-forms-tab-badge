@@ -142,7 +142,7 @@ namespace Plugin.Badge.Mac
                 return;
             }
 
-            foreach (var tab in page.Children)
+            foreach (var tab in page.Children.Select(c => c.GetPageWithBadge()))
             {
                 tab.PropertyChanged -= OnTabbedPagePropertyChanged;
             }
