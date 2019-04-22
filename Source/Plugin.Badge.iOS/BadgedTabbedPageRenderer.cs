@@ -104,6 +104,19 @@ namespace Plugin.Badge.iOS
             if (page == null)
                 return;
 
+            if (e.PropertyName == Page.IconProperty.PropertyName)
+            {
+                // #65 update badge properties if icon changed
+                if (CheckValidTabIndex(page, out int tabIndex))
+                {
+                    UpdateTabBadgeText(TabBar.Items[tabIndex], page);
+                    UpdateTabBadgeColor(TabBar.Items[tabIndex], page);
+                    UpdateTabBadgeTextAttributes(TabBar.Items[tabIndex], page);
+                }
+
+                return;
+            }
+
             if (e.PropertyName == TabBadge.BadgeTextProperty.PropertyName)
             {
                 if (CheckValidTabIndex(page, out int tabIndex))
@@ -126,7 +139,7 @@ namespace Plugin.Badge.iOS
             }
         }
 
-        public bool CheckValidTabIndex(Page page, out int tabIndex)
+        protected bool CheckValidTabIndex(Page page, out int tabIndex)
         {
             tabIndex = Tabbed.Children.IndexOf(page);
             if (tabIndex == -1 && page.Parent != null)
