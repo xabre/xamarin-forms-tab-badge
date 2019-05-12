@@ -58,3 +58,4 @@ Thumbs.db
 /.vscode
 /.build/nuget
 Source/.vs/Plugin.Badge/DesignTimeBuild/.dtbcache
+Source/.vs/config/applicationhost.config

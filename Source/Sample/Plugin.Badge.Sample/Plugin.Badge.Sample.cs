@@ -3,6 +3,7 @@
 using Xamarin.Forms;
 using Plugin.Badge.Sample.ViewModels;
 using Plugin.Badge.Abstractions;
+using Plugin.Badge.Sample.Views;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Application = Xamarin.Forms.Application;
 using Button = Xamarin.Forms.Button;
@@ -60,11 +61,6 @@ namespace Plugin.Badge.Sample
             });
         }
 
-        private void CreateTabedPageAsRoot(bool v)
-        {
-            throw new NotImplementedException();
-        }
-
         private void CreateTabedPageAsRoot()
         {
             var tab1 = CreateTab1();
@@ -81,7 +77,8 @@ namespace Plugin.Badge.Sample
                 {
                     tab1,
                     tab2,
-                    tab3
+                    tab3,
+                    new GenericBadgeTab()
                 }
             };
 
@@ -99,10 +96,13 @@ namespace Plugin.Badge.Sample
             var tab1 = CreateTab1();
             var tab2 = CreateTab2();
             var tab3 = CreateTab3();
+            var tab4 = new GenericBadgeTab();
 
             var tab1NavigationPage = new NavigationPage(tab1) { Title = tab1.Title, Icon = tab1.Icon };
             var tab2NavigationPage = new NavigationPage(tab2) { Title = tab2.Title, Icon = tab2.Icon };
             var tab3NavigationPage = new NavigationPage(tab3) { Title = tab3.Title, Icon = tab3.Icon };
+            var tab4NavigationPage = new NavigationPage(tab4);
+
 
             // The root page of your application
             _tabbedPage = new TabbedPage
@@ -112,7 +112,8 @@ namespace Plugin.Badge.Sample
                 {
                     tab1NavigationPage,
                     tab2NavigationPage,
-                    tab3NavigationPage
+                    tab3NavigationPage,
+                    tab4NavigationPage
                 }
             };
 
@@ -140,7 +141,8 @@ namespace Plugin.Badge.Sample
                 {
                     tab1,
                     tab2,
-                    tab3
+                    tab3,
+                    new GenericBadgeTab()
                 }
             };
 

@@ -111,6 +111,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BadgedTabbedPageRenderer.cs" />
+    <Compile Include="BadgeRenderer.cs" />
     <Compile Include="Converters\BadgeMarginConverter.cs" />
     <Compile Include="Converters\BadgePositionConverter.cs" />
     <Compile Include="Converters\BadgeColorConverter.cs" />
@@ -135,7 +136,7 @@
       <Version>6.0.7</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.1.0.583944</Version>
+      <Version>3.6.0.344457</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Plugin.Badge.Abstractions;assembly=Plugin.Badge.Abstractions"
+             xmlns:viewModels="clr-namespace:Plugin.Badge.Sample.ViewModels;assembly=Plugin.Badge.Sample"
+             x:Class="Plugin.Badge.Sample.Views.GenericBadgeTab"
+             Title="Tab4">
+    <ContentPage.BindingContext>
+        <viewModels:GenericBadgeTabViewModel />
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid VerticalOptions="Center"
+              HorizontalOptions="Center">
+            <Label Text="Custom"
+                   FontSize="16"
+                   TextColor="Black"
+                   VerticalTextAlignment="Center" />
+            <views:Badge Grid.Row="0"
+                         BadgeText="{Binding Count}"
+                         BadgeFontAttributes="{Binding FontAttributes}"
+                         BadgeFontSize="{Binding FontSize}"
+                         BackgroundColor="{Binding BadgeColor}"
+                         BadgeTextColor="{Binding BadgeTextColor}" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Generic Badge Tab!" />
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  BackgroundColor="Wheat"
+                  Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Image Source="tabIcon.png"
+                       WidthRequest="48"
+                       HeightRequest="48" />
+                <Image Grid.Row="1"
+                       Source="tabIcon.png"
+                       WidthRequest="48"
+                       HeightRequest="48" />
+                <views:Badge Grid.Row="0"
+                             Grid.RowSpan="2"
+                             BadgeText="{Binding Count}"
+                             BadgeFontAttributes="{Binding FontAttributes}"
+                             BackgroundColor="{Binding BadgeColor}"
+                             BadgeTextColor="{Binding BadgeTextColor}" />
+            </Grid>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Increment/decrement: "
+                       VerticalTextAlignment="Center" />
+                <Stepper Increment="1"
+                         Minimum="0"
+                         Maximum="1000"
+                         Value="{Binding CountValue, Mode=TwoWay}" />
+            </StackLayout>
+            <Button Text="Change font attributes"
+                    Command="{Binding ChangeFontAttributesCommand}" />
+            <Button Text="Change badge color"
+                    Command="{Binding ChangeColorCommand}" />
+            <Button Text="Change badge text color"
+                    Command="{Binding ChangeTextColorCommand}" 
+                    HorizontalOptions="Center" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Change font size: "
+                       VerticalTextAlignment="Center" />
+                <Stepper Increment="1"
+                         Minimum="1"
+                         Maximum="100"
+                         Value="{Binding FontSize, Mode=TwoWay}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
