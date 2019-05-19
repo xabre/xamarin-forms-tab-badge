@@ -8,30 +8,28 @@ using Xamarin.Forms;
 
 namespace Plugin.Badge.Sample.Mac
 {
-	[Register("AppDelegate")]
-	public class AppDelegate : FormsApplicationDelegate
-	{
-		NSWindow _window;
-		public AppDelegate()
-		{
-			var style = NSWindowStyle.Closable | NSWindowStyle.Resizable | NSWindowStyle.Titled;
+    [Register("AppDelegate")]
+    public class AppDelegate : FormsApplicationDelegate
+    {
+        public AppDelegate()
+        {
+            var style = NSWindowStyle.Closable | NSWindowStyle.Resizable | NSWindowStyle.Titled;
 
-			var rect = new CoreGraphics.CGRect(200, 1000, 500, 768);
-			_window = new NSWindow(rect, style, NSBackingStore.Buffered, false);
-			_window.Title = "Xamarin.Forms Badge Plugin on Mac!";
-			_window.TitleVisibility = NSWindowTitleVisibility.Hidden;
-		}
+            var rect = new CoreGraphics.CGRect(200, 1000, 500, 768);
+            MainWindow = new NSWindow(rect, style, NSBackingStore.Buffered, false)
+            {
+                Title = "Xamarin.Forms Badge Plugin on Mac!",
+                TitleVisibility = NSWindowTitleVisibility.Hidden
+            };
+        }
 
-		public override NSWindow MainWindow
-		{
-			get { return _window; }
-		}
+        public override NSWindow MainWindow { get; }
 
-		public override void DidFinishLaunching(NSNotification notification)
-		{
-			Forms.Init();
-			LoadApplication(new App());
-			base.DidFinishLaunching(notification);
-		}
-	}
+        public override void DidFinishLaunching(NSNotification notification)
+        {
+            Forms.Init();
+            LoadApplication(new App());
+            base.DidFinishLaunching(notification);
+        }
+    }
 }
