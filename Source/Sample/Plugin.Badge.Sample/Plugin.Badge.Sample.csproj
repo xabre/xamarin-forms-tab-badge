@@ -8,10 +8,10 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Plugin.Badge.Abstractions\Plugin.Badge.Abstractions.csproj" />
@@ -20,6 +20,14 @@
     <EmbeddedResource Update="Views\GenericBadgeTab.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="TabXaml.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\GenericBadgeTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
   </ItemGroup>
 
 </Project>

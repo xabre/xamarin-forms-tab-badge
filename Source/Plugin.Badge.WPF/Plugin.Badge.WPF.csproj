@@ -45,9 +45,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xamarin.Forms.Platform.WPF">
-      <HintPath>..\packages\Xamarin.Forms.Platform.WPF.3.1.0.583944\lib\net45\Xamarin.Forms.Platform.WPF.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BadgedTabbedPageRenderer.cs" />
@@ -94,18 +91,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>3.6.0.344457</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms.Platform.WPF">
-      <Version>3.1.0.583944</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="TabItemTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>3.6.0.344457</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Platform.WPF">
+      <Version>3.6.0.344457</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

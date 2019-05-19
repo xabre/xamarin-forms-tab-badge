@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF;
+using Xamarin.Forms.Platform.WPF.Helpers;
 using DataTemplate = System.Windows.DataTemplate;
 using Grid = System.Windows.Controls.Grid;
 
@@ -29,7 +30,9 @@ namespace Plugin.Badge.WPF
 
         private void ControlOnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (((this.Control.LightContentControl.Parent as Grid)?.Children[0] as Grid)?.Children[0] is ListBox listBox)
+            var listBox = this.Control.FindChild<ListBox>(null);
+            
+            if (listBox != null)
             {
                 listBox.ItemTemplate = new DataTemplate { VisualTree = new FrameworkElementFactory(typeof(TabItemTemplate)) };
             }
