@@ -93,6 +93,8 @@
     <ProjectReference Include="..\..\Plugin.Badge.iOS\Plugin.Badge.iOS.csproj">
       <Project>{3EA52389-9136-44EB-8A4E-C6C2B30094D0}</Project>
       <Name>Plugin.Badge.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
     <ProjectReference Include="..\..\Plugin.Badge.Abstractions\Plugin.Badge.Abstractions.csproj">
       <Project>{99155358-BFE1-4E45-8F84-78614F69B7FC}</Project>
@@ -133,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.6.0.344457</Version>
+      <Version>4.0.0.425677</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

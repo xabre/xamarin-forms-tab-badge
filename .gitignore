@@ -59,3 +59,5 @@ Thumbs.db
 /.build/nuget
 Source/.vs/Plugin.Badge/DesignTimeBuild/.dtbcache
 Source/.vs/config/applicationhost.config
+Source/UpgradeLog.htm
+Source/.vs/

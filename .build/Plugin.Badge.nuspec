@@ -41,25 +41,25 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework="netstandard1.4">
-        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
+        <dependency id="Xamarin.Forms" version="4.0.0.425677" />
       </group>
       <group targetFramework="portable-net45+win+wpa81+wp80">
-        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
+        <dependency id="Xamarin.Forms" version="4.0.0.425677" />
       </group>
       <group targetFramework="MonoAndroid10">
-        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
+        <dependency id="Xamarin.Forms" version="4.0.0.425677" />
       </group>
       <group targetFramework="Xamarin.iOS10">
-        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
+        <dependency id="Xamarin.Forms" version="4.0.0.425677" />
       </group>
       <group targetFramework="uap10.0">
-        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
+        <dependency id="Xamarin.Forms" version="4.0.0.425677" />
       </group>
       <group targetFramework="xamarinmac20">
-        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
+        <dependency id="Xamarin.Forms" version="4.0.0.425677" />
       </group>
       <group targetFramework="net45">
-        <dependency id="Xamarin.Forms" version="3.1.0.583944" />
+        <dependency id="Xamarin.Forms" version="4.0.0.425677" />
       </group>
     </dependencies>
   </metadata>

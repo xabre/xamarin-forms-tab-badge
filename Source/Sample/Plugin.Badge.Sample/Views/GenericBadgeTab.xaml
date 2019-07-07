@@ -4,41 +4,49 @@
              xmlns:views="clr-namespace:Plugin.Badge.Abstractions;assembly=Plugin.Badge.Abstractions"
              xmlns:viewModels="clr-namespace:Plugin.Badge.Sample.ViewModels;assembly=Plugin.Badge.Sample"
              x:Class="Plugin.Badge.Sample.Views.GenericBadgeTab"
-             Title="Tab4">
+             Title="Generic badge">
     <ContentPage.BindingContext>
         <viewModels:GenericBadgeTabViewModel />
     </ContentPage.BindingContext>
     <NavigationPage.TitleView>
-        <Grid VerticalOptions="Center"
-              HorizontalOptions="Center">
-            <Label Text="Custom"
+        <StackLayout HorizontalOptions="Center"
+                     Orientation="Horizontal">
+            <Label Text="Custom View"
                    FontSize="16"
                    TextColor="Black"
+                   FontAttributes="Bold"
                    VerticalTextAlignment="Center" />
+            <Image Source="tabicon.png"
+                   VerticalOptions="Center"
+                   WidthRequest="16"
+                   HeightRequest="16" />
             <views:Badge Grid.Row="0"
+                         VerticalOptions="Center"
                          BadgeText="{Binding Count}"
                          BadgeFontAttributes="{Binding FontAttributes}"
                          BadgeFontSize="{Binding FontSize}"
                          BackgroundColor="{Binding BadgeColor}"
                          BadgeTextColor="{Binding BadgeTextColor}" />
-        </Grid>
+        </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Generic Badge Tab!" />
             <Grid HorizontalOptions="Center"
-                  VerticalOptions="Center"
                   BackgroundColor="Wheat"
                   Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Image Source="tabIcon.png"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Source="tabicon.png"
                        WidthRequest="48"
                        HeightRequest="48" />
                 <Image Grid.Row="1"
-                       Source="tabIcon.png"
+                       Source="tabicon.png"
                        WidthRequest="48"
                        HeightRequest="48" />
                 <views:Badge Grid.Row="0"
@@ -61,7 +69,7 @@
             <Button Text="Change badge color"
                     Command="{Binding ChangeColorCommand}" />
             <Button Text="Change badge text color"
-                    Command="{Binding ChangeTextColorCommand}" 
+                    Command="{Binding ChangeTextColorCommand}"
                     HorizontalOptions="Center" />
             <StackLayout Orientation="Horizontal">
                 <Label Text="Change font size: "

@@ -105,7 +105,7 @@ namespace Plugin.Badge.iOS
             if (page == null)
                 return;
 
-            if (e.PropertyName == Page.IconProperty.PropertyName)
+            if (e.PropertyName == Page.IconImageSourceProperty.PropertyName)
             {
                 // #65 update badge properties if icon changed
                 if (CheckValidTabIndex(page, out int tabIndex))

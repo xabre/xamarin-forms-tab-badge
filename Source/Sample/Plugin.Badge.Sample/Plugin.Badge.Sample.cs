@@ -46,6 +46,13 @@ namespace Plugin.Badge.Sample
                             VerticalOptions = LayoutOptions.Center
                         },
 
+                        new Button
+                        {
+                            Text = "Generic bage page",
+                            Command = new Command(CreateGenericBadgePage),
+                            VerticalOptions = LayoutOptions.Center
+                        },
+
                         new StackLayout
                         {
                             Orientation = StackOrientation.Horizontal,
@@ -59,6 +66,13 @@ namespace Plugin.Badge.Sample
                     }
                 }
             });
+        }
+
+        private void CreateGenericBadgePage(object obj)
+        {
+            var genericBadgePage = new GenericBadgeTab();
+
+            (MainPage as NavigationPage)?.PushAsync(genericBadgePage);
         }
 
         private void CreateTabedPageAsRoot()
@@ -77,8 +91,7 @@ namespace Plugin.Badge.Sample
                 {
                     tab1,
                     tab2,
-                    tab3,
-                    new GenericBadgeTab()
+                    tab3
                 }
             };
 
@@ -88,7 +101,7 @@ namespace Plugin.Badge.Sample
             }
 
             _tabbedPage.ToolbarItems.Add(new ToolbarItem("Item1", "tabicon.png", () => { }, ToolbarItemOrder.Primary));
-            MainPage = new NavigationPage(_tabbedPage);
+            MainPage = _tabbedPage;
         }
 
         private void CreateTabedPageWithNavigationPageChildren()
@@ -96,12 +109,10 @@ namespace Plugin.Badge.Sample
             var tab1 = CreateTab1();
             var tab2 = CreateTab2();
             var tab3 = CreateTab3();
-            var tab4 = new GenericBadgeTab();
 
-            var tab1NavigationPage = new NavigationPage(tab1) { Title = tab1.Title, Icon = tab1.Icon };
-            var tab2NavigationPage = new NavigationPage(tab2) { Title = tab2.Title, Icon = tab2.Icon };
-            var tab3NavigationPage = new NavigationPage(tab3) { Title = tab3.Title, Icon = tab3.Icon };
-            var tab4NavigationPage = new NavigationPage(tab4);
+            var tab1NavigationPage = new NavigationPage(tab1) { Title = tab1.Title, IconImageSource = tab1.IconImageSource };
+            var tab2NavigationPage = new NavigationPage(tab2) { Title = tab2.Title, IconImageSource = tab2.IconImageSource };
+            var tab3NavigationPage = new NavigationPage(tab3) { Title = tab3.Title, IconImageSource = tab3.IconImageSource };
 
 
             // The root page of your application
@@ -113,7 +124,6 @@ namespace Plugin.Badge.Sample
                     tab1NavigationPage,
                     tab2NavigationPage,
                     tab3NavigationPage,
-                    tab4NavigationPage
                 }
             };
 
@@ -141,8 +151,7 @@ namespace Plugin.Badge.Sample
                 {
                     tab1,
                     tab2,
-                    tab3,
-                    new GenericBadgeTab()
+                    tab3
                 }
             };
 
@@ -158,7 +167,7 @@ namespace Plugin.Badge.Sample
         private ContentPage CreateTab2()
         {
             var tab2 = CreateTab1();
-            tab2.Icon = "tabicon.png";
+            tab2.IconImageSource = "tabicon.png";
             tab2.Title = "Tab 2";
             (tab2.BindingContext as Tab1ViewModel).CountValue = 1;
             return tab2;
@@ -196,7 +205,7 @@ namespace Plugin.Badge.Sample
                             {
                                 var page = ((this.MainPage as NavigationPage)?.CurrentPage as TabbedPage)?.GetChildPageWithBadge(2);
 
-                                page.Icon = page.Icon == null ? "tabicon.png" : null;
+                                page.IconImageSource = page.IconImageSource == null ? "tabicon.png" : null;
 
                             })
                         },

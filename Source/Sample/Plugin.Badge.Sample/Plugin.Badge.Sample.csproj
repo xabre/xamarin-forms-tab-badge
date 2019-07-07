@@ -11,7 +11,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Plugin.Badge.Abstractions\Plugin.Badge.Abstractions.csproj" />

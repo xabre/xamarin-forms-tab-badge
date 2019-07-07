@@ -70,7 +70,7 @@ namespace Plugin.Badge.Sample.ViewModels
         });
 
         private int _color;
-        private int _count;
+        private int _count = 1;
         private int _textColor;
         private int _fontIndex;
         private double _fontSize = (double)Abstractions.Badge.BadgeFontSizeProperty.DefaultValue;
