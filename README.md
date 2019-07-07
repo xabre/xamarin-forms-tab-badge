@@ -146,6 +146,14 @@ Very similar to `BadgeColor` just use [`TabBadge.BadgePosition` (XAML) or `TabBa
 ## Showning / Hiding the badge
 If the value of the `BadgeText` is set to null or empty string the badge is hidden. To show it again set a non null or empty value
 
+# Generic Badge View
+
+As of v2.2.0 the package also contains a XF Badge view that is based on a XF Frame View and can be added to any layout and bound using the usual approach. The generic badge view can also be added to custom *NavigationPage.TitleView* layouts.
+
+Checkout the Sample-App for more.
+
+<img src="Screencasts/tabbadge.genericbadge.PNG" height="200"/>
+
 
 # Licence
 
