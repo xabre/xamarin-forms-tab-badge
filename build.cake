@@ -1,4 +1,3 @@
-#addin "Cake.Xamarin"
 #addin nuget:?package=Cake.Git
 
 using Path = System.IO.Path;
@@ -25,6 +24,7 @@ void BuildProject(string projectName, string targetSubDir)
     MSBuild(project, settings => settings
             .SetConfiguration("Release")                                   
             .WithTarget("Build")
+            .UseToolVersion(MSBuildToolVersion.VS2019)
             .SetMSBuildPlatform(MSBuildPlatform.x86)                        
             .WithProperty("OutDir", outputDir.FullPath));
 }
