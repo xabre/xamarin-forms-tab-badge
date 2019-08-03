@@ -1,4 +1,6 @@
 # Changelog
+## [2.2.1]
+      - #74: Fix NRE in UpdateBadgeProperties
 ## [2.2.0] 
       - #67: Update to XF 4.0.0.425677
       - #72: Fix Android Warnings

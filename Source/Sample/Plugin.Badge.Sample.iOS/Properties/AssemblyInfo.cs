@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Plugin.Badge.iOS;
@@ -31,7 +31,7 @@ using Xamarin.Forms;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.2.0")]
+[assembly: AssemblyVersion("2.2.1")]
 [assembly: AssemblyFileVersion("2.2.0")]
 
 //register renderer

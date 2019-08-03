@@ -1,4 +1,5 @@
-#addin nuget:?package=Cake.Git
+#addin nuget:?package=Cake.Git&version=0.21
+#addin nuget:?package=Cake.FileHelpers&version=3.2.0
 
 using Path = System.IO.Path;
 using System.Xml.Linq;
@@ -28,23 +29,6 @@ void BuildProject(string projectName, string targetSubDir)
             .SetMSBuildPlatform(MSBuildPlatform.x86)                        
             .WithProperty("OutDir", outputDir.FullPath));
 }
-
-// string NuVersionGet (string specFile)
-// {
-//     var doc = System.Xml.Linq.XDocument.Load(specFile);
-//     var versionElements = doc.Descendants(XName.Get("version", doc.Root.Name.NamespaceName));
-//     return versionElements.First().Value;
-// }
-
-// void NuVersionSet (string specFile, string version)
-// {
-//     var xmlDocument = System.Xml.Linq.XDocument.Load(specFile);
-//     var nsmgr = new XmlNamespaceManager(new XmlNameTable());
-//     nsmgr.AddNamespace("ns", "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd");
-//     var node = xmlDocument.Document.SelectSingleNode("//ns:version", nsmgr);
-//     node.InnerText = version;
-//     xmlDocument.Save(specFile);
-// }
 
 Task("Restore")
     .Does(() =>
@@ -80,9 +64,10 @@ Task("Clean").Does (() =>
     CleanDirectories ("./**/obj");
 });
 
-Task("Version")
+// ./build.ps1 -Target UpdateVersion -newVersion="2.0.1"       
+Task("UpdateVersion")
    .Does(() => {
-    var version = Argument<string>("ver", "");
+    var version = Argument<string>("newVersion", "");
     var cleanVersion = System.Text.RegularExpressions.Regex.Replace(version, @"[^\d\.].*$", "");
 
     if(string.IsNullOrEmpty(cleanVersion))
@@ -90,7 +75,8 @@ Task("Version")
         throw new ArgumentNullException(nameof(version));
     }
     
-    // ReplaceRegexInFiles("./your/AssemblyInfo.cs", "(?<=AssemblyVersion\\(\")(.+?)(?=\"\\))", cleanVersion);
+    ReplaceRegexInFiles("./**/AssemblyInfo.cs", "(?<=AssemblyVersion\\(\")(.+?)(?=\"\\))", cleanVersion);
+    ReplaceRegexInFiles("./**/*.nuspec", "(?<=<version>)(.+?)(?=</version>)", cleanVersion);    
 });
 
 Task("Pack")
@@ -110,7 +96,7 @@ Task("Publish")
     .IsDependentOn("Pack")
     .Does(() =>
     {    
-        var nupack = GetFiles(".build/nuget/*.nupkg").FirstOrDefault();
+        var nupack = GetFiles(".build/nuget/*.nupkg").LastOrDefault();
         Information($"Pushing package: {nupack.FullPath}") ;       
         NuGetPush(nupack.FullPath, new NuGetPushSettings(){ Source = "https://nuget.org" });
     });

@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Android.App;
@@ -27,8 +27,8 @@ using Xamarin.Forms;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("2.2.0")]
-[assembly: AssemblyVersion("2.2.0")]
+// [assembly: AssemblyVersion("2.2.1")]
+[assembly: AssemblyVersion("2.2.1")]
 [assembly: AssemblyFileVersion("2.2.0")]
 
 //register renderer
