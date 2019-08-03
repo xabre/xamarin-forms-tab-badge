@@ -71,6 +71,11 @@ namespace Plugin.Badge.Abstractions
 
         protected virtual void UpdateBadgeProperties()
         {
+            if(this.Content == null)
+            {
+                return;
+            }
+
             if (this.Content.FontAttributes != this.BadgeFontAttributes)
             {
                 this.Content.FontAttributes = this.BadgeFontAttributes;
