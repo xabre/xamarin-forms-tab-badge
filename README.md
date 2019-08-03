@@ -1,4 +1,4 @@
-# <img src="icon_small.png" width="80" height="80"/> xamarin-forms-tab-badge [![Build Status](https://www.bitrise.io/app/6fbb08a710d8f2aa.svg?token=SlEUDTzwNV54nK7HHhUdOQ&branch=master)](https://www.bitrise.io/app/6fbb08a710d8f2aa)
+# <img src="icon_small.png" width="80" height="80"/> xamarin-forms-tab-badge [![Build Status](https://app.bitrise.io/app/6fbb08a710d8f2aa/status.svg?token=SlEUDTzwNV54nK7HHhUdOQ)](https://www.bitrise.io/app/6fbb08a710d8f2aa)
 **Xamarin Forms** bindable tab badges for iOS, Android, UWP, MacOS and WPF. The plugin creates a custom renderer (for each platform) and a custom attached property for adding tab bar badges which can be bound in XF shared code.
 
 ## Sample
