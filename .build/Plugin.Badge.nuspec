@@ -14,6 +14,8 @@
     <tags>xamarin xamarin.forms badge tab tabbar monodroid Xamarin.iOS uwp uap android ios windows universal mac macos osx</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-forms-tab-badge/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [2.3.0-pre.1]
+      - #87: Updated to XF 4.5 and AndroidX. Target Android 10
       [2.2.1]
       - #74: Fix NRE in UpdateBadgeProperties
       [2.2.0]
