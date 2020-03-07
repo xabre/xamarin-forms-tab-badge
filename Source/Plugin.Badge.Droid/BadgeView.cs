@@ -7,7 +7,7 @@ using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
 using Android.Graphics.Drawables.Shapes;
-using Android.Support.V4.View;
+using AndroidX.Core.View;
 using Plugin.Badge.Abstractions;
 
 namespace Plugin.Badge.Droid

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
@@ -12,6 +11,8 @@ using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using TabbedPage = Xamarin.Forms.TabbedPage;
 using Plugin.Badge.Abstractions;
 using System.Linq;
+using Google.Android.Material.BottomNavigation;
+using Google.Android.Material.Tabs;
 
 namespace Plugin.Badge.Droid
 {
