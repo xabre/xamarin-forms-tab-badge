@@ -1,5 +1,5 @@
 # Changelog
-### [2.3.0-pre.1]
+### [2.3.0-pre.1/pre.2]
       - #87: Updated to XF 4.5 and AndroidX. Target Android 10
 ## [2.2.1]
       - #74: Fix NRE in UpdateBadgeProperties
