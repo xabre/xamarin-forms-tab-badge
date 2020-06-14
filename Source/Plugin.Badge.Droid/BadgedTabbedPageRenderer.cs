@@ -18,7 +18,7 @@ namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
     {
-        private const int DeleayBeforeTabAdded = 10;
+        private const int DelayBeforeTabAdded = 50;
         protected readonly Dictionary<Element, BadgeView> BadgeViews = new Dictionary<Element, BadgeView>();
         private TabLayout _topTabLayout;
         private LinearLayout _topTabStrip;
@@ -134,7 +134,7 @@ namespace Plugin.Badge.Droid
 
         private async void OnTabAdded(object sender, ElementEventArgs e)
         {
-            await Task.Delay(DeleayBeforeTabAdded);
+            await Task.Delay(DelayBeforeTabAdded);
 
             if (!(e.Element is Page page))
                 return;

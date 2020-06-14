@@ -89,7 +89,7 @@ namespace Plugin.Badge.Sample.ViewModels
         private int _fontIndex;
         private int _positionIndex;
 
-        public string Count => _count <= 0 ? string.Empty : _count.ToString();
+        public string Count => _count <= 0 ? null : _count.ToString();
 
         public int CountValue
         {
