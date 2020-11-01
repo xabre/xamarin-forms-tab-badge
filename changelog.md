@@ -1,4 +1,8 @@
 # Changelog
+## [2.3.1]
+      - #98: Update Plugin.Badge.UWP.xr.xml location in nuspec
+## [2.3.0]
+      - #87: Updated to XF 4.5 and AndroidX. Target Android 10
 ### [2.3.0-pre.1/pre.2]
       - #87: Updated to XF 4.5 and AndroidX. Target Android 10
 ## [2.2.1]
