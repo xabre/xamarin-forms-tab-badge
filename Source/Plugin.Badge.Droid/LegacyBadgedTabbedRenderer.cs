@@ -84,6 +84,11 @@ namespace Plugin.Badge.Droid
 
         private void AddTabBadge(int tabIndex)
         {
+            if (tabIndex == -1)
+            {
+                return;
+            }
+
             if (!(_tabLinearLayout.GetChildAt(tabIndex) is ViewGroup view) || tabIndex >= Element.Children.Count)
             {
                 return;

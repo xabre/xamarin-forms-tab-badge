@@ -46,6 +46,11 @@ namespace Plugin.Badge.Mac
 
         protected virtual void AddTabBadge(int tabIndex)
         {
+            if (tabIndex == -1)
+            {
+                return;
+            }
+
             var segment = _segmentedControl.Subviews[tabIndex];
 
             var element = Tabbed.GetChildPageWithBadge(tabIndex);

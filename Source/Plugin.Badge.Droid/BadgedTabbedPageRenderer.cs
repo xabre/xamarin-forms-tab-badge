@@ -77,6 +77,11 @@ namespace Plugin.Badge.Droid
 
         private void AddTabBadge(int tabIndex)
         {
+            if (tabIndex == -1)
+            {
+                return;
+            }
+
             var page = Element.GetChildPageWithBadge(tabIndex);
 
             var placement = Element.OnThisPlatform().GetToolbarPlacement();
