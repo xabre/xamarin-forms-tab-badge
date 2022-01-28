@@ -7,6 +7,8 @@ using UIKit;
 using System;
 using System.Linq;
 
+[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
+
 namespace Plugin.Badge.iOS
 {
     [Preserve]
