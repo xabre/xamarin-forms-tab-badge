@@ -14,6 +14,8 @@ using System.Linq;
 using Google.Android.Material.BottomNavigation;
 using Google.Android.Material.Tabs;
 
+[assembly: ExportRenderer(typeof(TabbedPage), typeof(BadgedTabbedPageRenderer))]
+
 namespace Plugin.Badge.Droid
 {
     public class BadgedTabbedPageRenderer : TabbedPageRenderer
